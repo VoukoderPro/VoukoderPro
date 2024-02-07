@@ -1,8 +1,10 @@
 #pragma once
 
-#include <Windows.h>
 #include <sstream>
 
+#ifdef __WIN32
+
+#include <Windows.h>
 inline static std::string GetAppVersionFromFile()
 {
 	std::stringstream version;
@@ -40,3 +42,15 @@ inline static std::string GetAppVersionFromFile()
 
 	return version.str();
 }
+
+#else
+
+inline static std::string GetAppVersionFromFile() {
+    return std::string("0.0.0.0");
+}
+
+#endif
+
+#ifndef _CRT_UNUSED
+#define _CRT_UNUSED(x) ((void)(x))
+#endif
