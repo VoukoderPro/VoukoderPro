@@ -4,6 +4,7 @@
 #include <boost/function.hpp>
 #include <boost/dll.hpp>
 
+#include "utils.h"
 #include "ioplugin_sdk/plugin_api.h"
 #include "../../VoukoderPro/voukoderpro_api.h"
 

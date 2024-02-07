@@ -305,7 +305,6 @@ void VideoCodec::DoFlush()
 StatusCode VideoCodec::DoInit(HostPropertyCollectionRef* p_pProps)
 {
     _CRT_UNUSED(p_pProps);
-
     return errNone;
 }
 
@@ -317,20 +316,6 @@ StatusCode VideoCodec::DoOpen(HostBufferRef* p_pBuff)
 
     uint8_t isMultiPass = 0;
     _CRT_UNUSED(isMultiPass);
-    if (m_pSettings->GetNumPasses() == 2)
-    {
-        g_Log(logLevelError, "Multi pass encoding is currently not supported.");
-        return errInvalidParam;
-
-        //m_IsMultiPass = true;
-        //isMultiPass = 1;
-    }
-
-    //StatusCode sts = p_pBuff->SetProperty(pIOPropMultiPass, propTypeUInt8, &isMultiPass, 1);
-    //if (sts != errNone)
-    //{
-    //    return sts;
-    //}
 
     return errNone;
 }

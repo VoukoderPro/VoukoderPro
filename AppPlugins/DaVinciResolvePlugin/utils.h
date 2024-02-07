@@ -3,6 +3,10 @@
 #include <Windows.h>
 #include <sstream>
 
+#ifndef _CRT_UNUSED
+#define _CRT_UNUSED(x) ((void)(x))
+#endif
+
 inline static std::string GetAppVersionFromFile()
 {
 	std::stringstream version;
