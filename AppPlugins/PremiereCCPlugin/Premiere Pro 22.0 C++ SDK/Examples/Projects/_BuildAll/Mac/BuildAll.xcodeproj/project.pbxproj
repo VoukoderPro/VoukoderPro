@@ -1,0 +1,607 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		117F0AB70AE809D900E40153 /* BuildAll */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 117F0B110AE80B0000E40153 /* Build configuration list for PBXAggregateTarget "BuildAll" */;
+			buildPhases = (
+			);
+			dependencies = (
+				7E270C591EC13C4000FF6354 /* PBXTargetDependency */,
+				117F0AEE0AE80A0300E40153 /* PBXTargetDependency */,
+				7EC8FF90136F616E008668EE /* PBXTargetDependency */,
+				117F0AEC0AE80A0000E40153 /* PBXTargetDependency */,
+				117F0AE60AE809F500E40153 /* PBXTargetDependency */,
+				7E0C58AE108E6E6B00F71BA4 /* PBXTargetDependency */,
+				117F0AE00AE809EB00E40153 /* PBXTargetDependency */,
+				117F0AE80AE809F900E40153 /* PBXTargetDependency */,
+				7E2FC60014BAC05100A3594E /* PBXTargetDependency */,
+			);
+			name = BuildAll;
+			productName = "BuildAll Debug";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		112C3FA50A882834001FFCCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 112C3FA10A882834001FFCCB /* SDK_File_Import.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D01CCD20486CAD60068D4B7;
+			remoteInfo = SDK_File_Import;
+		};
+		114AAC3A0A79B6E300A18455 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 114AAC320A79B6E300A18455 /* SDK_Custom_Import.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11318E130A7032B200363EE9;
+			remoteInfo = SDK_Custom_Import;
+		};
+		117F0ADF0AE809EB00E40153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 112C3FA10A882834001FFCCB /* SDK_File_Import.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = SDK_File_Import;
+		};
+		117F0AE50AE809F500E40153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 114AAC320A79B6E300A18455 /* SDK_Custom_Import.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = SDK_Custom_Import;
+		};
+		117F0AE70AE809F900E40153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11CD20F30A8A98960046EE87 /* Synth_Import.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = Synth_Import;
+		};
+		117F0AEB0AE80A0000E40153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11D1C1C50A8BB41C00E896F3 /* Record.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = Record;
+		};
+		117F0AED0AE80A0300E40153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11D1C1CE0A8BB42900E896F3 /* Device.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = Device;
+		};
+		11CD20FA0A8A98960046EE87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11CD20F30A8A98960046EE87 /* Synth_Import.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D01CCD20486CAD60068D4B7;
+			remoteInfo = Synth_Import;
+		};
+		11D1C1CC0A8BB41C00E896F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11D1C1C50A8BB41C00E896F3 /* Record.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D01CCD20486CAD60068D4B7;
+			remoteInfo = Record;
+		};
+		11D1C1D50A8BB42900E896F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11D1C1CE0A8BB42900E896F3 /* Device.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D01CCD20486CAD60068D4B7;
+			remoteInfo = Device;
+		};
+		11F7C21A0E43A585004962F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11F7C2130E43A585004962F5 /* SDK_Exporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D01CCD20486CAD60068D4B7;
+			remoteInfo = SDK_Exporter;
+		};
+		7E0C58AD108E6E6B00F71BA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11F7C2130E43A585004962F5 /* SDK_Exporter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = SDK_Exporter;
+		};
+		7E270C561EC13A2F00FF6354 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E270C521EC13A2F00FF6354 /* ControlSurface.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D576316048677EA00EA77CD;
+			remoteInfo = ControlSurface;
+		};
+		7E270C581EC13C4000FF6354 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E270C521EC13A2F00FF6354 /* ControlSurface.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D57630D048677EA00EA77CD;
+			remoteInfo = ControlSurface;
+		};
+		7E2E6D5414BAB07D00F3A3D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E2E6D4D14BAB07D00F3A3D7 /* Transmitter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D576316048677EA00EA77CD;
+			remoteInfo = Transmitter;
+		};
+		7E2FC5FF14BAC05100A3594E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E2E6D4D14BAB07D00F3A3D7 /* Transmitter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D57630D048677EA00EA77CD;
+			remoteInfo = Transmitter;
+		};
+		7E4116A917D8029A000396BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E4116A217D80299000396BD /* SDK_CrossDissolve.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E83C0FA170F4840008B8043;
+			remoteInfo = SDK_CrossDissolve;
+		};
+		7E56D416178E32050001FF4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E56D40F178E32040001FF4F /* SDK_ProcAmp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E83C0FA170F4840008B8043;
+			remoteInfo = SDK_ProcAmp;
+		};
+		7EC8FF74136F6113008668EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7EC8FF6D136F6113008668EE /* ExportController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D576316048677EA00EA77CD;
+			remoteInfo = ExportController;
+		};
+		7EC8FF8F136F616E008668EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7EC8FF6D136F6113008668EE /* ExportController.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D57630D048677EA00EA77CD;
+			remoteInfo = ExportController;
+		};
+		8CDE9BCF1DCD59F500C35DD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CDE9BCB1DCD59F500C35DD5 /* Vignette.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E83C0FA170F4840008B8043;
+			remoteInfo = Vignette;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		112C3FA10A882834001FFCCB /* SDK_File_Import.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDK_File_Import.xcodeproj; path = ../../SDK_File_Import/Mac/SDK_File_Import.xcodeproj; sourceTree = SOURCE_ROOT; };
+		114AAC320A79B6E300A18455 /* SDK_Custom_Import.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDK_Custom_Import.xcodeproj; path = ../../SDK_Custom_Import/Mac/SDK_Custom_Import.xcodeproj; sourceTree = SOURCE_ROOT; };
+		11CD20F30A8A98960046EE87 /* Synth_Import.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Synth_Import.xcodeproj; path = ../../Synth_Import/Mac/Synth_Import.xcodeproj; sourceTree = SOURCE_ROOT; };
+		11D1C1C50A8BB41C00E896F3 /* Record.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Record.xcodeproj; path = ../../Record/Mac/Record.xcodeproj; sourceTree = SOURCE_ROOT; };
+		11D1C1CE0A8BB42900E896F3 /* Device.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Device.xcodeproj; path = ../../Device/Mac/Device.xcodeproj; sourceTree = SOURCE_ROOT; };
+		11F7C2130E43A585004962F5 /* SDK_Exporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDK_Exporter.xcodeproj; path = ../../SDK_Exporter/Mac/SDK_Exporter.xcodeproj; sourceTree = SOURCE_ROOT; };
+		7E270C521EC13A2F00FF6354 /* ControlSurface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ControlSurface.xcodeproj; path = ../../ControlSurface/Mac/ControlSurface.xcodeproj; sourceTree = "<group>"; };
+		7E2E6D4D14BAB07D00F3A3D7 /* Transmitter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Transmitter.xcodeproj; path = ../../Transmitter/Mac/Transmitter.xcodeproj; sourceTree = SOURCE_ROOT; };
+		7E4116A217D80299000396BD /* SDK_CrossDissolve.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDK_CrossDissolve.xcodeproj; path = ../../GPUVideoFilter/SDK_CrossDissolve/Mac/SDK_CrossDissolve.xcodeproj; sourceTree = "<group>"; };
+		7E56D40F178E32040001FF4F /* SDK_ProcAmp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDK_ProcAmp.xcodeproj; path = ../../GPUVideoFilter/SDK_ProcAmp/Mac/SDK_ProcAmp.xcodeproj; sourceTree = "<group>"; };
+		7EC8FF6D136F6113008668EE /* ExportController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExportController.xcodeproj; path = ../../ExportController/Mac/ExportController.xcodeproj; sourceTree = SOURCE_ROOT; };
+		8CDE9BCB1DCD59F500C35DD5 /* Vignette.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vignette.xcodeproj; path = ../../GPUVideoFilter/Vignette/Mac/Vignette.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		112C3FA20A882834001FFCCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				112C3FA60A882834001FFCCB /* SDK_File_Import.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		114AAC0F0A79B68D00A18455 = {
+			isa = PBXGroup;
+			children = (
+				7E270C511EC13A0000FF6354 /* Importers */,
+				7E270C431EC1397A00FF6354 /* Effects and Transitions */,
+				7E270C521EC13A2F00FF6354 /* ControlSurface.xcodeproj */,
+				11D1C1CE0A8BB42900E896F3 /* Device.xcodeproj */,
+				7EC8FF6D136F6113008668EE /* ExportController.xcodeproj */,
+				11D1C1C50A8BB41C00E896F3 /* Record.xcodeproj */,
+				11F7C2130E43A585004962F5 /* SDK_Exporter.xcodeproj */,
+				7E2E6D4D14BAB07D00F3A3D7 /* Transmitter.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		114AAC330A79B6E300A18455 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				114AAC3B0A79B6E300A18455 /* SDK_Custom_Import.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11CD20F40A8A98960046EE87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11CD20FB0A8A98960046EE87 /* Synth_Import.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11D1C1C60A8BB41C00E896F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11D1C1CD0A8BB41C00E896F3 /* Record.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11D1C1CF0A8BB42900E896F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11D1C1D60A8BB42900E896F3 /* Device.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11F7C2140E43A585004962F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11F7C21B0E43A585004962F5 /* SDK_Exporter.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E270C431EC1397A00FF6354 /* Effects and Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				7E4116A217D80299000396BD /* SDK_CrossDissolve.xcodeproj */,
+				7E56D40F178E32040001FF4F /* SDK_ProcAmp.xcodeproj */,
+				8CDE9BCB1DCD59F500C35DD5 /* Vignette.xcodeproj */,
+			);
+			name = "Effects and Transitions";
+			sourceTree = "<group>";
+		};
+		7E270C511EC13A0000FF6354 /* Importers */ = {
+			isa = PBXGroup;
+			children = (
+				114AAC320A79B6E300A18455 /* SDK_Custom_Import.xcodeproj */,
+				112C3FA10A882834001FFCCB /* SDK_File_Import.xcodeproj */,
+				11CD20F30A8A98960046EE87 /* Synth_Import.xcodeproj */,
+			);
+			name = Importers;
+			sourceTree = "<group>";
+		};
+		7E270C531EC13A2F00FF6354 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E270C571EC13A2F00FF6354 /* ControlSurface.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E2E6D4E14BAB07D00F3A3D7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E2E6D5514BAB07D00F3A3D7 /* Transmitter.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E4116A317D80299000396BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E4116AA17D8029A000396BD /* SDK_CrossDissolve.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E56D410178E32040001FF4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E56D417178E32050001FF4F /* SDK_ProcAmp.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7EC8FF6E136F6113008668EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7EC8FF75136F6113008668EE /* ExportController.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8CDE9BCC1DCD59F500C35DD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8CDE9BD01DCD59F500C35DD5 /* Vignette.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		114AAC110A79B68D00A18455 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+			};
+			buildConfigurationList = 114AAC120A79B68D00A18455 /* Build configuration list for PBXProject "BuildAll" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 114AAC0F0A79B68D00A18455;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7E270C531EC13A2F00FF6354 /* Products */;
+					ProjectRef = 7E270C521EC13A2F00FF6354 /* ControlSurface.xcodeproj */;
+				},
+				{
+					ProductGroup = 11D1C1CF0A8BB42900E896F3 /* Products */;
+					ProjectRef = 11D1C1CE0A8BB42900E896F3 /* Device.xcodeproj */;
+				},
+				{
+					ProductGroup = 7EC8FF6E136F6113008668EE /* Products */;
+					ProjectRef = 7EC8FF6D136F6113008668EE /* ExportController.xcodeproj */;
+				},
+				{
+					ProductGroup = 11D1C1C60A8BB41C00E896F3 /* Products */;
+					ProjectRef = 11D1C1C50A8BB41C00E896F3 /* Record.xcodeproj */;
+				},
+				{
+					ProductGroup = 7E4116A317D80299000396BD /* Products */;
+					ProjectRef = 7E4116A217D80299000396BD /* SDK_CrossDissolve.xcodeproj */;
+				},
+				{
+					ProductGroup = 114AAC330A79B6E300A18455 /* Products */;
+					ProjectRef = 114AAC320A79B6E300A18455 /* SDK_Custom_Import.xcodeproj */;
+				},
+				{
+					ProductGroup = 11F7C2140E43A585004962F5 /* Products */;
+					ProjectRef = 11F7C2130E43A585004962F5 /* SDK_Exporter.xcodeproj */;
+				},
+				{
+					ProductGroup = 112C3FA20A882834001FFCCB /* Products */;
+					ProjectRef = 112C3FA10A882834001FFCCB /* SDK_File_Import.xcodeproj */;
+				},
+				{
+					ProductGroup = 7E56D410178E32040001FF4F /* Products */;
+					ProjectRef = 7E56D40F178E32040001FF4F /* SDK_ProcAmp.xcodeproj */;
+				},
+				{
+					ProductGroup = 11CD20F40A8A98960046EE87 /* Products */;
+					ProjectRef = 11CD20F30A8A98960046EE87 /* Synth_Import.xcodeproj */;
+				},
+				{
+					ProductGroup = 7E2E6D4E14BAB07D00F3A3D7 /* Products */;
+					ProjectRef = 7E2E6D4D14BAB07D00F3A3D7 /* Transmitter.xcodeproj */;
+				},
+				{
+					ProductGroup = 8CDE9BCC1DCD59F500C35DD5 /* Products */;
+					ProjectRef = 8CDE9BCB1DCD59F500C35DD5 /* Vignette.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				117F0AB70AE809D900E40153 /* BuildAll */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		112C3FA60A882834001FFCCB /* SDK_File_Import.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SDK_File_Import.bundle;
+			remoteRef = 112C3FA50A882834001FFCCB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		114AAC3B0A79B6E300A18455 /* SDK_Custom_Import.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SDK_Custom_Import.bundle;
+			remoteRef = 114AAC3A0A79B6E300A18455 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		11CD20FB0A8A98960046EE87 /* Synth_Import.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Synth_Import.bundle;
+			remoteRef = 11CD20FA0A8A98960046EE87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		11D1C1CD0A8BB41C00E896F3 /* Record.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Record.bundle;
+			remoteRef = 11D1C1CC0A8BB41C00E896F3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		11D1C1D60A8BB42900E896F3 /* Device.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Device.bundle;
+			remoteRef = 11D1C1D50A8BB42900E896F3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		11F7C21B0E43A585004962F5 /* SDK_Exporter.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SDK_Exporter.bundle;
+			remoteRef = 11F7C21A0E43A585004962F5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E270C571EC13A2F00FF6354 /* ControlSurface.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ControlSurface.bundle;
+			remoteRef = 7E270C561EC13A2F00FF6354 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E2E6D5514BAB07D00F3A3D7 /* Transmitter.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Transmitter.bundle;
+			remoteRef = 7E2E6D5414BAB07D00F3A3D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E4116AA17D8029A000396BD /* SDK_CrossDissolve.plugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SDK_CrossDissolve.plugin;
+			remoteRef = 7E4116A917D8029A000396BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E56D417178E32050001FF4F /* SDK_ProcAmp.plugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SDK_ProcAmp.plugin;
+			remoteRef = 7E56D416178E32050001FF4F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7EC8FF75136F6113008668EE /* ExportController.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ExportController.bundle;
+			remoteRef = 7EC8FF74136F6113008668EE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8CDE9BD01DCD59F500C35DD5 /* Vignette.plugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vignette.plugin;
+			remoteRef = 8CDE9BCF1DCD59F500C35DD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXTargetDependency section */
+		117F0AE00AE809EB00E40153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDK_File_Import;
+			targetProxy = 117F0ADF0AE809EB00E40153 /* PBXContainerItemProxy */;
+		};
+		117F0AE60AE809F500E40153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDK_Custom_Import;
+			targetProxy = 117F0AE50AE809F500E40153 /* PBXContainerItemProxy */;
+		};
+		117F0AE80AE809F900E40153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Synth_Import;
+			targetProxy = 117F0AE70AE809F900E40153 /* PBXContainerItemProxy */;
+		};
+		117F0AEC0AE80A0000E40153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Record;
+			targetProxy = 117F0AEB0AE80A0000E40153 /* PBXContainerItemProxy */;
+		};
+		117F0AEE0AE80A0300E40153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Device;
+			targetProxy = 117F0AED0AE80A0300E40153 /* PBXContainerItemProxy */;
+		};
+		7E0C58AE108E6E6B00F71BA4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDK_Exporter;
+			targetProxy = 7E0C58AD108E6E6B00F71BA4 /* PBXContainerItemProxy */;
+		};
+		7E270C591EC13C4000FF6354 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ControlSurface;
+			targetProxy = 7E270C581EC13C4000FF6354 /* PBXContainerItemProxy */;
+		};
+		7E2FC60014BAC05100A3594E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Transmitter;
+			targetProxy = 7E2FC5FF14BAC05100A3594E /* PBXContainerItemProxy */;
+		};
+		7EC8FF90136F616E008668EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExportController;
+			targetProxy = 7EC8FF8F136F616E008668EE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		114AAC130A79B68D00A18455 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		114AAC140A79B68D00A18455 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		117F0B120AE80B0000E40153 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = BuildAll;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		117F0B130AE80B0000E40153 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = BuildAll;
+				SDKROOT = macosx;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		114AAC120A79B68D00A18455 /* Build configuration list for PBXProject "BuildAll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				114AAC130A79B68D00A18455 /* Debug */,
+				114AAC140A79B68D00A18455 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		117F0B110AE80B0000E40153 /* Build configuration list for PBXAggregateTarget "BuildAll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				117F0B120AE80B0000E40153 /* Debug */,
+				117F0B130AE80B0000E40153 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 114AAC110A79B68D00A18455 /* Project object */;
+}

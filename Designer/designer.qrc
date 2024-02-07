@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="logo512">resource/voukoder_logo_512.png</file>
+        <file alias="logo_512">resource/voukoder_512.png</file>
+        <file>resource/voukoder_logo.png</file>
+    </qresource>
+</RCC>

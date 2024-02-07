@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDK_File_Import", "SDK_File_Import.vcxproj", "{8C4F19A7-759E-4D52-BAEC-7ADF50FBFE8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C4F19A7-759E-4D52-BAEC-7ADF50FBFE8F}.Debug|x64.ActiveCfg = Debug|x64
+		{8C4F19A7-759E-4D52-BAEC-7ADF50FBFE8F}.Debug|x64.Build.0 = Debug|x64
+		{8C4F19A7-759E-4D52-BAEC-7ADF50FBFE8F}.Debug|x86.ActiveCfg = Debug|Win32
+		{8C4F19A7-759E-4D52-BAEC-7ADF50FBFE8F}.Debug|x86.Build.0 = Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

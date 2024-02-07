@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\Vignette_GPU.cpp" />
+    <ClCompile Include="..\Vignette_CPU.cpp" />
+    <ClCompile Include="$(AE_SDK_BASE_PATH)\Examples\Util\AEFX_SuiteHelper.c">
+      <Filter>AE SDK Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(AE_SDK_BASE_PATH)\Examples\Util\AEGP_SuiteHandler.cpp">
+      <Filter>AE SDK Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(AE_SDK_BASE_PATH)\Examples\Util\MissingSuiteError.cpp">
+      <Filter>AE SDK Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(AE_SDK_BASE_PATH)\Examples\Util\Smart_Utils.cpp">
+      <Filter>AE SDK Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Headers\PrSDKAESupport.h" />
+    <ClInclude Include="..\..\..\..\Headers\PrSDKGPUDeviceSuite.h" />
+    <ClInclude Include="..\..\..\..\Headers\PrSDKGPUImageProcessingSuite.h" />
+    <ClInclude Include="..\..\..\..\Headers\PrSDKGPUFilter.h" />
+    <ClInclude Include="..\..\..\..\Headers\PrSDKPixelFormat.h" />
+    <ClInclude Include="..\..\Utils\PrGPUFilterModule.h" />
+    <ClInclude Include="..\Vignette.h" />
+    <ClInclude Include="..\VignetteGPU.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Vignette.cu" />
+    <CustomBuild Include="..\Vignette.r">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Vignette.cl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{9344d395-bd1c-4a6a-afc7-e023a1e95c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AE SDK Utils">
+      <UniqueIdentifier>{59218162-29de-4e7b-b509-982fbfbff6b2}</UniqueIdentifier>
+      <Extensions>$(AE_SDK_BASE_PATH)\Examples\Util\</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Vignette.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\readme.txt">
+      <Filter>AE SDK Utils</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

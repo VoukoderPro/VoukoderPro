@@ -1,0 +1,13 @@
+#pragma once
+
+#define VKDRPRO_VERSION_MAJOR 1
+#define VKDRPRO_VERSION_MINOR 0
+#define VKDRPRO_VERSION_PATCH 1
+#define VKDRPRO_VERSION_PUBLIC "Version 1.0"
+
+#define xstr(a) nstr(a)
+#define nstr(a) #a
+
+#define APP_NAME "VoukoderPro"
+#define APP_VERSION xstr(VKDRPRO_VERSION_MAJOR) "." xstr(VKDRPRO_VERSION_MINOR) "." xstr(VKDRPRO_VERSION_PATCH) ".0"
+#define APP_VERSION_BIN VKDRPRO_VERSION_MAJOR, VKDRPRO_VERSION_MINOR, VKDRPRO_VERSION_PATCH, 0

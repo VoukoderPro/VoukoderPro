@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+	 xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+	<?include Version.wxi?>
+	<?define QtDir = "C:\Qt\6.6.1" ?>
+	<?define QtToolChain = "MSVC2019_64" ?>
+
+	<Product Id="*" 
+			 Name="VoukoderPro" 
+			 Language="1033" 
+			 Version="$(var.ProductVersion)" 
+			 Manufacturer="Daniel Stankewitz" 
+			 UpgradeCode="780ac9ff-b539-466a-b663-48d4d08b1946">
+		
+		<Package InstallerVersion="301"
+				 Compressed="yes"
+				 InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of VoukoderPro is already installed." />
+		
+		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high" />
+
+		<!-- VoukoderPro main installation -->
+		<Feature Id="VoukoderPro" Title="VoukoderPro" Level="1" ConfigurableDirectory="INSTALLFOLDER" InstallDefault="local" Absent="disallow" Description="The VoukoderPro main installation.">
+			<ComponentGroupRef Id="VoukoderPro" />
+			<ComponentRef Id="DesignerShortcutDesktop" />
+			<ComponentRef Id="FFmpeg" />
+			<MergeRef Id="VCRedist" />
+		</Feature>
+
+		<!-- NLE plugins -->
+		<Feature Id="Plugins" Title="Plugins" Display="expand">
+			<Feature Id="AdobeAfterEffectsCC" Title="Adobe After Effects" Level="2" ConfigurableDirectory="AFTERFXINSTALLDIR" InstallDefault="local" Description="Select a valid plugin directory (i.e. 'MediaCore').">
+				<ComponentRef Id="AdobeAfterEffectsPlugin" />
+			</Feature>
+			<Feature Id="AdobePremiereProCC" Title="Adobe Premiere Pro" Level="2" ConfigurableDirectory="ADOBEPREMIEREPLUGINPATH" InstallDefault="local"  Description="Select a valid plugin directory (i.e. 'MediaCore').">
+				<ComponentRef Id="AdobePremierePlugin" />
+			</Feature>
+			<Feature Id="BlackMagicDaVinciResolvePlugin" Title="DaVinci Resolve Studio" Level="2" ConfigurableDirectory="DAVINCIRESOLVEPLUGINPATH" InstallDefault="local" Description="Select the valid 'DaVinci Resolve' directory under 'Program Data' please.">
+				<ComponentRef Id="DaVinciResolvePlugin" />
+			</Feature>
+			<Feature Id="VEGASPro" Title="VEGAS Pro">
+				<Feature Id="MagixVEGASPro18" Title="VEGAS Pro 18" Level="2" ConfigurableDirectory="VEGAS18PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.18" />
+					<ComponentRef Id="VEGASProPlugin.18.fiocfg" />
+				</Feature>
+				<Feature Id="MagixVEGASPro19" Title="VEGAS Pro 19" Level="2" ConfigurableDirectory="VEGAS19PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.19" />
+					<ComponentRef Id="VEGASProPlugin.19.fiocfg" />
+				</Feature>
+				<Feature Id="MagixVEGASPro20" Title="VEGAS Pro 20" Level="2" ConfigurableDirectory="VEGAS20PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.20" />
+					<ComponentRef Id="VEGASProPlugin.20.fiocfg" />
+				</Feature>
+				<Feature Id="MagixVEGASPro21" Title="VEGAS Pro 21" Level="2" ConfigurableDirectory="VEGAS21PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.21" />
+					<ComponentRef Id="VEGASProPlugin.21.fiocfg" />
+				</Feature>
+				<Feature Id="MagixVEGASPro22" Title="VEGAS Pro 22" Level="2" ConfigurableDirectory="VEGAS22PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.22" />
+					<ComponentRef Id="VEGASProPlugin.22.fiocfg" />
+				</Feature>
+			</Feature>
+		</Feature>
+
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+		<Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+
+		<!-- Adobe After Effects -->
+		<Property Id="AFTERFXINSTALLDIR" Value="$(env.ProgramW6432)\Adobe\Common\Plug-ins\7.0\MediaCore">
+			<!-- RegistrySearch Id="AdobeAfterEffectsInstallPath" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\AfterFX.exe" Name="Path" Type="directory" /-->
+		</Property>
+		
+		<!-- Adobe Premiere Pro -->
+		<Property Id="ADOBEPREMIEREPLUGINPATH">
+			<RegistrySearch Id="AdobePremierePluginPath" Root="HKLM" Key="SOFTWARE\Adobe\Premiere Pro\CurrentVersion" Name="Plug-InsDir" Type="raw" />
+		</Property>
+
+		<!-- DaVinci Resolve Studio -->
+		<Property Id="DAVINCIRESOLVEPLUGINPATH" Value="$(env.ProgramData)\Blackmagic Design\DaVinci Resolve" />
+
+		<!-- VEGAS Pro -->
+		<Property Id="VEGAS18PLUGINPATH">
+			<RegistrySearch Id="VEGAS18InstallPath" Root="HKLM" Key="SOFTWARE\MAGIX\VEGAS_Pro_18" Name="ProgramPath" Type="raw" />
+		</Property>
+		<Property Id="VEGAS19PLUGINPATH">
+			<RegistrySearch Id="VEGAS19InstallPath" Root="HKLM" Key="SOFTWARE\MAGIX\VEGAS_Pro_19" Name="ProgramPath" Type="raw" />
+		</Property>
+		<Property Id="VEGAS20PLUGINPATH">
+			<RegistrySearch Id="VEGAS20InstallPath" Root="HKLM" Key="SOFTWARE\MAGIX\VEGAS_Pro_20" Name="ProgramPath" Type="raw" />
+		</Property>
+		<Property Id="VEGAS21PLUGINPATH">
+			<RegistrySearch Id="VEGAS21InstallPath" Root="HKLM" Key="SOFTWARE\MAGIX\VEGAS_Pro_21" Name="ProgramPath" Type="raw" />
+		</Property>
+		<Property Id="VEGAS22PLUGINPATH">
+			<RegistrySearch Id="VEGAS22InstallPath" Root="HKLM" Key="SOFTWARE\MAGIX\VEGAS_Pro_22" Name="ProgramPath" Type="raw" />
+		</Property>
+
+		<!-- Assign license text -->
+		<WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
+
+		<!-- Additional WiX features -->
+		<UIRef Id="WixUI_FeatureTree" />
+		
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Merge Id="VCRedist" SourceFile="Microsoft_VC143_CRT_x64.msm" DiskId="1" Language="0" />
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="VoukoderPro">
+					<Directory Id="tls" Name="tls"/>
+					<Directory Id="platforms" Name="platforms"/>
+					<Directory Id="assets" Name="assets"/>
+				</Directory>
+			</Directory>
+			<Directory Id="DesktopFolder" Name="Desktop">
+				<Component Id="DesignerShortcutDesktop" Guid="711D9DF5-AFE9-4C6C-91DC-8A997574E8A2">
+					<Shortcut Id="DesignerDesktopShortcut"
+						Name="VoukoderPro Designer"
+						Description="VoukoderPro Scene Designer"
+						Target="[INSTALLFOLDER]Designer.exe" />
+					<RemoveFolder Id="DesktopFolder" On="uninstall"/>
+					<RegistryValue
+						Root="HKCU"
+						Key="Software\Stankewitz\VoukoderPro"
+						Name="installed"
+						Type="integer"
+						Value="1"
+						KeyPath="yes"/>
+					<!-- Register .scene file extension -->
+					<ProgId Id="Voukoder.VoukoderPro" Description="VoukoderPro scene file">
+						<Extension Id="scene" ContentType="application/voukoderpro">
+							<Verb Id="open" Command="open" Target="[INSTALLFOLDER]Designer.exe" Argument="&quot;%1&quot;"/>
+						</Extension>
+					</ProgId>
+				</Component>
+			</Directory>
+			<Directory Id="System64Folder">
+				<Component Id="FFmpeg" Guid="FC83373A-2161-475B-951D-B62468926976">
+					<File Id="avcodec60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avcodec-voukoderpro-60.dll" />
+					<File Id="avdevice60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avdevice-voukoderpro-60.dll" />
+					<File Id="avfilter60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avfilter-voukoderpro-9.dll" />
+					<File Id="avformat60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avformat-voukoderpro-60.dll" />
+					<File Id="avutil60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avutil-voukoderpro-58.dll" />
+					<File Id="swresample60" Source="..\3rdparty\ffmpeg-6.1-release\bin\swresample-voukoderpro-4.dll" />
+					<File Id="swscale60" Source="..\3rdparty\ffmpeg-6.1-release\bin\swscale-voukoderpro-7.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="AFTERFXINSTALLDIR">
+				<Component Id="AdobeAfterEffectsPlugin" Guid="F09E3A0A-5964-4B7F-BF8E-4928F03CF436">
+					<File Id="AfterEffectsPlugin" Source="$(var.AfterEffectsPlugin.TargetPath)" />
+				</Component>
+			</Directory>
+			<Directory Id="ADOBEPREMIEREPLUGINPATH">
+				<Component Id="AdobePremierePlugin" Guid="9AE8C3CD-388E-4343-BFC8-AD2FD1B26FC4">
+					<File Id="PremiereCCPlugin" Source="$(var.PremiereCCPlugin.TargetPath)" />
+				</Component>
+			</Directory>
+			<Directory Id="DAVINCIRESOLVEPLUGINPATH">
+				<Directory Id="DVRSupport" Name="Support">
+					<Directory Id="DVRPlugins" Name="IOPlugins">
+						<Directory Id="DVRVoukoderPro" Name="voukoderpro_plugin.dvcp.bundle">
+							<Directory Id="DVRVoukoderProContents" Name="Contents">
+								<Directory Id="DVRVoukoderProContentsWin64" Name="Win64">
+									<Component Id="DaVinciResolvePlugin" Guid="0E141BE4-4001-4439-935F-350EEB49917F">
+										<File Id="ResolvePlugin" Source="$(var.DaVinciResolvePlugin.TargetPath)" />
+									</Component>
+								</Directory>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS18PLUGINPATH">
+				<Component Id="VEGASProPlugin.18.fiocfg" Guid="21B87B37-8F7C-487A-BA52-2DF5DEC34F75">
+					<File Id="VEGASProPlugin.18.fiocfg" Source="VoukoderProVEGAS18-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO18DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO18DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.18" Guid="E0074222-DFF2-4B90-B942-8D8A2216E9C6">
+							<File Id="VEGASProPlugin.18" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas18.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS19PLUGINPATH">
+				<Component Id="VEGASProPlugin.19.fiocfg" Guid="A6C22F7F-AC74-480D-9F03-3B4F693530F9">
+					<File Id="VEGASProPlugin.19.fiocfg" Source="VoukoderProVEGAS19-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO19DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO19DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.19" Guid="F5E585B7-9AC9-4ACF-99E6-F4B295400DE0">
+							<File Id="VEGASProPlugin.19" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas19.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS20PLUGINPATH">
+				<Component Id="VEGASProPlugin.20.fiocfg" Guid="6DEE11E3-2425-4D05-889B-7C394373678C">
+					<File Id="VEGASProPlugin.20.fiocfg" Source="VoukoderProVEGAS20-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO20DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO20DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.20" Guid="3C663F7B-692E-48A9-A53B-AC5CBE4BB38F">
+							<File Id="VEGASProPlugin.20" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas20.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS21PLUGINPATH">
+				<Component Id="VEGASProPlugin.21.fiocfg" Guid="686FA381-D21B-4BD5-9546-4C3110F912E0">
+					<File Id="VEGASProPlugin.21.fiocfg" Source="VoukoderProVEGAS21-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO21DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO21DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.21" Guid="19C6C226-0559-4225-AB7C-B5B71AD9678D">
+							<File Id="VEGASProPlugin.21" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas21.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS22PLUGINPATH">
+				<Component Id="VEGASProPlugin.22.fiocfg" Guid="AF7AA17F-0E68-4728-B4E0-18C56892BD55">
+					<File Id="VEGASProPlugin.22.fiocfg" Source="VoukoderProVEGAS22-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO22DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO22DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.22" Guid="014E9792-29FD-42B4-BEEE-DC40E88ADE83">
+							<File Id="VEGASProPlugin.22" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas22.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="VoukoderPro">
+			<Component Id="VoukoderPro" Guid="C50AC0A0-3C18-424F-A73B-9EDEC9EE95CE" Directory="INSTALLFOLDER">
+				<File Id="VoukoderPro" Source="$(var.VoukoderPro.TargetPath)" />
+				<File Id="SceneDesigner" Source="..\build-Designer-Desktop_Qt_6_6_0_$(var.QtToolChain)bit-release\release\Designer.exe" />
+				<File Id="Qt6Core" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Core.dll" />
+				<File Id="Qt6Guid" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Gui.dll" />
+				<File Id="Qt6Widgets" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Widgets.dll" />
+				<File Id="Qt6Network" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Network.dll" />
+				<Environment Id="myEnvironmentVariable" Name="VOUKODERPRO_HOME" Value="[INSTALLFOLDER]" Action="set" System="yes" />
+			</Component>
+			<Component Id="VoukoderProDesignerTLS" Directory="tls" Guid="F9873EFF-C483-4AEE-BEF1-DD60D471A788">
+				<File Id="qcertonlybackend" Source="$(var.QtDir)\$(var.QtToolChain)\plugins\tls\qcertonlybackend.dll" />
+				<File Id="qopensslbackend" Source="$(var.QtDir)\$(var.QtToolChain)\plugins\tls\qopensslbackend.dll" />
+				<File Id="qschannelbackend" Source="$(var.QtDir)\$(var.QtToolChain)\plugins\tls\qschannelbackend.dll" />
+			</Component>
+			<Component Id="VoukoderProDesignerPlatforms" Directory="platforms" Guid="8E385506-DB2E-4533-85C6-5193A4D323A9">
+				<File Id="qwindows" Source="$(var.QtDir)\$(var.QtToolChain)\plugins\platforms\qwindows.dll" />
+			</Component>
+			<Component Id="VoukoderProPlugins" Directory="assets" Guid="88021C9C-56B3-4F33-814A-A4A6B5135B11">
+				<File Id="amfencoders" Source="$(var.amf-encoders.TargetPath)" />
+				<File Id="ffmpegencoders" Source="$(var.ffmpeg-encoders.TargetPath)" />
+				<File Id="ffmpegfilters" Source="$(var.ffmpeg-filters.TargetPath)" />
+				<File Id="ffmpegmuxers" Source="$(var.ffmpeg-muxers.TargetPath)" />
+				<File Id="ffmpegoutputs" Source="$(var.ffmpeg-outputs.TargetPath)" />
+				<File Id="lameencoders" Source="$(var.lame-encoders.TargetPath)" />
+				<File Id="nvencencoders" Source="$(var.nvenc-encoders.TargetPath)" />
+				<File Id="qsvencoders" Source="$(var.qsv-encoders.TargetPath)" />
+				<File Id="svtencoders" Source="$(var.svt-encoders.TargetPath)" />
+				<File Id="xiphencoders" Source="$(var.xiph-encoders.TargetPath)" />
+				<File Id="execpostproc" Source="$(var.exec-postproc.TargetPath)" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+</Wix>

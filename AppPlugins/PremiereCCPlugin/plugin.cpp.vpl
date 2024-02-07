@@ -1,0 +1,1000 @@
+#include <sstream>
+#include <codecvt>
+#include "plugin.h"
+#include "Premiere_Pro_CC_13_Win_SDK/Examples/Headers/PrSDKAppInfoSuite.h"
+#include "ffmpeg.h"
+
+#define BITSTREAM_BUFFER_SIZE 2000000
+#define ROUND_MULTIPLE(x,y) ((x + y/2) / y) * y
+
+void copyConvertStringLiteralIntoUTF16(const wchar_t* inputString, prUTF16Char* destination)
+{
+#ifdef PRMAC_ENV
+	int length = wcslen(inputString);
+	CFRange	range = { 0, kPrMaxPath };
+	range.length = length;
+	CFStringRef inputStringCFSR = CFStringCreateWithBytes(kCFAllocatorDefault, reinterpret_cast<const UInt8*>(inputString), length * sizeof(wchar_t), kCFStringEncodingUTF32LE, kPrFalse);
+	CFStringGetBytes(inputStringCFSR, range, kCFStringEncodingUTF16, 0, kPrFalse, reinterpret_cast<UInt8*>(destination), length * (sizeof(prUTF16Char)), NULL);
+	destination[length] = 0;
+	CFRelease(inputStringCFSR);
+#elif defined PRWIN_ENV
+	wcscpy_s(destination, wcslen(inputString) + 1, inputString);
+#endif
+}
+
+mfxU32 GetSurfaceSize(mfxU32 FourCC, mfxU32 width, mfxU32 height) {
+	mfxU32 nbytes = 0;
+
+	switch (FourCC) {
+	case MFX_FOURCC_I420:
+	case MFX_FOURCC_NV12:
+		nbytes = width * height + (width >> 1) * (height >> 1) +
+			(width >> 1) * (height >> 1);
+		break;
+	case MFX_FOURCC_I010:
+	case MFX_FOURCC_P010:
+		nbytes = width * height + (width >> 1) * (height >> 1) +
+			(width >> 1) * (height >> 1);
+		nbytes *= 2;
+		break;
+	case MFX_FOURCC_RGB4:
+		nbytes = width * height * 4;
+		break;
+	default:
+		break;
+	}
+
+	return nbytes;
+}
+
+int GetFreeSurfaceIndex(mfxFrameSurface1* SurfacesPool, mfxU16 nPoolSize) {
+	for (mfxU16 i = 0; i < nPoolSize; i++) {
+		if (0 == SurfacesPool[i].Data.Locked) return i;
+	}
+	return MFX_ERR_NOT_FOUND;
+}
+
+mfxStatus AllocateExternalSystemMemorySurfacePool(mfxU8** buf,
+	mfxFrameSurface1* surfpool,
+	mfxFrameInfo frame_info,
+	mfxU16 surfnum) {
+	// initialize surface pool (I420, RGB4 format)
+	mfxU32 surfaceSize =
+		GetSurfaceSize(frame_info.FourCC, frame_info.Width, frame_info.Height);
+	if (!surfaceSize) return MFX_ERR_MEMORY_ALLOC;
+
+	size_t framePoolBufSize = static_cast<size_t>(surfaceSize) * surfnum;
+	*buf = reinterpret_cast<mfxU8*>(calloc(framePoolBufSize, 1));
+
+	mfxU16 surfW;
+	mfxU16 surfH = frame_info.Height;
+
+	if (frame_info.FourCC == MFX_FOURCC_RGB4) {
+		surfW = frame_info.Width * 4;
+
+		for (mfxU32 i = 0; i < surfnum; i++) {
+			surfpool[i] = {};
+			surfpool[i].Info = frame_info;
+			size_t buf_offset = static_cast<size_t>(i) * surfaceSize;
+			surfpool[i].Data.B = *buf + buf_offset;
+			surfpool[i].Data.G = surfpool[i].Data.B + 1;
+			surfpool[i].Data.R = surfpool[i].Data.B + 2;
+			surfpool[i].Data.A = surfpool[i].Data.B + 3;
+			surfpool[i].Data.Pitch = surfW;
+		}
+	}
+	else {
+		surfW = (frame_info.FourCC == MFX_FOURCC_P010) ? frame_info.Width * 2
+			: frame_info.Width;
+
+		for (mfxU32 i = 0; i < surfnum; i++) {
+			surfpool[i] = {};
+			surfpool[i].Info = frame_info;
+			size_t buf_offset = static_cast<size_t>(i) * surfaceSize;
+			surfpool[i].Data.Y = *buf + buf_offset;
+			surfpool[i].Data.U = *buf + buf_offset + (surfW * surfH);
+			surfpool[i].Data.V = surfpool[i].Data.U + ((surfW / 2) * (surfH / 2));
+			surfpool[i].Data.Pitch = surfW;
+		}
+	}
+
+	return MFX_ERR_NONE;
+}
+
+void FreeExternalSystemMemorySurfacePool(mfxU8* dec_buf,
+	mfxFrameSurface1* surfpool) {
+	if (dec_buf) free(dec_buf);
+
+	if (surfpool) free(surfpool);
+}
+
+/**
+ * Main entry point for the plugin.
+ */
+DllExport PREMPLUGENTRY xSDKExport(csSDK_int32 selector, exportStdParms* stdParmsP, void* param1, void* param2)
+{
+	switch (selector)
+	{
+	case exSelStartup:
+	{
+		exExporterInfoRec* infoRecP = reinterpret_cast<exExporterInfoRec*>(param1);
+
+		infoRecP->fileType = 'IAV1';
+		copyConvertStringLiteralIntoUTF16(L"Intel AV1", infoRecP->fileTypeName);
+		copyConvertStringLiteralIntoUTF16(L"mp4", infoRecP->fileTypeDefaultExtension);
+		infoRecP->classID = 'IAV1';
+		infoRecP->wantsNoProgressBar = kPrFalse;
+		infoRecP->hideInUI = kPrFalse;
+		infoRecP->doesNotSupportAudioOnly = kPrTrue;
+		infoRecP->interfaceVersion = EXPORTMOD_VERSION;
+		infoRecP->isCacheable = kPrFalse;
+		infoRecP->canExportVideo = kPrTrue;
+		infoRecP->canExportAudio = kPrTrue;
+		infoRecP->singleFrameOnly = kPrFalse;
+		infoRecP->canConformToMatchParams = kPrTrue;
+		infoRecP->canEmbedColorProfile = kPrTrue;
+
+		return exportReturn_ErrNone;
+	}
+
+	case exSelBeginInstance:
+	{
+		exExporterInstanceRec* instanceRecP = reinterpret_cast<exExporterInstanceRec*>(param1);
+
+		CPremierePluginApp* connector = new CPremierePluginApp(instanceRecP->exporterPluginID);
+		prMALError error = connector->beginInstance(stdParmsP->getSPBasicSuite(), instanceRecP);
+		if (error == malNoError)
+			instanceRecP->privateData = reinterpret_cast<void*>(connector);
+
+		return error;
+	}
+
+	case exSelEndInstance:
+	{
+		const exExporterInstanceRec* instanceRecP = reinterpret_cast<exExporterInstanceRec*>(param1);
+
+		prMALError error = malNoError;
+
+		CPremierePluginApp* connector = reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData);
+		if (connector)
+		{
+			error = connector->endInstance();
+			if (error == malNoError)
+				delete(connector);
+		}
+
+		return error;
+	}
+
+	case exSelGenerateDefaultParams:
+	{
+		exGenerateDefaultParamRec* instanceRecP = reinterpret_cast<exGenerateDefaultParamRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->generateDefaultParams(instanceRecP);
+	}
+	case exSelPostProcessParams:
+	{
+		exPostProcessParamsRec* instanceRecP = reinterpret_cast<exPostProcessParamsRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->postProcessParams(instanceRecP);
+	}
+	case exSelValidateParamChanged:
+	{
+		exParamChangedRec* instanceRecP = reinterpret_cast<exParamChangedRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->validateParamChanged(instanceRecP);
+	}
+	case exSelGetParamSummary:
+	{
+		exParamSummaryRec* instanceRecP = reinterpret_cast<exParamSummaryRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->getParamSummary(instanceRecP);
+	}
+	case exSelExport:
+	{
+		exDoExportRec* instanceRecP = reinterpret_cast<exDoExportRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->StartExport(instanceRecP);
+	}
+	case exSelQueryExportFileExtension:
+	{
+		exQueryExportFileExtensionRec* instanceRecP = reinterpret_cast<exQueryExportFileExtensionRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->queryExportFileExtension(instanceRecP);
+	}
+	case exSelQueryOutputSettings:
+	{
+		exQueryOutputSettingsRec* instanceRecP = reinterpret_cast<exQueryOutputSettingsRec*>(param1);
+		return (reinterpret_cast<CPremierePluginApp*>(instanceRecP->privateData))->queryOutputSettings(instanceRecP);
+	}
+	}
+
+	return exportReturn_Unsupported;
+}
+
+CPremierePluginApp::CPremierePluginApp(csSDK_uint32 pluginId) :
+	pluginId(pluginId)
+{}
+
+/**
+ * Aquires the necessary suites on startup.
+ */
+prMALError CPremierePluginApp::beginInstance(SPBasicSuite* spBasicSuite, exExporterInstanceRec* instanceRecP)
+{
+	suites.basicSuite = spBasicSuite;
+
+	prMALError ret;
+
+	ret = spBasicSuite->AcquireSuite(kPrSDKMemoryManagerSuite, kPrSDKMemoryManagerSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.memorySuite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKTimeSuite, kPrSDKTimeSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.timeSuite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKExportParamSuite, kPrSDKExportParamSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.exportParamSuite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKExportInfoSuite, kPrSDKExportInfoSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.exportInfoSuite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKExportFileSuite, kPrSDKExportFileSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.exportFileSuite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKPPixSuite, kPrSDKPPixSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.ppixSuite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKPPix2Suite, kPrSDKPPix2SuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.ppix2Suite)));
+	ret = spBasicSuite->AcquireSuite(kPrSDKExporterUtilitySuite, kPrSDKExporterUtilitySuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&suites.exporterUtilitySuite)));
+
+	return ret;
+}
+
+/**
+ * Cleans up the previousely aquired suites.
+ */
+prMALError CPremierePluginApp::endInstance()
+{
+	prMALError ret;
+
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKTimeSuite, kPrSDKTimeSuiteVersion);
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKExportParamSuite, kPrSDKExportParamSuiteVersion);
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKExportInfoSuite, kPrSDKExportInfoSuiteVersion);
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKExportFileSuite, kPrSDKExportFileSuiteVersion);
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKPPixSuite, kPrSDKPPixSuiteVersion);
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKPPix2Suite, kPrSDKPPix2SuiteVersion);
+	ret = suites.basicSuite->ReleaseSuite(kPrSDKExporterUtilitySuite, kPrSDKExporterUtilitySuiteVersion);
+
+	return ret;
+}
+
+/**
+ * Build the UI.
+ */
+prMALError CPremierePluginApp::generateDefaultParams(exGenerateDefaultParamRec* instanceRecP)
+{
+	const PrSDKExportParamSuite* params = suites.exportParamSuite;
+
+	// Add parameter groups
+	csSDK_int32 groupId;
+	params->AddMultiGroup(pluginId, &groupId);
+	prCreateParamGroup(L"Video", ADBEVideoTabGroup, ADBETopParamGroup);
+	prCreateParamGroup(L"Basic Video Settings", ADBEBasicVideoGroup, ADBEVideoTabGroup);
+	prCreateParamGroup(L"Audio", ADBEAudioTabGroup, ADBETopParamGroup);
+	prCreateParamGroup(L"Basic Audio Settings", ADBEBasicAudioGroup, ADBEAudioTabGroup);
+	prCreateParamGroup(L"Encoding Settings", IntelAV1_EncodingSettingsGroup, ADBEVideoTabGroup);
+	prCreateParamGroup(L"Mastering Display Color Volume", IntelAV1_MasteringDisplayColorVolumeGroup, ADBEVideoTabGroup);
+	prCreateParamGroup(L"Content Light Levels", IntelAV1_ContentLightLevelsGroup, ADBEVideoTabGroup);
+	prCreateParamGroup(L"Bitrate Settings", ADBEVideoBitrateGroup, ADBEVideoTabGroup);
+	prCreateParamGroup(L"Bitrate Settings", ADBEAudioBitrateGroup, ADBEAudioTabGroup);
+
+	// Get sequence values
+	PrParam seqWidth, seqHeight, seqFrameRate, seqSampleRate, seqNumChannels;
+	suites.exportInfoSuite->GetExportSourceInfo(pluginId, kExportInfo_VideoWidth, &seqWidth);
+	suites.exportInfoSuite->GetExportSourceInfo(pluginId, kExportInfo_VideoHeight, &seqHeight);
+	suites.exportInfoSuite->GetExportSourceInfo(pluginId, kExportInfo_VideoFrameRate, &seqFrameRate);
+	suites.exportInfoSuite->GetExportSourceInfo(pluginId, kExportInfo_AudioSampleRate, &seqSampleRate);
+	suites.exportInfoSuite->GetExportSourceInfo(pluginId, kExportInfo_NumAudioChannels, &seqNumChannels);
+
+	// Req'd for AME
+	if (seqWidth.mInt32 == 0)
+		seqWidth.mInt32 = 1920;
+
+	if (seqHeight.mInt32 == 0)
+		seqHeight.mInt32 = 1080;
+
+	// Create ADBE UI elements
+	prCreateIntParam(ADBEVideoCodec, ADBEBasicVideoGroup, exParamFlag_none, 0, -1, -1, kPrFalse, kPrTrue);
+	prCreateIntParam(ADBEVideoWidth, ADBEBasicVideoGroup, exParamFlag_none, seqWidth.mInt32, 320, 7680, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEVideoHeight, ADBEBasicVideoGroup, exParamFlag_none, seqHeight.mInt32, 240, 4320, kPrFalse, kPrFalse);
+	prCreateTimeParam(ADBEVideoFPS, ADBEBasicVideoGroup, exParamFlag_none, seqFrameRate.mInt64, kPrFalse, kPrFalse);
+	prCreateRatioParam(ADBEVideoAspect, ADBEBasicVideoGroup, exParamFlag_none, 1, 1, kPrFalse, kPrTrue);
+	prCreateIntParam(ADBEVideoFieldType, ADBEBasicVideoGroup, exParamFlag_none, prFieldsNone, -1, -1, kPrFalse, kPrTrue);
+	prCreateIntParam(IntelAV1_VideoLevel, IntelAV1_EncodingSettingsGroup, exParamFlag_none, 51, -1, -1, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEVideoBitDepth, IntelAV1_EncodingSettingsGroup, exParamFlag_none, 8, -1, -1, kPrFalse, kPrFalse);
+	prCreateBoolParam(IntelAV1_UseRec2020, IntelAV1_EncodingSettingsGroup, exParamFlag_none, isRec2020, kPrFalse, kPrFalse);
+	prCreateBoolParam(IntelAV1_HDR, IntelAV1_EncodingSettingsGroup, exParamFlag_none, isHDR, kPrFalse, kPrFalse);
+	prCreateBoolParam(IntelAV1_IncludeHDR10, IntelAV1_EncodingSettingsGroup, exParamFlag_none, isHDR10, kPrFalse, kPrFalse);
+	prCreateIntParam(IntelAV1_MDCVColorPrimaries, IntelAV1_MasteringDisplayColorVolumeGroup, exParamFlag_none, 1, -1, -1, kPrFalse, kPrFalse);
+	prCreateFloatParam(IntelAV1_LuminanceMin, IntelAV1_MasteringDisplayColorVolumeGroup, exParamFlag_none, 0.005, 0.0005, 0.05, kPrFalse, kPrFalse);
+	prCreateIntParam(IntelAV1_LuminanceMax, IntelAV1_MasteringDisplayColorVolumeGroup, exParamFlag_none, 1000, 100, 4000, kPrFalse, kPrFalse);
+	prCreateFloatParam(IntelAV1_ContentLightLevelsMax, IntelAV1_ContentLightLevelsGroup, exParamFlag_none, 1000, 0, 10000, kPrFalse, kPrFalse);
+	prCreateFloatParam(IntelAV1_ContentLightLevelsAverage, IntelAV1_ContentLightLevelsGroup, exParamFlag_none, 200, 0, 10000, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEVideoBitrateEncoding, ADBEVideoBitrateGroup, exParamFlag_none, MFX_RATECONTROL_VBR, -1, -1, kPrFalse, kPrFalse);
+	prCreateFloatParam(ADBEVideoTargetBitrate, ADBEVideoBitrateGroup, exParamFlag_slider, 7, 0.2, 50, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEVideoQuality, ADBEVideoBitrateGroup, exParamFlag_none, MFX_TARGETUSAGE_4, -1, -1, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEAudioCodec, ADBEBasicAudioGroup, exParamFlag_none, 0, -1, -1, kPrFalse, kPrFalse);
+	prCreateFloatParam(ADBEAudioRatePerSecond, ADBEBasicAudioGroup, exParamFlag_none, seqSampleRate.mFloat64, NULL, NULL, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEAudioNumChannels, ADBEBasicAudioGroup, exParamFlag_none, seqNumChannels.mInt32, NULL, NULL, kPrFalse, kPrFalse);
+	prCreateIntParam(ADBEAudioBitrate, ADBEAudioBitrateGroup, exParamFlag_none, 256, NULL, NULL, kPrFalse, kPrFalse);
+
+	return exportReturn_ErrNone;
+}
+
+/**
+ * Populate & translate the previousely built UI.
+ */
+prMALError CPremierePluginApp::postProcessParams(exPostProcessParamsRec* instanceRecP)
+{
+	// Translate the ui params
+	prSetNameDescription(ADBEVideoTabGroup, L"Video");
+	prSetNameDescription(ADBEBasicVideoGroup, L"Basics");
+	prSetNameDescription(ADBEVideoWidth, L"Width");
+	prSetNameDescription(ADBEVideoHeight, L"Height");
+	prSetNameDescription(ADBEVideoAspect, L"Pixel aspect");
+	prSetNameDescription(ADBEVideoFPS, L"Frame rate");
+	prSetNameDescription(ADBEVideoFieldType, L"Field order");
+	prSetNameDescription(ADBEAudioCodec, L"Audio Codec");
+	prSetNameDescription(ADBEAudioRatePerSecond, L"Sample Rate");
+	prSetNameDescription(ADBEAudioNumChannels, L"Channels");
+	prSetNameDescription(ADBEAudioBitrate, L"Bitrate [kbps]");
+
+	// Get frame size
+	exParamValues width, height;
+	suites.exportParamSuite->GetParamValue(instanceRecP->exporterPluginID, 0, ADBEVideoWidth, &width);
+	suites.exportParamSuite->GetParamValue(instanceRecP->exporterPluginID, 0, ADBEVideoHeight, &height);
+
+	// Get ticks per second
+	PrTime ticksPerSecond;
+	suites.timeSuite->GetTicksPerSecond(&ticksPerSecond);
+
+	// Video frame rate
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEVideoFPS);
+	exOneParamValueRec paramFps;
+	for (csSDK_int32 i = 0; i < sizeof(VideoFramerates) / sizeof(VideoFramerates[0]); i++)
+	{
+		std::wstringstream ws;
+		ws << std::fixed;
+		ws.precision(2);
+
+		float fps = static_cast<float>(VideoFramerates[i][0]) / static_cast<float>(VideoFramerates[i][1]);
+		if (fps == (int)fps)
+			ws << (int)fps;
+		else
+			ws << fps;
+
+		paramFps.timeValue = ticksPerSecond / VideoFramerates[i][0] * VideoFramerates[i][1];
+
+		prUTF16Char name[128];
+		copyConvertStringLiteralIntoUTF16(ws.str().c_str(), name);
+
+		suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoFPS, &paramFps, name);
+	}
+
+	// Video aspect
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEVideoAspect);
+	exOneParamValueRec paramPar;
+	for (csSDK_int32 i = 0; i < sizeof(VideoAspects) / sizeof(VideoAspects[0]); i++)
+	{
+		std::wstringstream ws;
+		ws << std::fixed;
+		ws.precision(2);
+
+		float fps = static_cast<float>(VideoAspects[i][0]) / static_cast<float>(VideoAspects[i][1]);
+		if (fps == (int)fps)
+			ws << (int)fps;
+		else
+			ws << fps;
+
+		paramPar.ratioValue.numerator = VideoAspects[i][0];
+		paramPar.ratioValue.denominator = VideoAspects[i][1];
+
+		prUTF16Char name[128];
+		copyConvertStringLiteralIntoUTF16(ws.str().c_str(), name);
+
+		suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoAspect, &paramPar, name);
+	}
+
+	exOneParamValueRec intParam, floatParam;
+
+	// ### Encoding Settings ####
+
+	prSetNameDescription(IntelAV1_VideoLevel, L"Level");
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, IntelAV1_VideoLevel);
+	intParam.intValue = 20;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"2.0");
+	intParam.intValue = 21;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"2.1");
+	intParam.intValue = 30;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"3.0");
+	intParam.intValue = 31;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"3.1");
+	intParam.intValue = 40;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"4.0");
+	intParam.intValue = 41;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"4.1");
+	intParam.intValue = 50;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"5.0");
+	intParam.intValue = 51;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_VideoLevel, &intParam, L"5.1");
+
+	prSetNameDescription(ADBEVideoBitDepth, L"Bit Depth");
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEVideoBitDepth);
+	intParam.intValue = 8;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoBitDepth, &intParam, L"8");
+	intParam.intValue = 10;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoBitDepth, &intParam, L"10");
+
+	prSetNameDescription(IntelAV1_UseRec2020, L"Rec. 2020 Color Primaries");
+	prSetNameDescription(IntelAV1_HDR, L"High Dynamic Range");
+	prSetNameDescription(IntelAV1_IncludeHDR10, L"Include HDR10 Metadata");
+
+	// ### Mastering Display Color Volume ###
+
+	prSetNameDescription(IntelAV1_MDCVColorPrimaries, L"Color Primaries");
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, IntelAV1_MDCVColorPrimaries);
+	intParam.intValue = 0;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_MDCVColorPrimaries, &intParam, L"Rec. 709");
+	intParam.intValue = 1;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_MDCVColorPrimaries, &intParam, L"P3D65");
+	intParam.intValue = 2;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, IntelAV1_MDCVColorPrimaries, &intParam, L"Rec. 2020");
+
+	prSetNameDescription(IntelAV1_LuminanceMin, L"Luminance Min [cd/m^2]");
+	prSetNameDescription(IntelAV1_LuminanceMax, L"Luminance Max [cd/m^2]");
+
+	// ### CONTENT LIGHT LEVELS ###
+
+	prSetNameDescription(IntelAV1_ContentLightLevelsMax, L"Maximum [cd/m^2]");
+	prSetNameDescription(IntelAV1_ContentLightLevelsAverage, L"Average [cd/m^2]");
+
+	// ### BITRATE ###
+
+	prSetNameDescription(ADBEVideoBitrateEncoding, L"Bitrate Encoding");
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEVideoBitrateEncoding);
+	intParam.intValue = MFX_RATECONTROL_CBR;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoBitrateEncoding, &intParam, L"CBR");
+	intParam.intValue = MFX_RATECONTROL_VBR;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoBitrateEncoding, &intParam, L"VBR, 1 pass");
+
+	prSetNameDescription(ADBEVideoTargetBitrate, L"Target Bitrate [Mbps]");
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEVideoTargetBitrate);
+
+	prSetNameDescription(ADBEVideoQuality, L"Quality");
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEVideoQuality);
+	intParam.intValue = MFX_TARGETUSAGE_1;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoQuality, &intParam, L"Highest (slowest)");
+	intParam.intValue = MFX_TARGETUSAGE_2;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoQuality, &intParam, L"Higher");
+	intParam.intValue = MFX_TARGETUSAGE_4;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoQuality, &intParam, L"Good");
+	intParam.intValue = MFX_TARGETUSAGE_6;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoQuality, &intParam, L"Lower");
+	intParam.intValue = MFX_TARGETUSAGE_7;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEVideoQuality, &intParam, L"Lowest (fastest)");
+
+	// ### AUDIO ###
+
+	// Audio codec
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEAudioCodec);
+	intParam.intValue = 'avcC';
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEAudioCodec, &intParam, L"AAC");
+
+	// Audio rate
+	std::vector<csSDK_int32> audioSamplingRates = { 16000, 22500, 24000, 32000, 44100, 48000 };
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEAudioRatePerSecond);
+	for (const csSDK_int32 audioSamplingRate : audioSamplingRates)
+	{
+		floatParam.floatValue = audioSamplingRate;
+
+		std::wstring label = std::to_wstring(audioSamplingRate) + L" Hz";
+		suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEAudioRatePerSecond, &floatParam, label.c_str());
+	}
+
+	// Audio channels
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEAudioNumChannels);
+	intParam.intValue = 1;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEAudioNumChannels, &intParam, L"Mono");
+	intParam.intValue = 2;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEAudioNumChannels, &intParam, L"Stereo");
+	intParam.intValue = 6;
+	suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEAudioNumChannels, &intParam, L"5.1");
+
+	// Audio bitrate
+	std::vector<csSDK_int32> audioBitrates = { 16, 20, 24, 28, 32, 40, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 512, 640 };
+	suites.exportParamSuite->ClearConstrainedValues(pluginId, 0, ADBEAudioBitrate);
+	for (const csSDK_int32 audioBitrate : audioBitrates)
+	{
+		intParam.intValue = audioBitrate;
+
+		std::wstring label = std::to_wstring(audioBitrate);
+		suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, ADBEAudioBitrate, &intParam, label.c_str());
+	}
+
+	return exportReturn_ErrNone;
+}
+
+/**
+ * Sets output settings from export params.
+ */
+prMALError CPremierePluginApp::queryOutputSettings(exQueryOutputSettingsRec* outputSettingsRecP)
+{
+	// Should be always true as we have no audio
+	if (outputSettingsRecP->inExportVideo)
+	{
+		exParamValues width;
+		suites.exportParamSuite->GetParamValue(pluginId, outputSettingsRecP->inMultiGroupIndex, ADBEVideoWidth, &width);
+		outputSettingsRecP->outVideoWidth = width.value.intValue;
+
+		exParamValues height;
+		suites.exportParamSuite->GetParamValue(pluginId, outputSettingsRecP->inMultiGroupIndex, ADBEVideoHeight, &height);
+		outputSettingsRecP->outVideoHeight = height.value.intValue;
+
+		exParamValues frameRate;
+		suites.exportParamSuite->GetParamValue(pluginId, outputSettingsRecP->inMultiGroupIndex, ADBEVideoFPS, &frameRate);
+		outputSettingsRecP->outVideoFrameRate = frameRate.value.timeValue;
+
+		exParamValues pixelAspectRatio;
+		suites.exportParamSuite->GetParamValue(pluginId, outputSettingsRecP->inMultiGroupIndex, ADBEVideoAspect, &pixelAspectRatio);
+
+		// Aspect ratio is forced to 1:1
+		outputSettingsRecP->outVideoAspectNum = 1;
+		outputSettingsRecP->outVideoAspectDen = 1;
+
+		// Export only progressive video
+		outputSettingsRecP->outVideoFieldType = prFieldsNone;
+	}
+
+	outputSettingsRecP->outUseMaximumRenderPrecision = kPrFalse;
+	outputSettingsRecP->outBitratePerSecond = 0;
+
+	return malNoError;
+}
+
+/**
+ * Validate values entered by the user.
+ * Make sure both width and height are a multiple of 4.
+ */
+prMALError CPremierePluginApp::validateParamChanged(exParamChangedRec* paramRecP)
+{
+	exParamValues bitDepth, rec2020, hdr, hdr10;
+	/*
+
+	// Get 
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoBitDepth, &bitDepth);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_UseRec2020, &rec2020);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_HDR, &hdr);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_IncludeHDR10, &hdr10);
+
+	//
+	if (std::strcmp(paramRecP->changedParamIdentifier, ADBEVideoBitDepth) == 0)
+	{
+		if (bitDepth.value.intValue == 10)
+		{
+			rec2020.disabled = kPrFalse;
+		}
+		else
+		{
+			rec2020.disabled = kPrTrue;
+			hdr.disabled = kPrTrue;
+			hdr10.disabled = kPrTrue;
+		}
+	}
+
+	if (rec2020.disabled == kPrTrue)
+	{
+		isRec2020 = rec2020.value.intValue;
+		rec2020.value.intValue = kPrFalse;
+	}
+	else
+	{
+		rec2020.value.intValue = isRec2020;
+	}
+	suites.exportParamSuite->ChangeParam(pluginId, 0, IntelAV1_UseRec2020, &rec2020);
+
+
+
+
+
+
+	values.disabled = bitDepth.value.intValue == 10 ? kPrFalse : kPrTrue;
+	values.
+
+	// Is Rec. 2020 enabled?
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_UseRec2020, &rec2020);
+
+	// HDR
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_HDR, &values);
+	values.disabled = rec2020.value.intValue == 1 ? kPrFalse : kPrTrue;
+	suites.exportParamSuite->ChangeParam(pluginId, 0, IntelAV1_HDR, &values);
+
+	// HDR10
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_IncludeHDR10, &values);
+	values.disabled = rec2020.value.intValue == 1 ? kPrFalse : kPrTrue;
+	suites.exportParamSuite->ChangeParam(pluginId, 0, IntelAV1_IncludeHDR10, &values);
+
+	// Is HDR10 enabled?
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_IncludeHDR10, &hdr10);
+	prBool isHDR10 = (hdr10.disabled == kPrFalse && hdr10.value.intValue == 1) ? kPrFalse : kPrTrue;
+
+	// MDCV group
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_MasteringDisplayColorVolumeGroup, &values);
+	values.disabled = isHDR10;
+	suites.exportParamSuite->ChangeParam(pluginId, 0, IntelAV1_MasteringDisplayColorVolumeGroup, &values);
+
+	// CLL group
+	suites.exportParamSuite->GetParamValue(pluginId, 0, IntelAV1_ContentLightLevelsGroup, &values);
+	values.disabled = isHDR10;
+	suites.exportParamSuite->ChangeParam(pluginId, 0, IntelAV1_ContentLightLevelsGroup, &values);
+	*/
+	return malNoError;
+}
+
+/**
+ * Return the file extension.
+ */
+prMALError CPremierePluginApp::queryExportFileExtension(exQueryExportFileExtensionRec* exportFileExtensionRecP)
+{
+	copyConvertStringLiteralIntoUTF16(L"mp4", exportFileExtensionRecP->outFileExtension);
+
+	return malNoError;
+}
+
+/**
+ * Generates a textual encoding summary for
+ * the video settings.
+ */
+prMALError
+CPremierePluginApp::getParamSummary(exParamSummaryRec* summaryRecP)
+{
+	std::wstringstream sum;
+	sum << std::fixed;
+	sum.precision(2);
+
+	// This should always be true
+	if (summaryRecP->exportVideo)
+	{
+		exParamValues width, height, frameRate;
+		suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoWidth, &width);
+		suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoHeight, &height);
+		suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoFPS, &frameRate);
+
+		// Frame size
+		sum << width.value.intValue << "x" << height.value.intValue << ", ";
+
+		// FPS
+		PrTime ticksPerSecond;
+		suites.timeSuite->GetTicksPerSecond(&ticksPerSecond);
+
+		const float fps = static_cast<float>(ticksPerSecond) / static_cast<float>(frameRate.value.timeValue);
+
+		sum << fps << " fps";
+	}
+
+	copyConvertStringLiteralIntoUTF16(sum.str().c_str(), summaryRecP->videoSummary);
+
+	return malNoError;
+}
+
+/**
+ * Returns the final filename.
+ */
+const std::wstring CPremierePluginApp::GetFilename(csSDK_uint32 fileObject)
+{
+	prUTF16Char prFilename[kPrMaxPath];
+	csSDK_int32 prFilenameLength = kPrMaxPath;
+	suites.exportFileSuite->GetPlatformPath(fileObject, &prFilenameLength, prFilename);
+
+#ifdef PRMAC_ENV
+	int i;
+	for (i = 0; prFilename[i] != '\0'; i++);
+
+	// Convert to wstring (as on Mac A_UTF16Char != wchar_t)
+	std::wstring_convert<std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>, wchar_t> convertW;
+	return convertW.from_bytes(reinterpret_cast<const char*>(&prFilename[0]), reinterpret_cast<const char*>(&prFilename[0] + i));
+#elif defined(PRWIN_ENV)
+	return prFilename;
+#endif
+}
+
+// Helps to find the greatest common divisor
+static inline PrTime GCD(PrTime a, PrTime b) { if (a == 0) return b; return GCD(b % a, a); }
+
+/**
+ * Prepares AVFrame and starts the export process.
+ */
+prMALError CPremierePluginApp::StartExport(exDoExportRec* exportRecP)
+{
+	FFmpeg ffmpeg;
+
+
+
+
+	mfxStatus sts;
+	mfxLoader loader = MFXLoad();
+	mfxConfig cfg[3];
+	mfxVariant cfgVal[3];
+
+	mfxVariant implValue;
+	implValue.Type = MFX_VARIANT_TYPE_U32;
+	implValue.Data.U32 = MFX_IMPL_TYPE_SOFTWARE;
+
+	//
+	cfg[0] = MFXCreateConfig(loader);
+	sts = MFXSetConfigFilterProperty(cfg[0], (mfxU8*)"mfxImplDescription.Impl", implValue);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	//
+	cfg[1] = MFXCreateConfig(loader);
+	cfgVal[1].Type = MFX_VARIANT_TYPE_U32;
+	cfgVal[1].Data.U32 = MFX_CODEC_HEVC;
+	sts = MFXSetConfigFilterProperty(cfg[1], (mfxU8*)"mfxImplDescription.mfxEncoderDescription.encoder.CodecID", cfgVal[1]);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	//
+	cfg[2] = MFXCreateConfig(loader);
+	cfgVal[2].Type = MFX_VARIANT_TYPE_U32;
+	cfgVal[2].Data.U32 = VPLVERSION(2, 2);
+	sts = MFXSetConfigFilterProperty(cfg[2], (mfxU8*)"mfxImplDescription.ApiVersion.Version", cfgVal[2]);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	//
+	sts = MFXCreateSession(loader, 0, &session);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	// Get current settings
+	exParamValues width, height, ticksPerFrame;
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoWidth, &width);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoHeight, &height);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoFPS, &ticksPerFrame);
+
+	// Convert PrTime to a fraction FFmpeg understands
+	const PrTime c = GCD(254016000000, ticksPerFrame.value.timeValue);
+
+	// VPP settings
+	mfxVideoParam VPPParams = {};
+	VPPParams.IOPattern = MFX_IOPATTERN_IN_SYSTEM_MEMORY | MFX_IOPATTERN_OUT_SYSTEM_MEMORY; // Software
+	VPPParams.vpp.Out.PicStruct = MFX_PICSTRUCT_PROGRESSIVE;
+	VPPParams.vpp.Out.FrameRateExtN = static_cast<int>(254016000000 / c);
+	VPPParams.vpp.Out.FrameRateExtD = static_cast<int>(ticksPerFrame.value.timeValue / c); ;
+	VPPParams.vpp.Out.FourCC = MFX_FOURCC_AYUV;
+	VPPParams.vpp.Out.ChromaFormat = MFX_CHROMAFORMAT_YUV420;
+	VPPParams.vpp.Out.CropW = width.value.intValue;
+	VPPParams.vpp.Out.CropH = height.value.intValue;
+	VPPParams.vpp.Out.Width = ALIGN16(width.value.intValue);
+	VPPParams.vpp.Out.Height = ALIGN16(height.value.intValue);
+	VPPParams.vpp.In.PicStruct = MFX_PICSTRUCT_PROGRESSIVE;
+	VPPParams.vpp.In.FrameRateExtN = VPPParams.vpp.Out.FrameRateExtN;
+	VPPParams.vpp.In.FrameRateExtD = VPPParams.vpp.Out.FrameRateExtD;
+	VPPParams.vpp.In.FourCC = MFX_FOURCC_ARGB16;
+	//VPPParams.vpp.In.ChromaFormat = MFX_CHROMAFORMAT_YUV420;
+	VPPParams.vpp.In.CropW = VPPParams.vpp.Out.CropW;
+	VPPParams.vpp.In.CropH = VPPParams.vpp.Out.CropH;
+	VPPParams.vpp.In.Width = VPPParams.vpp.Out.Width;
+	VPPParams.vpp.In.Height = VPPParams.vpp.Out.Height;
+
+	/*
+	//
+	sts = MFXVideoVPP_Init(session, &VPPParams);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	//
+	mfxFrameAllocRequest VPPRequest[2] = {};
+	sts = MFXVideoVPP_QueryIOSurf(session, &VPPParams, VPPRequest);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	mfxU16 nSurfNumVPPIn = VPPRequest[0].NumFrameSuggested;   // vpp in
+	mfxU16 nSurfNumVPPOut = VPPRequest[1].NumFrameSuggested;  // vpp out
+
+	// Allocate surfaces for VPP in and VPP out
+	// - Width and height of buffer must be aligned, a multiple of 32
+	// - Frame surface array keeps pointers all surface planes and general frame
+	// info
+	encSurfaceIn = (mfxFrameSurface1*)calloc(sizeof(encSurfaceIn), nSurfNumVPPIn);
+
+	sts = AllocateExternalSystemMemorySurfacePool(&vppInBuf, encSurfaceIn, VPPParams.vpp.In, nSurfNumVPPIn);
+
+	encSurfaceOut = (mfxFrameSurface1*)calloc(sizeof(encSurfaceOut), nSurfNumVPPOut);
+	sts = AllocateExternalSystemMemorySurfacePool(&vppOutBuf, encSurfaceOut, VPPParams.vpp.Out, nSurfNumVPPOut);
+	*/
+
+	exParamValues targetUsage, targetBitrate, rateControl;
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoQuality, &targetUsage);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoTargetBitrate, &targetBitrate);
+	suites.exportParamSuite->GetParamValue(pluginId, 0, ADBEVideoBitrateEncoding, &rateControl);
+
+    // MFX settings
+	mfxVideoParam encodeParams = {};
+	encodeParams.mfx.CodecId = MFX_CODEC_HEVC;
+	encodeParams.mfx.TargetUsage = targetUsage.value.intValue;
+	encodeParams.mfx.TargetKbps = static_cast<int>(targetBitrate.value.floatValue * 1000.0f);
+	encodeParams.mfx.RateControlMethod = rateControl.value.intValue;
+	encodeParams.mfx.FrameInfo.FrameRateExtN = static_cast<int>(254016000000 / c);
+	encodeParams.mfx.FrameInfo.FrameRateExtD = static_cast<int>(ticksPerFrame.value.timeValue / c); 
+	encodeParams.mfx.FrameInfo.FourCC = MFX_FOURCC_I420;
+	encodeParams.mfx.FrameInfo.ChromaFormat = MFX_CHROMAFORMAT_YUV420;
+	encodeParams.mfx.FrameInfo.CropW = width.value.intValue;
+	encodeParams.mfx.FrameInfo.CropH = height.value.intValue;
+	encodeParams.mfx.FrameInfo.Width = ALIGN16(width.value.intValue);
+	encodeParams.mfx.FrameInfo.Height = ALIGN16(height.value.intValue);
+	encodeParams.IOPattern = MFX_IOPATTERN_IN_SYSTEM_MEMORY;
+
+	//
+	sts = MFXVideoENCODE_Init(session, &encodeParams);
+	if (sts != MFX_ERR_NONE)
+	{
+		prUTF16Char name[128];
+		copyConvertStringLiteralIntoUTF16(L"Intel AV1", name);
+
+		std::wstringstream ws;
+		ws << L"Unable to start the Intel AV1 encoder.";
+
+		prUTF16Char text[128];
+		copyConvertStringLiteralIntoUTF16(ws.str().c_str(), text);
+
+		suites.exporterUtilitySuite->ReportEvent(pluginId, 1, name, text);
+
+		return exportReturn_ErrLastErrorSet;
+	}
+
+	suites.exportFileSuite->Open(exportRecP->fileObject);
+
+	bitstream = {};
+	bitstream.MaxLength = BITSTREAM_BUFFER_SIZE;
+	bitstream.Data = (mfxU8*)calloc(bitstream.MaxLength, sizeof(mfxU8));
+
+	syncp = {};
+
+	// Start rendering
+	ExportLoopRenderParams renderParams;
+	renderParams.inRenderParamsSize = sizeof(ExportLoopRenderParams);
+	renderParams.inRenderParamsVersion = 1;
+	renderParams.inStartTime = exportRecP->startTime;
+	renderParams.inEndTime = exportRecP->endTime;
+	renderParams.inFinalPixelFormat = PrPixelFormat_VUYA_4444_8u;
+	renderParams.inReservedProgressPreRender = 0;
+	renderParams.inReservedProgressPostRender = 0;
+
+	// Create C conform callback
+	Callback<prSuiteError(csSDK_uint32, csSDK_uint32, csSDK_uint32, PPixHand, void*)>::func = std::bind(&CPremierePluginApp::frameCompleteCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+	PrSDKMultipassExportLoopFrameCompletionFunction c_callback = static_cast<PrSDKMultipassExportLoopFrameCompletionFunction>(Callback<prSuiteError(csSDK_uint32, csSDK_uint32, csSDK_uint32, PPixHand, void*)>::callback);
+
+	// Start a single pass export
+	prSuiteError err = suites.exporterUtilitySuite->DoMultiPassExportLoop(pluginId, &renderParams, 1, c_callback, exportRecP);
+
+	// Drain encoder
+	while (true)
+	{
+		sts = MFXVideoENCODE_EncodeFrameAsync(session, NULL, NULL, &bitstream, &syncp);
+		if (sts == MFX_ERR_NONE)
+		{
+			if (syncp)
+			{
+				sts = MFXVideoCORE_SyncOperation(session, syncp, 100);
+				if (sts != MFX_ERR_NONE)
+					return suiteError_Fail;
+
+				suites.exportFileSuite->Write(exportRecP->fileObject, bitstream.Data, bitstream.DataLength);
+			}
+		}
+		else
+			break;
+	}
+
+	MFXVideoENCODE_Close(session);
+	MFXClose(session);
+
+	if (loader)
+		MFXUnload(loader);
+
+	suites.exportFileSuite->Close(exportRecP->fileObject);
+
+	return suiteError_NoError;
+}
+
+/**
+ * Callback called for each rendered frame.
+ */
+prSuiteError CPremierePluginApp::frameCompleteCallback(const csSDK_uint32 pass, const csSDK_uint32 frameNumber, const csSDK_uint32 frameRepeatCount, PPixHand renderedFrame, void* callbackData)
+{
+	exDoExportRec* exportRecP = reinterpret_cast<exDoExportRec*>(callbackData);
+
+	PrPixelFormat format;
+	suites.ppixSuite->GetPixelFormat(renderedFrame, &format);
+
+	// Get the raw pixel buffer
+	char* pixels;
+	suites.ppixSuite->GetPixels(renderedFrame, PrPPixBufferAccess_ReadOnly, &pixels);
+
+	//
+	csSDK_int32 rowBytes;
+	suites.ppixSuite->GetRowBytes(renderedFrame, &rowBytes);
+
+	mfxStatus sts;
+
+	sts = MFXMemory_GetSurfaceForVPP(session, &encSurfaceIn);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	sts = encSurfaceIn->FrameInterface->Map(encSurfaceIn, MFX_MAP_WRITE);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	mfxFrameInfo* info = &encSurfaceIn->Info;
+	mfxFrameData* data = &encSurfaceIn->Data;
+
+	data->Y = (mfxU8*)pixels;
+
+
+	// Aquire input surface
+	//sts = MFXMemory_GetSurfaceForEncode(session, &encSurfaceIn);
+	//if (sts != MFX_ERR_NONE)
+	//	return suiteError_Fail;
+
+	//sts = encSurfaceIn->FrameInterface->Map(encSurfaceIn, MFX_MAP_WRITE);
+	//if (sts != MFX_ERR_NONE)
+	//	return suiteError_Fail;
+
+	//csSDK_uint32 y, u, v;
+
+	//mfxU8* yb = data->Y;
+	//mfxU8* ub = data->U;
+	//mfxU8* vb = data->V;
+
+	//// Get plane buffers
+	//suites.ppix2Suite->GetYUV420PlanarBuffers(renderedFrame, PrPPixBufferAccess_ReadOnly,
+	//	(char**)&yb, &y,
+	//	(char**)&ub, &u,
+	//	(char**)&vb, &v);
+
+	sts = encSurfaceIn->FrameInterface->Unmap(encSurfaceIn);
+	if (sts != MFX_ERR_NONE)
+		return suiteError_Fail;
+
+	//
+	for (csSDK_uint32 r = 0; r < frameRepeatCount; r++)
+	{
+		sts = MFXVideoVPP_RunFrameVPPAsync(session, encSurfaceIn, encSurfaceOut, NULL, &syncp);
+
+
+		sts = MFXVideoENCODE_EncodeFrameAsync(session, NULL, encSurfaceIn, &bitstream, &syncp);
+		switch (sts)
+		{
+		case MFX_ERR_NONE:
+			// MFX_ERR_NONE and syncp indicate output is available
+			if (syncp) 
+			{
+				// Encode output is not available on CPU until sync operation
+				// completes
+				sts = MFXVideoCORE_SyncOperation(session, syncp, 100);
+				if (sts != MFX_ERR_NONE)
+					return suiteError_Fail;
+
+				suites.exportFileSuite->Write(exportRecP->fileObject, bitstream.Data, bitstream.DataLength);
+
+				bitstream.DataLength = 0;
+			}
+			break;
+		case MFX_ERR_NOT_ENOUGH_BUFFER:
+			// This example deliberatly uses a large output buffer with immediate
+			// write to disk for simplicity. Handle when frame size exceeds
+			// available buffer here
+			break;
+		case MFX_ERR_MORE_DATA:
+			// The function requires more data to generate any output
+			break;
+		case MFX_ERR_DEVICE_LOST:
+			// For non-CPU implementations,
+			// Cleanup if device is lost
+			break;
+		case MFX_WRN_DEVICE_BUSY:
+			// For non-CPU implementations,
+			// Wait a few milliseconds then try again
+			break;
+		default:
+			return suiteError_Fail;
+		}
+	}
+
+	// Update progress bar
+	suites.exporterUtilitySuite->ReportIntermediateProgressForRepeatedVideoFrame(pluginId, frameRepeatCount);
+
+	return suiteError_NoError;
+}

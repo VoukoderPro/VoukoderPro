@@ -1,0 +1,64 @@
+/*******************************************************************/
+/*                                                                 */
+/*                      ADOBE CONFIDENTIAL                         */
+/*                   _ _ _ _ _ _ _ _ _ _ _ _ _                     */
+/*                                                                 */
+/* Copyright 2004 Adobe Systems Incorporated                       */
+/* All Rights Reserved.                                            */
+/*                                                                 */
+/* NOTICE:  All information contained herein is, and remains the   */
+/* property of Adobe Systems Incorporated and its suppliers, if    */
+/* any.  The intellectual and technical concepts contained         */
+/* herein are proprietary to Adobe Systems Incorporated and its    */
+/* suppliers and may be covered by U.S. and Foreign Patents,       */
+/* patents in process, and are protected by trade secret or        */
+/* copyright law.  Dissemination of this information or            */
+/* reproduction of this material is strictly forbidden unless      */
+/* prior written permission is obtained from Adobe Systems         */
+/* Incorporated.                                                   */
+/*                                                                 */
+/*******************************************************************/
+
+#include <winres.h>
+
+#include "../../../common/Version.h"
+
+//	Non-localized resources. 
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+///////////////////////////////////////////////////////////////////////////////
+////
+//// Version
+////
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION DVACONTROLSURFACE_RESOURCE_APPLICATION_VERSION_WITH_BUILD_NUM
+ PRODUCTVERSION DVACONTROLSURFACE_RESOURCE_APPLICATION_VERSION_WITH_BUILD_NUM
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904e4"
+		BEGIN
+        	VALUE "CompanyName", DVACONTROLSURFACE_RESOURCE_COMPANY_NAME
+			VALUE "FileDescription", DVACONTROLSURFACE_RESOURCE_SUPPORT_FILE_DESCRIPTION
+			VALUE "FileVersion", DVACONTROLSURFACE_RESOURCE_FILE_VERSION_STRING
+			VALUE "LegalCopyright", DVACONTROLSURFACE_RESOURCE_LEGAL_COPYRIGHT
+			VALUE "OriginalFilename", "ControlSurfaceSDK.acsrf"
+			VALUE "ProductName", DVACONTROLSURFACE_RESOURCE_APPLICATION_NAME
+			VALUE "ProductVersion", DVACONTROLSURFACE_RESOURCE_APPLICATION_VERSION_STRING
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x000, 1252 // 0x000 is language neutral, 1252 is multilingual (windows translates for us)
+	END
+END

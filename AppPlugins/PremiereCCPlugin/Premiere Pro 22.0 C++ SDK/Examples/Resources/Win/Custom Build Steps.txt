@@ -1,0 +1,20 @@
+Build Commands:
+
+cl /I "..\..\Headers" /EP "$(ProjectDir)$(InputName).r" > "$(IntDir)\$(InputName).rr"
+"$(ProjectDir)..\..\Resources\Win\CnvtPiPL" "$(IntDir)\$(InputName).rr" "$(ProjectDir)$(InputName).rcp"
+
+Or for Japanese, use the "-j" switch (for Chinese, "-c"; for Korean, "-k")
+cl /I "..\..\Headers" /EP "$(ProjectDir)$(InputName).r" > "$(IntDir)\$(InputName).rr"
+"$(ProjectDir)..\..\Resources\Win\CnvtPiPL" "$(IntDir)\$(InputName).rr" "$(ProjectDir)$(InputName).rcp" "-j"
+
+
+
+Description:
+
+Converting PiPL for $(InputName)
+
+
+
+Output File:
+
+"$(IntDir)\$(InputName).rr";"$(ProjectDir)$(InputName).rcp"

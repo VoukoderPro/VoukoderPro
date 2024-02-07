@@ -1,0 +1,410 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18129D311EE5EE2000A15AE5 /* SDK_CrossDissolve.cu in Sources */ = {isa = PBXBuildFile; fileRef = 7E158D8F1A6EDA0100BF99DB /* SDK_CrossDissolve.cu */; };
+		3F2B63EF26FFEE8B0009C6E6 /* SDK_CrossDissolve.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3F2B63EE26FFEE8B0009C6E6 /* SDK_CrossDissolve.metal */; };
+		7E83C0FE170F4840008B8043 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E83C0FD170F4840008B8043 /* Cocoa.framework */; };
+		7E83C108170F4840008B8043 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E83C106170F4840008B8043 /* InfoPlist.strings */; };
+		7E83C117170F489B008B8043 /* SDK_CrossDissolve_CPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E83C113170F489B008B8043 /* SDK_CrossDissolve_CPU.cpp */; };
+		7E83C118170F489B008B8043 /* SDK_CrossDissolve_GPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E83C114170F489B008B8043 /* SDK_CrossDissolve_GPU.cpp */; };
+		7E9365E0172F7344006C8436 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9365DF172F7344006C8436 /* OpenCL.framework */; };
+		7EC22DD41FA7C88B00D810DC /* SDK_CrossDissolve.r in Rez */ = {isa = PBXBuildFile; fileRef = 7EC22DAF1FA7A98800D810DC /* SDK_CrossDissolve.r */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		3F2B63E926FFEDA30009C6E6 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.metal";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metallib",
+			);
+			script = "mkdir -p ${DERIVED_FILE_DIR}/64/PTX/Metal/\n\nchmod 777 ${DERIVED_FILE_DIR}/64/PTX/Metal/\n\n`xcode-select -p`/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal  -arch air64 -emit-llvm -c -ffast-math -Wno-missing-prototypes -mmacosx-version-min=10.15 -std=osx-metal1.1 -isysroot `xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk  -I\"../../Utils\" -I\"${BOOST_BASE_PATH}\" -DGF_DEVICE_TARGET_METAL=1  -DGF_DEVICE_TARGET_METAL_IOS=0  -o ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.air ${INPUT_FILE_PATH}\n\n\n`xcode-select -p`/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal-ar ru ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metal-ar ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.air\n\n`xcode-select -p`/Toolchains/XcodeDefault.xctoolchain/usr/bin/metallib -o ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metallib ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metal-ar\n";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXFileReference section */
+		3F2B63EE26FFEE8B0009C6E6 /* SDK_CrossDissolve.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = SDK_CrossDissolve.metal; path = ../../SDK_CrossDissolve.metal; sourceTree = "<group>"; };
+		7E158D8F1A6EDA0100BF99DB /* SDK_CrossDissolve.cu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SDK_CrossDissolve.cu; path = ../SDK_CrossDissolve.cu; sourceTree = SOURCE_ROOT; };
+		7E158D971A6F1D3E00BF99DB /* CUDA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CUDA.framework; path = ../../../../Library/Frameworks/CUDA.framework; sourceTree = DEVELOPER_DIR; };
+		7E2DB36B17349346007FA6AC /* A.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = A.h; path = Examples/Headers/A.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E83C0FA170F4840008B8043 /* SDK_CrossDissolve.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDK_CrossDissolve.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E83C0FD170F4840008B8043 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7E83C100170F4840008B8043 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7E83C101170F4840008B8043 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7E83C102170F4840008B8043 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7E83C105170F4840008B8043 /* SDK_CrossDissolve-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SDK_CrossDissolve-Info.plist"; sourceTree = "<group>"; };
+		7E83C107170F4840008B8043 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7E83C109170F4840008B8043 /* SDK_CrossDissolve-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SDK_CrossDissolve-Prefix.pch"; sourceTree = "<group>"; };
+		7E83C113170F489B008B8043 /* SDK_CrossDissolve_CPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDK_CrossDissolve_CPU.cpp; path = ../SDK_CrossDissolve_CPU.cpp; sourceTree = SOURCE_ROOT; };
+		7E83C114170F489B008B8043 /* SDK_CrossDissolve_GPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDK_CrossDissolve_GPU.cpp; path = ../SDK_CrossDissolve_GPU.cpp; sourceTree = SOURCE_ROOT; };
+		7E83C115170F489B008B8043 /* SDK_CrossDissolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDK_CrossDissolve.h; path = ../SDK_CrossDissolve.h; sourceTree = SOURCE_ROOT; };
+		7E83C124170F4EE9008B8043 /* AEConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AEConfig.h; path = Examples/Headers/AEConfig.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E83C128170F519D008B8043 /* AE_Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AE_Effect.h; path = Examples/Headers/AE_Effect.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E83C136170F8622008B8043 /* PrGPUFilterModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrGPUFilterModule.h; path = ../../Utils/PrGPUFilterModule.h; sourceTree = SOURCE_ROOT; };
+		7E83C173170F8901008B8043 /* PrSDKGPUDeviceSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUDeviceSuite.h; path = ../../../../Headers/PrSDKGPUDeviceSuite.h; sourceTree = SOURCE_ROOT; };
+		7E83C175170F8914008B8043 /* PrSDKGPUFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUFilter.h; path = ../../../../Headers/PrSDKGPUFilter.h; sourceTree = SOURCE_ROOT; };
+		7E83C176170F8914008B8043 /* PrSDKGPUImageProcessingSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUImageProcessingSuite.h; path = ../../../../Headers/PrSDKGPUImageProcessingSuite.h; sourceTree = SOURCE_ROOT; };
+		7E9365DF172F7344006C8436 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
+		7EC22DAF1FA7A98800D810DC /* SDK_CrossDissolve.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = SDK_CrossDissolve.r; path = ../SDK_CrossDissolve.r; sourceTree = SOURCE_ROOT; };
+		7EE36A271734943600B620FE /* PreConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PreConfig.h; path = Examples/Headers/adobesdk/config/PreConfig.h; sourceTree = AE_SDK_BASE_PATH; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E83C0F7170F4840008B8043 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E83C0FE170F4840008B8043 /* Cocoa.framework in Frameworks */,
+				7E9365E0172F7344006C8436 /* OpenCL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7E83C0EF170F4840008B8043 = {
+			isa = PBXGroup;
+			children = (
+				7E83C103170F4840008B8043 /* SDK_CrossDissolve */,
+				7E83C0FC170F4840008B8043 /* Frameworks */,
+				7E83C0FB170F4840008B8043 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7E83C0FB170F4840008B8043 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E83C0FA170F4840008B8043 /* SDK_CrossDissolve.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E83C0FC170F4840008B8043 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E158D971A6F1D3E00BF99DB /* CUDA.framework */,
+				7E83C0FD170F4840008B8043 /* Cocoa.framework */,
+				7E9365DF172F7344006C8436 /* OpenCL.framework */,
+				7E83C0FF170F4840008B8043 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E83C0FF170F4840008B8043 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E83C100170F4840008B8043 /* AppKit.framework */,
+				7E83C101170F4840008B8043 /* CoreData.framework */,
+				7E83C102170F4840008B8043 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		7E83C103170F4840008B8043 /* SDK_CrossDissolve */ = {
+			isa = PBXGroup;
+			children = (
+				3F2B63EE26FFEE8B0009C6E6 /* SDK_CrossDissolve.metal */,
+				7E83C114170F489B008B8043 /* SDK_CrossDissolve_GPU.cpp */,
+				7E83C113170F489B008B8043 /* SDK_CrossDissolve_CPU.cpp */,
+				7E83C115170F489B008B8043 /* SDK_CrossDissolve.h */,
+				7E158D8F1A6EDA0100BF99DB /* SDK_CrossDissolve.cu */,
+				7EC22DAF1FA7A98800D810DC /* SDK_CrossDissolve.r */,
+				7E83C104170F4840008B8043 /* Supporting Files */,
+			);
+			path = SDK_CrossDissolve;
+			sourceTree = "<group>";
+		};
+		7E83C104170F4840008B8043 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7E83C136170F8622008B8043 /* PrGPUFilterModule.h */,
+				7E83C124170F4EE9008B8043 /* AEConfig.h */,
+				7EE36A271734943600B620FE /* PreConfig.h */,
+				7E2DB36B17349346007FA6AC /* A.h */,
+				7E83C128170F519D008B8043 /* AE_Effect.h */,
+				7E83C173170F8901008B8043 /* PrSDKGPUDeviceSuite.h */,
+				7E83C175170F8914008B8043 /* PrSDKGPUFilter.h */,
+				7E83C176170F8914008B8043 /* PrSDKGPUImageProcessingSuite.h */,
+				7E83C105170F4840008B8043 /* SDK_CrossDissolve-Info.plist */,
+				7E83C106170F4840008B8043 /* InfoPlist.strings */,
+				7E83C109170F4840008B8043 /* SDK_CrossDissolve-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E83C0F9170F4840008B8043 /* SDK_CrossDissolve */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E83C10C170F4840008B8043 /* Build configuration list for PBXNativeTarget "SDK_CrossDissolve" */;
+			buildPhases = (
+				7E83C0F6170F4840008B8043 /* Sources */,
+				7E83C0F7170F4840008B8043 /* Frameworks */,
+				7E83C0F8170F4840008B8043 /* Resources */,
+				7EC22DD31FA7C88600D810DC /* Rez */,
+				3F2B63EA26FFEDD00009C6E6 /* ShellScript */,
+			);
+			buildRules = (
+				3F2B63E926FFEDA30009C6E6 /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = SDK_CrossDissolve;
+			productName = SDK_CrossDissolve;
+			productReference = 7E83C0FA170F4840008B8043 /* SDK_CrossDissolve.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E83C0F1170F4840008B8043 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "";
+			};
+			buildConfigurationList = 7E83C0F4170F4840008B8043 /* Build configuration list for PBXProject "SDK_CrossDissolve" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 7E83C0EF170F4840008B8043;
+			productRefGroup = 7E83C0FB170F4840008B8043 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E83C0F9170F4840008B8043 /* SDK_CrossDissolve */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7E83C0F8170F4840008B8043 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E83C108170F4840008B8043 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		7EC22DD31FA7C88600D810DC /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EC22DD41FA7C88B00D810DC /* SDK_CrossDissolve.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3F2B63EA26FFEDD00009C6E6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Copying Metallib Files to Resource Folder :\" ${METAL_LIBRARY_OUTPUT_DIR} \n# echo \"Target Build Dir:\" ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\n# echo \"Metal Library output Dir:\" ${\nmkdir -p ${METAL_LIBRARY_OUTPUT_DIR}/MetalLib\ncp ${DERIVED_FILES_DIR}/64/PTX/Metal/*.metallib ${METAL_LIBRARY_OUTPUT_DIR}/MetalLib/\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E83C0F6170F4840008B8043 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F2B63EF26FFEE8B0009C6E6 /* SDK_CrossDissolve.metal in Sources */,
+				7E83C117170F489B008B8043 /* SDK_CrossDissolve_CPU.cpp in Sources */,
+				18129D311EE5EE2000A15AE5 /* SDK_CrossDissolve.cu in Sources */,
+				7E83C118170F489B008B8043 /* SDK_CrossDissolve_GPU.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7E83C106170F4840008B8043 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E83C107170F4840008B8043 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7E83C10A170F4840008B8043 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers/SP\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+					"\"${CUDA_SDK_BASE_PATH}/\"",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+		7E83C10B170F4840008B8043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers/SP\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+					"\"${CUDA_SDK_BASE_PATH}/\"",
+				);
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Release;
+		};
+		7E83C10D170F4840008B8043 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SDK_CrossDissolve-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+					/usr/local/cuda/include,
+				);
+				INFOPLIST_FILE = "SDK_CrossDissolve-Info.plist";
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "MyCompany.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7E83C10E170F4840008B8043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SDK_CrossDissolve-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+					/usr/local/cuda/include,
+				);
+				INFOPLIST_FILE = "SDK_CrossDissolve-Info.plist";
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "MyCompany.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E83C0F4170F4840008B8043 /* Build configuration list for PBXProject "SDK_CrossDissolve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E83C10A170F4840008B8043 /* Debug */,
+				7E83C10B170F4840008B8043 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E83C10C170F4840008B8043 /* Build configuration list for PBXNativeTarget "SDK_CrossDissolve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E83C10D170F4840008B8043 /* Debug */,
+				7E83C10E170F4840008B8043 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E83C0F1170F4840008B8043 /* Project object */;
+}

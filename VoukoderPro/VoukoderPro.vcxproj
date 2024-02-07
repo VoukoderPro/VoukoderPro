@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b7ecd709-52f5-4be9-9a2f-31bde0863a0c}</ProjectGuid>
+    <RootNamespace>VoukoderPro</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>voukoderpro</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);c:\boost_1_82_0;..\3rdparty\nlohmann\include;..\3rdparty\$(FFmpegDir)-debug\include;..\3rdparty\infoware\include;..\3rdparty\steamworks_sdk_155\sdk\public;C:\OpenSSL\include;..\3rdparty\leveldb-1.23;3rdparty\leveldb-1.23\include;..\3rdparty\leveldb-1.23\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);c:\boost_1_82_0\stage\lib;..\3rdparty\$(FFmpegDir)-debug\lib;..\3rdparty\steamworks_sdk_155\sdk\redistributable_bin\win64;C:\OpenSSL\lib;..\3rdparty\leveldb-1.23\build\Debug</LibraryPath>
+    <SourcePath>$(VC_SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>voukoderpro</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);c:\boost_1_82_0;..\3rdparty\nlohmann\include;..\3rdparty\$(FFmpegDir)-release\include;..\3rdparty\infoware\include;..\3rdparty\steamworks_sdk_155\sdk\public;C:\OpenSSL\include;..\3rdparty\leveldb-1.23;3rdparty\leveldb-1.23\include;..\3rdparty\leveldb-1.23\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);c:\boost_1_82_0\stage\lib;..\3rdparty\$(FFmpegDir)-release\lib;..\3rdparty\steamworks_sdk_155\sdk\redistributable_bin\win64;C:\OpenSSL\lib;..\3rdparty\leveldb-1.23\build\Release</LibraryPath>
+    <SourcePath>$(VC_SourcePath)</SourcePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;VOUKODERPRO_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;VOUKODERPRO_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SODIUM_STATIC;NO_GA4_TRACKING;_CRT_SECURE_NO_WARNINGS;CURL_STATICLIB;_DEBUG;VOUKODERPRO_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_5_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
+copy "$(SolutionDir)3rdparty\$(FFmpegDir)-$(Configuration)\bin\*.dll" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_5_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SODIUM_STATIC;_CRT_SECURE_NO_WARNINGS;CURL_STATICLIB;NDEBUG;VOUKODERPRO_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>signtool.exe sign /f "C:\Users\daniel\OneDrive - Voukoder\Business\Zertifikate\daniel_stankewitz_nopass.pfx" /fd SHA256  /tr http://ts.ssl.com /td sha256 /v "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)"
+copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_5_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
+copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\Program Files\VoukoderPro\"
+copy "$(SolutionDir)3rdparty\$(FFmpegDir)-$(Configuration)\bin\*.dll" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_5_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseNode.h" />
+    <ClInclude Include="duktape.h" />
+    <ClInclude Include="duk_config.h" />
+    <ClInclude Include="EncoderNode.h" />
+    <ClInclude Include="Errors.h" />
+    <ClInclude Include="ffmpeg.h" />
+    <ClInclude Include="FilterNode.h" />
+    <ClInclude Include="InputNode.h" />
+    <ClInclude Include="JavaScript.h" />
+    <ClInclude Include="json-root-schema.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="MuxerNode.h" />
+    <ClInclude Include="OutputNode.h" />
+    <ClInclude Include="Performance.h" />
+    <ClInclude Include="PerformanceManager.h" />
+    <ClInclude Include="Assets.h" />
+    <ClInclude Include="PostProcNode.h" />
+    <ClInclude Include="Router.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="Telemetry.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="Version.h" />
+    <ClInclude Include="VoukoderPro.h" />
+    <ClInclude Include="VoukoderPro_API.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="duktape.c" />
+    <ClCompile Include="EncoderNode.cpp" />
+    <ClCompile Include="FilterNode.cpp" />
+    <ClCompile Include="InputNode.cpp" />
+    <ClCompile Include="JavaScript.cpp" />
+    <ClCompile Include="MuxerNode.cpp" />
+    <ClCompile Include="OutputNode.cpp" />
+    <ClCompile Include="Performance.cpp" />
+    <ClCompile Include="PerformanceManager.cpp" />
+    <ClCompile Include="Assets.cpp" />
+    <ClCompile Include="PostProcNode.cpp" />
+    <ClCompile Include="Router.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Telemetry.cpp" />
+    <ClCompile Include="VoukoderPro.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

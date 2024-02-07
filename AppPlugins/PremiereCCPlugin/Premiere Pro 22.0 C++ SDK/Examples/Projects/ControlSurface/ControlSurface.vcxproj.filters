@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Header Files\adobesdk">
+      <UniqueIdentifier>{e76533c8-62c2-46df-abc1-6e088221f470}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\adobesdk\config">
+      <UniqueIdentifier>{2d06d402-70e8-4287-b6d6-49375dec67c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\adobesdk\controlsurface">
+      <UniqueIdentifier>{675e5622-101b-4dbd-a9ed-eb77ab9e0462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\adobesdk\controlsurface\host">
+      <UniqueIdentifier>{d995840b-df04-45a8-a1dd-0a38403aa230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\adobesdk\controlsurface\plugin">
+      <UniqueIdentifier>{a1022d97-af53-4cee-979b-502779b76a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\adobesdk\controlsurface\plugin\wrapper">
+      <UniqueIdentifier>{4e713f17-9e5b-40cb-b8bb-afb29a8cba88}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceBase.cpp">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceCommandBase.cpp">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMarkerBase.cpp">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMixerBase.cpp">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceTransportBase.cpp">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ControlSurface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ControlSurfacePlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceLumetriBase.cpp">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\premiere\main\shared\adobe\adobesdk\config\AdobesdkTypes.h">
+      <Filter>Header Files\adobesdk\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\premiere\main\shared\adobe\adobesdk\config\PreConfig.h">
+      <Filter>Header Files\adobesdk\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\premiere\main\shared\adobe\adobesdk\config\PostConfig.h">
+      <Filter>Header Files\adobesdk\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostCommandSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\host</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostMarkerSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\host</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostMixerSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\host</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\host</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostTransportSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\host</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceCommandSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceMarkerSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceMixerSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfacePluginSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceTransportSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceBase.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceCommandBase.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMarkerBase.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMixerBase.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceTransportBase.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\ControlSurfaceTypes.h">
+      <Filter>Header Files\adobesdk\controlsurface</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ControlSurface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostLumetriSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\host</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceLumetriBase.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceLumetriSuite.h">
+      <Filter>Header Files\adobesdk\controlsurface\plugin</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

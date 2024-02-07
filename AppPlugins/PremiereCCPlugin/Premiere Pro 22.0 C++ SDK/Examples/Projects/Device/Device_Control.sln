@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Device_Control", "Device_Control.vcxproj", "{E9991917-6CA6-4133-A49C-38607E4B7E30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9991917-6CA6-4133-A49C-38607E4B7E30}.Debug|x64.ActiveCfg = Debug|x64
+		{E9991917-6CA6-4133-A49C-38607E4B7E30}.Debug|x64.Build.0 = Debug|x64
+		{E9991917-6CA6-4133-A49C-38607E4B7E30}.Debug|x86.ActiveCfg = Debug|Win32
+		{E9991917-6CA6-4133-A49C-38607E4B7E30}.Debug|x86.Build.0 = Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

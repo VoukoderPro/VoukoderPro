@@ -1,0 +1,341 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7EC80142136F68F1008668EE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC80141136F68F1008668EE /* Cocoa.framework */; };
+		8CBB02061D25A6A000DFF4C8 /* ControlSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CBB02031D25A6A000DFF4C8 /* ControlSurface.cpp */; };
+		8CBB02071D25A6A000DFF4C8 /* ControlSurfacePlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CBB02051D25A6A000DFF4C8 /* ControlSurfacePlugin.cpp */; };
+		8CBB02351D25A70D00DFF4C8 /* config in Resources */ = {isa = PBXBuildFile; fileRef = 8CBB02341D25A70D00DFF4C8 /* config */; };
+		8CBB02371D25A72300DFF4C8 /* controlsurface in Resources */ = {isa = PBXBuildFile; fileRef = 8CBB02361D25A72300DFF4C8 /* controlsurface */; };
+		8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D5B49A704867FD3000E48DA /* InfoPlist.strings */; };
+		C96361E51D25CCE200BCAD96 /* ControlSurfaceBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96361D91D25CCE200BCAD96 /* ControlSurfaceBase.cpp */; };
+		C96361E61D25CCE200BCAD96 /* ControlSurfaceCommandBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96361DB1D25CCE200BCAD96 /* ControlSurfaceCommandBase.cpp */; };
+		C96361E71D25CCE200BCAD96 /* ControlSurfaceLumetriBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96361DD1D25CCE200BCAD96 /* ControlSurfaceLumetriBase.cpp */; };
+		C96361E81D25CCE200BCAD96 /* ControlSurfaceMarkerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96361DF1D25CCE200BCAD96 /* ControlSurfaceMarkerBase.cpp */; };
+		C96361E91D25CCE200BCAD96 /* ControlSurfaceMixerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96361E11D25CCE200BCAD96 /* ControlSurfaceMixerBase.cpp */; };
+		C96361EA1D25CCE200BCAD96 /* ControlSurfaceTransportBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96361E31D25CCE200BCAD96 /* ControlSurfaceTransportBase.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7EC80141136F68F1008668EE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		8CBB02031D25A6A000DFF4C8 /* ControlSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ControlSurface.cpp; path = ../Src/ControlSurface.cpp; sourceTree = "<group>"; };
+		8CBB02041D25A6A000DFF4C8 /* ControlSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlSurface.h; path = ../Src/ControlSurface.h; sourceTree = "<group>"; };
+		8CBB02051D25A6A000DFF4C8 /* ControlSurfacePlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ControlSurfacePlugin.cpp; path = ../Src/ControlSurfacePlugin.cpp; sourceTree = "<group>"; };
+		8CBB02341D25A70D00DFF4C8 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = ../../../Headers/adobesdk/config; sourceTree = "<group>"; };
+		8CBB02361D25A72300DFF4C8 /* controlsurface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controlsurface; path = ../../../Headers/adobesdk/controlsurface; sourceTree = "<group>"; };
+		8CF611BE1D25B05700861269 /* SPBasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPBasic.h; path = ../../../Headers/SPBasic.h; sourceTree = "<group>"; };
+		8CF611BF1D25B05700861269 /* SPSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSuites.h; path = ../../../Headers/SPSuites.h; sourceTree = "<group>"; };
+		8D576316048677EA00EA77CD /* ControlSurface.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ControlSurface.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C96361D91D25CCE200BCAD96 /* ControlSurfaceBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlSurfaceBase.cpp; sourceTree = "<group>"; };
+		C96361DA1D25CCE200BCAD96 /* ControlSurfaceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlSurfaceBase.h; sourceTree = "<group>"; };
+		C96361DB1D25CCE200BCAD96 /* ControlSurfaceCommandBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlSurfaceCommandBase.cpp; sourceTree = "<group>"; };
+		C96361DC1D25CCE200BCAD96 /* ControlSurfaceCommandBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlSurfaceCommandBase.h; sourceTree = "<group>"; };
+		C96361DD1D25CCE200BCAD96 /* ControlSurfaceLumetriBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlSurfaceLumetriBase.cpp; sourceTree = "<group>"; };
+		C96361DE1D25CCE200BCAD96 /* ControlSurfaceLumetriBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlSurfaceLumetriBase.h; sourceTree = "<group>"; };
+		C96361DF1D25CCE200BCAD96 /* ControlSurfaceMarkerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlSurfaceMarkerBase.cpp; sourceTree = "<group>"; };
+		C96361E01D25CCE200BCAD96 /* ControlSurfaceMarkerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlSurfaceMarkerBase.h; sourceTree = "<group>"; };
+		C96361E11D25CCE200BCAD96 /* ControlSurfaceMixerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlSurfaceMixerBase.cpp; sourceTree = "<group>"; };
+		C96361E21D25CCE200BCAD96 /* ControlSurfaceMixerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlSurfaceMixerBase.h; sourceTree = "<group>"; };
+		C96361E31D25CCE200BCAD96 /* ControlSurfaceTransportBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlSurfaceTransportBase.cpp; sourceTree = "<group>"; };
+		C96361E41D25CCE200BCAD96 /* ControlSurfaceTransportBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlSurfaceTransportBase.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D576313048677EA00EA77CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EC80142136F68F1008668EE /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* Untitled */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AFFE84173DC02AAC07 /* Source */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB6FE9D52B211CA2CBB /* Products */,
+			);
+			name = Untitled;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				8CF611BE1D25B05700861269 /* SPBasic.h */,
+				8CF611BF1D25B05700861269 /* SPSuites.h */,
+				8CBB02341D25A70D00DFF4C8 /* config */,
+				8CBB02361D25A72300DFF4C8 /* controlsurface */,
+				7EC80141136F68F1008668EE /* Cocoa.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D576317048677EA00EA77CD /* Info.plist */,
+				8D5B49A704867FD3000E48DA /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C96361D81D25CCE200BCAD96 /* wrapper */,
+				8CBB02031D25A6A000DFF4C8 /* ControlSurface.cpp */,
+				8CBB02051D25A6A000DFF4C8 /* ControlSurfacePlugin.cpp */,
+				8CBB02041D25A6A000DFF4C8 /* ControlSurface.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB6FE9D52B211CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D576316048677EA00EA77CD /* ControlSurface.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C96361D81D25CCE200BCAD96 /* wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				C96361D91D25CCE200BCAD96 /* ControlSurfaceBase.cpp */,
+				C96361DA1D25CCE200BCAD96 /* ControlSurfaceBase.h */,
+				C96361DB1D25CCE200BCAD96 /* ControlSurfaceCommandBase.cpp */,
+				C96361DC1D25CCE200BCAD96 /* ControlSurfaceCommandBase.h */,
+				C96361DD1D25CCE200BCAD96 /* ControlSurfaceLumetriBase.cpp */,
+				C96361DE1D25CCE200BCAD96 /* ControlSurfaceLumetriBase.h */,
+				C96361DF1D25CCE200BCAD96 /* ControlSurfaceMarkerBase.cpp */,
+				C96361E01D25CCE200BCAD96 /* ControlSurfaceMarkerBase.h */,
+				C96361E11D25CCE200BCAD96 /* ControlSurfaceMixerBase.cpp */,
+				C96361E21D25CCE200BCAD96 /* ControlSurfaceMixerBase.h */,
+				C96361E31D25CCE200BCAD96 /* ControlSurfaceTransportBase.cpp */,
+				C96361E41D25CCE200BCAD96 /* ControlSurfaceTransportBase.h */,
+			);
+			name = wrapper;
+			path = ../../../Headers/adobesdk/controlsurface/plugin/wrapper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D57630D048677EA00EA77CD /* ControlSurface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "ControlSurface" */;
+			buildPhases = (
+				8D57630F048677EA00EA77CD /* Resources */,
+				8D576311048677EA00EA77CD /* Sources */,
+				8D576313048677EA00EA77CD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ControlSurface;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = Untitled;
+			productReference = 8D576316048677EA00EA77CD /* ControlSurface.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+			};
+			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "ControlSurface" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* Untitled */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D57630D048677EA00EA77CD /* ControlSurface */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D57630F048677EA00EA77CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CBB02371D25A72300DFF4C8 /* controlsurface in Resources */,
+				8CBB02351D25A70D00DFF4C8 /* config in Resources */,
+				8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D576311048677EA00EA77CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C96361E91D25CCE200BCAD96 /* ControlSurfaceMixerBase.cpp in Sources */,
+				8CBB02071D25A6A000DFF4C8 /* ControlSurfacePlugin.cpp in Sources */,
+				C96361EA1D25CCE200BCAD96 /* ControlSurfaceTransportBase.cpp in Sources */,
+				8CBB02061D25A6A000DFF4C8 /* ControlSurface.cpp in Sources */,
+				C96361E81D25CCE200BCAD96 /* ControlSurfaceMarkerBase.cpp in Sources */,
+				C96361E61D25CCE200BCAD96 /* ControlSurfaceCommandBase.cpp in Sources */,
+				C96361E71D25CCE200BCAD96 /* ControlSurfaceLumetriBase.cpp in Sources */,
+				C96361E51D25CCE200BCAD96 /* ControlSurfaceBase.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8D5B49A704867FD3000E48DA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C167EFE841241C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB911B08733D790010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034Identifier}";
+				PRODUCT_NAME = ControlSurface;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1DEB911C08733D790010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034Identifier}";
+				PRODUCT_NAME = ControlSurface;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1DEB911F08733D790010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../Headers,
+					../../../Headers/adobesdk,
+					../../../Headers/adobesdk/config,
+					../../../Headers/adobesdk/config/controlsurface,
+					../../../Headers/adobesdk/config/controlsurface/host,
+					../../../Headers/adobesdk/config/controlsurface/plugin,
+					../../../Headers/adobesdk/config/controlsurface/plugin/wrapper,
+					../../../Utils/,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB912008733D790010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "i386 x86_64";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../Headers,
+					../../../Headers/adobesdk,
+					../../../Headers/adobesdk/config,
+					../../../Headers/adobesdk/config/controlsurface,
+					../../../Headers/adobesdk/config/controlsurface/host,
+					../../../Headers/adobesdk/config/controlsurface/plugin,
+					../../../Headers/adobesdk/config/controlsurface/plugin/wrapper,
+					../../../Utils/,
+				);
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "ControlSurface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB911B08733D790010E9CD /* Debug */,
+				1DEB911C08733D790010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "ControlSurface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB911F08733D790010E9CD /* Debug */,
+				1DEB912008733D790010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

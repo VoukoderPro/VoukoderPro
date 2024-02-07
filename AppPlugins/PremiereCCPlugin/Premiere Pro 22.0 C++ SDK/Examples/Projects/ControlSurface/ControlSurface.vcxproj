@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D2C956A0-CD9A-4A4D-8979-19C80735FBA5}</ProjectGuid>
+    <RootNamespace>ExportController_SamplePlugin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Adobe\Common\Plug-ins\ControlSurface\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\Adobe\Common\Plug-ins\ControlSurface\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.acsrf</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.acsrf</TargetExt>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ControlSurfaceSDK</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ControlSurfaceSDK</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\Utils;..\..\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level2</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <PreprocessorDefinitions>_WINDLL;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>PRWIN_ENV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+      <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Bscmake>
+      <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\Utils;..\..\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level2</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <PreprocessorDefinitions>_WINDLL;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>PRWIN_ENV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+      <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Bscmake>
+      <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceBase.cpp" />
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceCommandBase.cpp" />
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceLumetriBase.cpp" />
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMarkerBase.cpp" />
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMixerBase.cpp" />
+    <ClCompile Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceTransportBase.cpp" />
+    <ClCompile Include="Src\ControlSurface.cpp" />
+    <ClCompile Include="Src\ControlSurfacePlugin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\premiere\main\shared\adobe\adobesdk\config\AdobesdkTypes.h" />
+    <ClInclude Include="..\..\..\..\premiere\main\shared\adobe\adobesdk\config\PostConfig.h" />
+    <ClInclude Include="..\..\..\..\premiere\main\shared\adobe\adobesdk\config\PreConfig.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\ControlSurfaceTypes.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostCommandSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostLumetriSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostMarkerSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostMixerSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\host\ControlSurfaceHostTransportSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceCommandSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceLumetriSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceMarkerSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceMixerSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfacePluginSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\ControlSurfaceTransportSuite.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceBase.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceCommandBase.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceLumetriBase.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMarkerBase.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceMixerBase.h" />
+    <ClInclude Include="..\..\Headers\adobesdk\controlsurface\plugin\wrapper\ControlSurfaceTransportBase.h" />
+    <ClInclude Include="Src\ControlSurface.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{86d16dc9-71e4-47c8-9923-990fe5f74eb9}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{2802a118-7b03-4795-81cd-d45ce859953b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\AE">
+      <UniqueIdentifier>{ebb30e35-67a3-4aa7-8d6d-fc40c4531034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\AE\PICA">
+      <UniqueIdentifier>{7a8d98d7-a7a8-435f-9176-72f329eb750a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\AE\ADM">
+      <UniqueIdentifier>{93c86e81-d1f9-46c3-961b-1cadb1565c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Supporting code">
+      <UniqueIdentifier>{d6deeb97-04e4-4caf-b01a-03f75a1a0861}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ResizerPiPL.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Resizer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Resizer_Strings.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\A.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_Effect.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_EffectCB.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_EffectCBSuites.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_EffectSuites.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Util\AE_EffectSuitesHelper.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_EffectUI.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_GeneralPlug.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_GeneralPlugOld.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_IO.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AE_Macros.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Util\AEFX_ChannelDepthTpl.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Util\AEGP_SuiteHandler.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Util\entry.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\FIEL_Public.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Util\Param_Utils.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PF_Masks.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Util\String_Utils.h">
+      <Filter>Headers\AE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AS\ASConfig.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AS\ASHelp.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AS\ASPragma.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\AS\ASTypes.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPAccess.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPAdapts.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPAdapts.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPBasic.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPBasic.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPCaches.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPCaches.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPConfig.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPConfig.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPErrorCodes.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPErrorCodes.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPFiles.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPFiles.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPInterf.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPMData.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPMData.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPPiPL.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPPiPL.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPPlugs.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPPlugs.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPProps.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPProps.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPStrngs.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPStrngs.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPSuites.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\PICA\SPTypes.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\SPTypes.h">
+      <Filter>Headers\AE\PICA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMBasic.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMBasicOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMDialog.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMDialogGroup.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMDialogGroupOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMDialogOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMEntry.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMEntryOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMItem.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMItemOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMList.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMListOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMNotifier.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\Legacy\ADMNotifierOld.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMTracker.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Headers\ADM\ADMTypes.h">
+      <Filter>Headers\AE\ADM</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp">
+      <Filter>Supporting code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp">
+      <Filter>Supporting code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Resizer.cpp" />
+    <ClCompile Include="..\Resizer_Strings.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\ResizerPiPL.r">
+      <Filter>Resources</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

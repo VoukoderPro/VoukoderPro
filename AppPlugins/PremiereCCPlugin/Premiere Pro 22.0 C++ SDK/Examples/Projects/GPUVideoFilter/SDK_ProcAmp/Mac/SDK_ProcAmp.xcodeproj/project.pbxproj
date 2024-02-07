@@ -1,0 +1,399 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		185D78901CFDC57E005B69BA /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185D788F1CFDC57E005B69BA /* Metal.framework */; };
+		3F57A74326FE89EF004786EA /* SDK_ProcAmp.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3F57A74226FE89EF004786EA /* SDK_ProcAmp.metal */; };
+		7E83C0FE170F4840008B8043 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E83C0FD170F4840008B8043 /* Cocoa.framework */; };
+		7E83C108170F4840008B8043 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E83C106170F4840008B8043 /* InfoPlist.strings */; };
+		7E83C117170F489B008B8043 /* SDK_ProcAmp_CPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E83C113170F489B008B8043 /* SDK_ProcAmp_CPU.cpp */; };
+		7E83C118170F489B008B8043 /* SDK_ProcAmp_GPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E83C114170F489B008B8043 /* SDK_ProcAmp_GPU.cpp */; };
+		7E9365E0172F7344006C8436 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9365DF172F7344006C8436 /* OpenCL.framework */; };
+		7EC22DD61FA7C99700D810DC /* SDK_ProcAmp.r in Rez */ = {isa = PBXBuildFile; fileRef = 7E83C116170F489B008B8043 /* SDK_ProcAmp.r */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		3F577B5526FE86D4004786EA /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.metal";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metallib",
+			);
+			script = "mkdir -p ${DERIVED_FILE_DIR}/64/PTX/Metal/\n\nchmod 777 ${DERIVED_FILE_DIR}/64/PTX/Metal/\n\n`xcode-select -p`/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal  -arch air64 -emit-llvm -c -ffast-math -Wno-missing-prototypes -mmacosx-version-min=10.15 -std=osx-metal1.1 -isysroot /Applications/Xcode_12_4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk  -I\"../../Utils\" -I\"${BOOST_BASE_PATH}\" -DGF_DEVICE_TARGET_METAL=1  -DGF_DEVICE_TARGET_METAL_IOS=0  -o ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.air ${INPUT_FILE_PATH}\n\n\n`xcode-select -p`/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal-ar ru ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metal-ar ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.air\n\n`xcode-select -p`/Toolchains/XcodeDefault.xctoolchain/usr/bin/metallib -o ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metallib ${DERIVED_FILES_DIR}/64/PTX/Metal/${INPUT_FILE_BASE}.metal-ar\n";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXFileReference section */
+		185D788F1CFDC57E005B69BA /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		3F57A74226FE89EF004786EA /* SDK_ProcAmp.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = SDK_ProcAmp.metal; path = ../../SDK_ProcAmp.metal; sourceTree = "<group>"; };
+		7E163E331FA412E100260BD2 /* SDK_ProcAmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDK_ProcAmp.h; path = ../SDK_ProcAmp.h; sourceTree = SOURCE_ROOT; };
+		7E2DB36B17349346007FA6AC /* A.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = A.h; path = Examples/Headers/A.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E83C0FA170F4840008B8043 /* SDK_ProcAmp.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDK_ProcAmp.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E83C0FD170F4840008B8043 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7E83C100170F4840008B8043 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7E83C101170F4840008B8043 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7E83C102170F4840008B8043 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7E83C105170F4840008B8043 /* SDK_ProcAmp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SDK_ProcAmp-Info.plist"; sourceTree = "<group>"; };
+		7E83C107170F4840008B8043 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7E83C109170F4840008B8043 /* SDK_ProcAmp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SDK_ProcAmp-Prefix.pch"; sourceTree = "<group>"; };
+		7E83C113170F489B008B8043 /* SDK_ProcAmp_CPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDK_ProcAmp_CPU.cpp; path = ../SDK_ProcAmp_CPU.cpp; sourceTree = SOURCE_ROOT; };
+		7E83C114170F489B008B8043 /* SDK_ProcAmp_GPU.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SDK_ProcAmp_GPU.cpp; path = ../SDK_ProcAmp_GPU.cpp; sourceTree = SOURCE_ROOT; };
+		7E83C116170F489B008B8043 /* SDK_ProcAmp.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = SDK_ProcAmp.r; path = ../SDK_ProcAmp.r; sourceTree = SOURCE_ROOT; };
+		7E83C124170F4EE9008B8043 /* AEConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AEConfig.h; path = Examples/Headers/AEConfig.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E83C128170F519D008B8043 /* AE_Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AE_Effect.h; path = Examples/Headers/AE_Effect.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E83C136170F8622008B8043 /* PrGPUFilterModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrGPUFilterModule.h; path = ../../Utils/PrGPUFilterModule.h; sourceTree = SOURCE_ROOT; };
+		7E83C173170F8901008B8043 /* PrSDKGPUDeviceSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUDeviceSuite.h; path = ../../../../Headers/PrSDKGPUDeviceSuite.h; sourceTree = SOURCE_ROOT; };
+		7E83C175170F8914008B8043 /* PrSDKGPUFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUFilter.h; path = ../../../../Headers/PrSDKGPUFilter.h; sourceTree = SOURCE_ROOT; };
+		7E83C176170F8914008B8043 /* PrSDKGPUImageProcessingSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUImageProcessingSuite.h; path = ../../../../Headers/PrSDKGPUImageProcessingSuite.h; sourceTree = SOURCE_ROOT; };
+		7E9365DB172F62D1006C8436 /* SPProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SPProps.h; path = Examples/Headers/SP/SPProps.h; sourceTree = AE_SDK_BASE_PATH; };
+		7E9365DF172F7344006C8436 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
+		7EA45A99173496CE00584507 /* SPMData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SPMData.h; path = Examples/Headers/SP/SPMData.h; sourceTree = AE_SDK_BASE_PATH; };
+		7EE36A271734943600B620FE /* PreConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PreConfig.h; path = Examples/Headers/adobesdk/config/PreConfig.h; sourceTree = AE_SDK_BASE_PATH; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E83C0F7170F4840008B8043 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E83C0FE170F4840008B8043 /* Cocoa.framework in Frameworks */,
+				185D78901CFDC57E005B69BA /* Metal.framework in Frameworks */,
+				7E9365E0172F7344006C8436 /* OpenCL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7E83C0EF170F4840008B8043 = {
+			isa = PBXGroup;
+			children = (
+				7E83C103170F4840008B8043 /* SDK_ProcAmp */,
+				7E83C0FC170F4840008B8043 /* Frameworks */,
+				7E83C0FB170F4840008B8043 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7E83C0FB170F4840008B8043 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E83C0FA170F4840008B8043 /* SDK_ProcAmp.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E83C0FC170F4840008B8043 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				185D788F1CFDC57E005B69BA /* Metal.framework */,
+				7E83C0FD170F4840008B8043 /* Cocoa.framework */,
+				7E9365DF172F7344006C8436 /* OpenCL.framework */,
+				7E83C0FF170F4840008B8043 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E83C0FF170F4840008B8043 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E83C100170F4840008B8043 /* AppKit.framework */,
+				7E83C101170F4840008B8043 /* CoreData.framework */,
+				7E83C102170F4840008B8043 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		7E83C103170F4840008B8043 /* SDK_ProcAmp */ = {
+			isa = PBXGroup;
+			children = (
+				3F57A74226FE89EF004786EA /* SDK_ProcAmp.metal */,
+				7E83C114170F489B008B8043 /* SDK_ProcAmp_GPU.cpp */,
+				7E83C113170F489B008B8043 /* SDK_ProcAmp_CPU.cpp */,
+				7E163E331FA412E100260BD2 /* SDK_ProcAmp.h */,
+				7E83C116170F489B008B8043 /* SDK_ProcAmp.r */,
+				7E83C104170F4840008B8043 /* Supporting Files */,
+			);
+			path = SDK_ProcAmp;
+			sourceTree = "<group>";
+		};
+		7E83C104170F4840008B8043 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7E83C136170F8622008B8043 /* PrGPUFilterModule.h */,
+				7E83C124170F4EE9008B8043 /* AEConfig.h */,
+				7EE36A271734943600B620FE /* PreConfig.h */,
+				7E2DB36B17349346007FA6AC /* A.h */,
+				7E83C128170F519D008B8043 /* AE_Effect.h */,
+				7E83C173170F8901008B8043 /* PrSDKGPUDeviceSuite.h */,
+				7E83C175170F8914008B8043 /* PrSDKGPUFilter.h */,
+				7E83C176170F8914008B8043 /* PrSDKGPUImageProcessingSuite.h */,
+				7E83C105170F4840008B8043 /* SDK_ProcAmp-Info.plist */,
+				7E83C106170F4840008B8043 /* InfoPlist.strings */,
+				7E83C109170F4840008B8043 /* SDK_ProcAmp-Prefix.pch */,
+				7E9365DB172F62D1006C8436 /* SPProps.h */,
+				7EA45A99173496CE00584507 /* SPMData.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E83C0F9170F4840008B8043 /* SDK_ProcAmp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E83C10C170F4840008B8043 /* Build configuration list for PBXNativeTarget "SDK_ProcAmp" */;
+			buildPhases = (
+				7E83C0F6170F4840008B8043 /* Sources */,
+				7E83C0F7170F4840008B8043 /* Frameworks */,
+				7E83C0F8170F4840008B8043 /* Resources */,
+				7EC22DD51FA7C99000D810DC /* Rez */,
+				3F57A75326FE9DE9004786EA /* ShellScript */,
+			);
+			buildRules = (
+				3F577B5526FE86D4004786EA /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = SDK_ProcAmp;
+			productName = SDK_ProcAmp;
+			productReference = 7E83C0FA170F4840008B8043 /* SDK_ProcAmp.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E83C0F1170F4840008B8043 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "";
+			};
+			buildConfigurationList = 7E83C0F4170F4840008B8043 /* Build configuration list for PBXProject "SDK_ProcAmp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 7E83C0EF170F4840008B8043;
+			productRefGroup = 7E83C0FB170F4840008B8043 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E83C0F9170F4840008B8043 /* SDK_ProcAmp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7E83C0F8170F4840008B8043 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E83C108170F4840008B8043 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		7EC22DD51FA7C99000D810DC /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EC22DD61FA7C99700D810DC /* SDK_ProcAmp.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3F57A75326FE9DE9004786EA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Copying Metallib Files to Resource Folder\"\n# echo \"Target Build Dir:\" ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\n# echo \"Metal Library output Dir:\" ${\nmkdir -p ${METAL_LIBRARY_OUTPUT_DIR}/MetalLib\ncp ${DERIVED_FILES_DIR}/64/PTX/Metal/*.metallib ${METAL_LIBRARY_OUTPUT_DIR}/MetalLib/\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E83C0F6170F4840008B8043 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E83C117170F489B008B8043 /* SDK_ProcAmp_CPU.cpp in Sources */,
+				3F57A74326FE89EF004786EA /* SDK_ProcAmp.metal in Sources */,
+				7E83C118170F489B008B8043 /* SDK_ProcAmp_GPU.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7E83C106170F4840008B8043 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E83C107170F4840008B8043 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7E83C10A170F4840008B8043 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers/SP\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+		7E83C10B170F4840008B8043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers/SP\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+				);
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Release;
+		};
+		7E83C10D170F4840008B8043 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SDK_ProcAmp-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers/SP\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+					"\"${DERIVED_FILE_DIR}/64/PreprocessedOpenCL\"",
+					"\"${DERIVED_FILE_DIR}/64/PreprocessedMetal\"",
+				);
+				INFOPLIST_FILE = "SDK_ProcAmp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "MyCompany.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7E83C10E170F4840008B8043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SDK_ProcAmp-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../../../../Headers/,
+					../../../../Utils/,
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Headers/SP\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Util\"",
+					"\"${AE_SDK_BASE_PATH}/Examples/Resources\"",
+					"\"${DERIVED_FILE_DIR}/64/PreprocessedOpenCL\"",
+				);
+				INFOPLIST_FILE = "SDK_ProcAmp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = "MyCompany.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E83C0F4170F4840008B8043 /* Build configuration list for PBXProject "SDK_ProcAmp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E83C10A170F4840008B8043 /* Debug */,
+				7E83C10B170F4840008B8043 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E83C10C170F4840008B8043 /* Build configuration list for PBXNativeTarget "SDK_ProcAmp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E83C10D170F4840008B8043 /* Debug */,
+				7E83C10E170F4840008B8043 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E83C0F1170F4840008B8043 /* Project object */;
+}

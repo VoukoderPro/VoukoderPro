@@ -1,0 +1,1 @@
+To build in Visual Studio, in the Solution Explorer, you will need to provide the correct paths for the 4 files in the AE SDK Utils filter.

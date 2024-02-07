@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\SDK_CrossDissolve_CPU.cpp" />
+    <ClCompile Include="..\SDK_CrossDissolve_GPU.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SDK_CrossDissolve.h" />
+    <ClInclude Include="..\..\Utils\PrGPUFilterModule.h" />
+    <ClInclude Include="..\..\..\..\Headers\PrSDKGPUDeviceSuite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\PrSDKGPUFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\PrSDKGPUImageProcessingSuite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\PrSDKPixelFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Headers\PrSDKAESupport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{98628b71-fa85-470e-88c5-327f0d09b9b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{41791b72-fc7f-4c10-a49a-e2b3e070b5eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\SDK_CrossDissolve.r">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\SDK_CrossDissolve.cu" />
+    <CustomBuild Include="..\SDK_CrossDissolve.cl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\SDK_CrossDissolve.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
