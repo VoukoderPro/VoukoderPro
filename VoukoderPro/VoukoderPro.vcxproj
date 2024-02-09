@@ -206,7 +206,7 @@ copy "$(SolutionDir)3rdparty\$(FFmpegDir)-$(Configuration)\bin\*.dll" "C:\Users\
     <ClInclude Include="types.h" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="VoukoderPro.h" />
-    <ClInclude Include="VoukoderPro_API.h" />
+    <ClInclude Include="voukoderpro_api.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="duktape.c" />

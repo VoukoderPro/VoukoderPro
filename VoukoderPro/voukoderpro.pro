@@ -36,7 +36,7 @@ HEADERS += \
 	System.h \
 	types.h \
 	voukoderpro.h \
-	VoukoderPro_API.h
+	voukoderpro_api.h
 
 LIBS += -lAdvapi32 -lOle32 -lOleAut32
 

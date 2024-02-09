@@ -1,5 +1,7 @@
 #include "Telemetry.h"
 
+#ifdef __WIN32
+
 #include <Windows.h>
 #include <sstream>
 #include <sddl.h>
@@ -184,3 +186,6 @@ namespace VoukoderPro
         return oss.str();
     }
 }
+
+#else
+#endif

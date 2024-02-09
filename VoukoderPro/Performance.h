@@ -28,5 +28,5 @@ struct Performance
 
 private:
 	std::shared_ptr<TimePoint> current = nullptr;
-	std::chrono::steady_clock::time_point offset = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point offset = std::chrono::steady_clock::now();
 };

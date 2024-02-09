@@ -18,7 +18,6 @@ QT_END_NAMESPACE
 
 Q_DECLARE_METATYPE(VoukoderPro::NodeInfo)
 Q_DECLARE_METATYPE(VoukoderPro::SceneInfo)
-Q_DECLARE_METATYPE(VoukoderPro::AssetInfo)
 
 class MainWindow : public QMainWindow
 {

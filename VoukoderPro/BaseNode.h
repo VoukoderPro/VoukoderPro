@@ -9,7 +9,7 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 }
 #include "../PluginInterface/plugin_api.h"
-#include "VoukoderPro_API.h"
+#include "voukoderpro_api.h"
 #include "Logger.h"
 #include "Errors.h"
 #include "Performance.h"

@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ed54c86..20422b8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -154,7 +154,7 @@ target_link_libraries(nodes
+ 
+ target_compile_definitions(nodes
+   PUBLIC
+-    NODE_EDITOR_SHARED
++    NODE_EDITOR_STATIC
+   PRIVATE
+     NODE_EDITOR_EXPORTS
+     #NODE_DEBUG_DRAWING

@@ -365,3 +365,9 @@ FodyWeavers.xsd
 # Qt Creator projects
 /build-Designer-Desktop_Qt_*
 *.autosave
+
+# Ignore CLion files
+*cmake-build-*/
+*.idea/
+# Ignore KDE Dolphin files
+.directory

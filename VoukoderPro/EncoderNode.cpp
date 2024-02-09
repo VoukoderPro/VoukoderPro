@@ -1,7 +1,7 @@
 #include "EncoderNode.h"
 
 extern "C" {
-#include <libavutil/stereo3D.h>
+#include <libavutil/stereo3d.h>
 #include <libavutil/spherical.h>
 #include <libavutil/mastering_display_metadata.h>
 }

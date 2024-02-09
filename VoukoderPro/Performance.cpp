@@ -19,7 +19,7 @@ Performance::Performance(const std::string name):
 Performance& Performance::start(const std::string id)
 {
 	auto child = std::make_shared<TimePoint>(id, current);
-	child->in = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - offset).count();
+	child->in = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - offset).count();
 
 	current->children.push_back(child);
 
@@ -30,7 +30,7 @@ Performance& Performance::start(const std::string id)
 
 Performance& Performance::end()
 {
-	current->out = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - offset).count();
+	current->out = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - offset).count();
 	current = current->parent;
 
 	return *this;

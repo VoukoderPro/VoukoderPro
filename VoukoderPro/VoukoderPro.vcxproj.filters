@@ -27,7 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="VoukoderPro_API.h">
+    <ClInclude Include="voukoderpro_api.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VoukoderPro.h">

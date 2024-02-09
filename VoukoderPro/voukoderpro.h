@@ -4,7 +4,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/dll/alias.hpp>
 #include <boost/filesystem.hpp>
-#include "VoukoderPro_API.h"
+#include "voukoderpro_api.h"
 #include "json.hpp"
 #include "Router.h"
 #include "Logger.h"

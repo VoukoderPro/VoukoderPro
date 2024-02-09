@@ -4,7 +4,7 @@
 #include <QAbstractButton>
 #include <QTreeWidgetItem>
 #include "../VoukoderPro/types.h"
-#include "qtvariantproperty.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
 #include <json.hpp>
 
 Q_DECLARE_METATYPE(VoukoderPro::AssetInfo)
