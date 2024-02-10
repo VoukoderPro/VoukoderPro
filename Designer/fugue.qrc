@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/fugue">
+        <file alias="document-save">resource/fugue-icons/disk-black.png</file>
+        <file alias="document-new">resource/fugue-icons/document--plus.png</file>
+        <file alias="document-open">resource/fugue-icons/folder-open-document.png</file>
+        <file alias="document">resource/fugue-icons/document.png</file>
+        <file alias="scene-center">resource/fugue-icons/application-resize-actual.png</file>
+        <file alias="document-minus">resource/fugue-icons/document--minus.png</file>
+        <file alias="node">resource/fugue-icons/node.png</file>
+        <file alias="node-delete">resource/fugue-icons/node-delete.png</file>
+        <file alias="node-design">resource/fugue-icons/node-design.png</file>
+        <file alias="properties">resource/fugue-icons/property.png</file>
+        <file alias="control">resource/fugue-icons/control.png</file>
+        <file alias="document-save-as">resource/fugue-icons/disk.png</file>
+        <file alias="refresh">resource/fugue-icons/bin.png</file>
+        <file alias="news">resource/fugue-icons/newspaper.png</file>
+        <file alias="news-new">resource/fugue-icons/newspaper-new.png</file>
+    </qresource>
+</RCC>
