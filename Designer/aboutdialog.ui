@@ -84,7 +84,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </widget>
      <widget class="QWidget" name="license">
       <attribute name="title">
-       <string>EULA</string>
+       <string>License</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>

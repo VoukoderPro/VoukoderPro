@@ -110,8 +110,8 @@ INCLUDEPATH += ../3rdparty/nodeeditor-v2/include
 DEPENDPATH += ../3rdparty/nodeeditor-v2/include
 
 RESOURCES += \
-    ../fugue.qrc \
-    designer.qrc
+    designer.qrc \
+    resource/fugue.qrc
 
 # Sign the target
 win32:CONFIG(release, debug|release): QMAKE_POST_LINK += signtool.exe sign /f \"C:\Users\daniel\OneDrive - Voukoder\Business\Zertifikate\daniel_stankewitz_nopass.pfx\" /fd SHA256  /tr http://ts.ssl.com /td sha256 /v $$shell_quote($$OUT_PWD/release/$$TARGET).exe
