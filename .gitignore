@@ -371,3 +371,5 @@ FodyWeavers.xsd
 *.idea/
 # Ignore KDE Dolphin files
 .directory
+# Built packages
+vcpkg_installed
