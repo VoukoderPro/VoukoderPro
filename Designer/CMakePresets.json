@@ -13,6 +13,10 @@
       "binaryDir": "${sourceDir}/builds/${presetName}",
       "generator": "Ninja Multi-Config",
       "environment": {
+
+      },
+      "cacheVariables": {
+        "onGitHubActions": "TRUE"
       }
     }
   ],

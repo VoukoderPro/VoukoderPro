@@ -1,4 +1,10 @@
 cmake_minimum_required(VERSION 3.27)
+
+if(onGitHubActions)
+    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(VCPKG_INSTALL_OPTIONS "--x-buildtrees-root=D:/v/")
+endif ()
+
 project(x264_encoder_plugin_cmake LANGUAGES CXX)
 
 include(FetchContent)
@@ -7,10 +13,8 @@ set(PLUGIN_NAME "voukoder_pro")
 
 set(CMAKE_CXX_STANDARD 23)
 
-find_package(PkgConfig REQUIRED)
-
 find_package(Boost REQUIRED COMPONENTS filesystem)
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network UiTools)
+#find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network UiTools)
 
 
 
@@ -40,7 +44,8 @@ add_library(helloworld
 
 
 target_include_directories(helloworld PUBLIC
-        ${PROJECT_SOURCE_DIR}/../3rdparty/infoware/include)
+        ${PROJECT_SOURCE_DIR}/../3rdparty/infoware/include
+        ${Boost_INCLUDE_DIRS})
 
 target_link_directories(helloworld PUBLIC
         ${PROJECT_SOURCE_DIR}/../3rdparty/infoware/lib)

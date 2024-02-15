@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.27)
+
+if(onGitHubActions)
+    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(VCPKG_INSTALL_OPTIONS "--x-buildtrees-root=D:/v/")
+endif ()
+
 project(VoukoderDesigner LANGUAGES CXX)
 
 include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 23)
-
-find_package(PkgConfig REQUIRED)
 
 find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network UiTools)
@@ -44,7 +48,7 @@ target_link_libraries(PropertyBrowser PRIVATE Qt6::Core Qt6::Widgets)
 set(PatchNE2Cmake git apply ${CMAKE_CURRENT_SOURCE_DIR}/BuildNodeEditor2.patch)
 FetchContent_Declare(
         NodeEditor2
-        GIT_REPOSITORY git@github.com:paceholder/nodeeditor.git
+        GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
         GIT_TAG 2.2.4
         PATCH_COMMAND ${PatchNE2Cmake}
 )
