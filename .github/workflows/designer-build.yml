@@ -1,0 +1,67 @@
+# Copyright (c) 2021-2022-2023 Luca Cappa
+# Released under the term specified in file LICENSE.txt
+# SPDX short identifier: MIT
+
+name: Designer-Build
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows-latest:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - uses: lukka/get-cmake@latest
+
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgJsonGlob: 'vcpkg.json'
+
+      - name: Run CMake+vcpkg+Ninja to build packages and generate/build/test the code.
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: "${{ github.workspace }}/Designer/CMakeLists.txt"
+          configurePreset: 'ninja-multiconfiguration-vcpkg'
+          buildPreset: 'ninja-multiconfiguration-vcpkg'
+          buildPresetAdditionalArgs: "[`--config`, `Release`]"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VoukoderDesigner-Windows
+          path: "${{ github.workspace }}/Designer/builds/ninja-multiconfiguration-vcpkg/Release/VoukoderDesigner.exe"
+
+  ubuntu-latest:
+    runs-on: ubuntu-latest
+    container: ubuntu:noble
+    steps:
+      - name: Update
+        run: apt update
+
+      - name: Upgrade
+        run: apt upgrade -y
+
+      - name: Install Deps
+        run: apt-get install -y qt6-base-dev qt6-base-dev-tools qt6-tools-dev libboost-all-dev cmake ninja-build libgl1-mesa-dev build-essential git pkg-config
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Generate project files
+        run: |
+          cmake --preset linux-ci "$GITHUB_WORKSPACE/Designer/"
+
+      - name: Build (Release configuration)
+        run: |
+          cmake --build --preset linux-ci --config Release
+        working-directory: "/__w/VoukoderPro/VoukoderPro/Designer/"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VoukoderDesigner-Linux
+          path: "/__w/VoukoderPro/VoukoderPro/Designer/builds/linux-ci/Release/VoukoderDesigner"
