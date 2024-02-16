@@ -34,7 +34,7 @@ jobs:
     # VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }} 
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
 
@@ -52,3 +52,8 @@ jobs:
           configurePreset: 'ninja-multiconfiguration-vcpkg'
           buildPreset: 'ninja-multiconfiguration-vcpkg'
           buildPresetAdditionalArgs: "[`--config`, `Release`]"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VoukoderDesigner
+          path: "${{ github.workspace }}/Designer/builds/ninja-multiconfiguration-vcpkg/Release/VoukoderDesigner.exe"
