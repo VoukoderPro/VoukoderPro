@@ -25,12 +25,6 @@
 #include "../3rdparty/nlohmann/include/json-schema.hpp"
 #include "json-root-schema.h"
 
-#if _DEBUG
-#pragma comment(lib, "../3rdparty/nlohmann/lib/nlohmann_json_schema_validatord.lib")
-#else
-#pragma comment(lib, "../3rdparty/nlohmann/lib/nlohmann_json_schema_validator.lib")
-#endif
-
 namespace VoukoderPro
 {
 	/**

@@ -5,20 +5,12 @@ if(onGitHubActions)
     set(VCPKG_INSTALL_OPTIONS "--x-buildtrees-root=D:/v/")
 endif ()
 
-project(x264_encoder_plugin_cmake LANGUAGES CXX)
-
-include(FetchContent)
-
-set(PLUGIN_NAME "voukoder_pro")
+project(voukoder_pro_dll LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 
 find_package(Boost REQUIRED COMPONENTS filesystem)
-#find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network UiTools)
-
-
-
-#pkg_check_modules(X264 REQUIRED x264)
+find_package(infoware REQUIRED)
 
 set(SRCS
         Assets.cpp
@@ -36,48 +28,22 @@ set(SRCS
         Telemetry.cpp
         voukoderpro.cpp)
 
-
-add_library(helloworld
+add_library(voukoderpro
         SHARED
         ${SRCS}
 )
 
-
-target_include_directories(helloworld PUBLIC
-        ${PROJECT_SOURCE_DIR}/../3rdparty/infoware/include
+target_include_directories(voukoderpro PUBLIC
         ${Boost_INCLUDE_DIRS})
 
-target_link_directories(helloworld PUBLIC
-        ${PROJECT_SOURCE_DIR}/../3rdparty/infoware/lib)
+IF(WIN32)
+    target_include_directories(voukoderpro PUBLIC
+            ${PROJECT_SOURCE_DIR}/../3rdparty/ffmpeg-6.1-release/include)
+    target_link_directories(voukoderpro PUBLIC
+            ${PROJECT_SOURCE_DIR}/../3rdparty/ffmpeg-6.1-release/lib)
+    target_link_libraries(voukoderpro PUBLIC avformat-voukoderpro infoware ${Boost_LIBRARIES})
+ELSE ()
+    target_link_libraries(voukoderpro PUBLIC avformat infoware ${Boost_LIBRARIES})
+ENDIF ()
 
-target_link_libraries(helloworld PUBLIC infoware avformat)
-#
-#target_link_libraries(Foo PRIVATE Qt6::Core Qt6::Gui Qt6::Network Qt6::Widgets Qt6::UiTools)
-#
-#target_link_libraries(helloworld PRIVATE Qt6::Core Qt6::Gui Qt6::Network Qt6::Widgets Qt6::UiTools Foo ${Boost_LIBRARIES})
-
-#if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
-#    add_compile_options(-fvisibility=hidden)
-#endif ()
-
-#include_directories(${Boost_INCLUDE_DIRS})
-#
-#target_link_libraries(IOPlugin PRIVATE ${Boost_LIBRARIES})
-#
-#if((${CMAKE_SYSTEM_NAME} STREQUAL "Windows" OR ${CMAKE_SYSTEM_NAME} EQUAL "MSYS") AND ${CMAKE_SIZEOF_VOID_P} EQUAL 8)
-#    set(DR_ARCH "Win64")
-#elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-#    set(DR_ARCH "MacOS")
-#elseif(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-#    set(DR_ARCH "Linux-x86-64")
-#else()
-#    message(FATAL_ERROR "Unsupported target platform.")
-#endif()
-#
-#set_target_properties(IOPlugin
-#        PROPERTIES
-#        PREFIX ""
-#        OUTPUT_NAME ${PLUGIN_NAME}
-#        SUFFIX ".dvcp"
-#        LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${PLUGIN_NAME}.dvcp.bundle/Contents/${DR_ARCH}"
-#)
+set_target_properties(voukoderpro PROPERTIES PREFIX "")

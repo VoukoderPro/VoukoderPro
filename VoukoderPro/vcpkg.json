@@ -1,0 +1,16 @@
+{
+  "dependencies": [
+    "infoware",
+    "boost-describe",
+    "boost-dll",
+    "boost-date-time",
+    "boost-url",
+    "boost-property-tree",
+    "boost-compute",
+    "boost-system",
+    "boost-algorithm",
+    "boost-log",
+    "boost-process",
+    "boost-iostreams"
+  ]
+}

@@ -22,9 +22,6 @@ extern "C" {
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Wldap32.lib")
 #pragma comment(lib, "Normaliz.lib")
-#pragma comment(lib, "../3rdparty/openssl-3.1.2/lib/libcrypto.lib")
-#pragma comment(lib, "../3rdparty/openssl-3.1.2/lib/libssl.lib")
-#pragma comment(lib, "../3rdparty/curl-8.2.1/lib/libcurl_a.lib")
 
 /* Instructions
 * 

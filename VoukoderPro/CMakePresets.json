@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "ninja-multiconfiguration-vcpkg",
+      "displayName": "Ninja Multi-Config",
+      "description": "Configure with vcpkg toolchain and generate Ninja project files for all configurations",
+      "binaryDir": "${sourceDir}/builds/${presetName}",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "onGitHubActions": "TRUE"
+      }
+    },
+    {
+      "name": "linux-ci",
+      "displayName": "Linux CI",
+      "description": "Use system provided packages",
+      "binaryDir": "${sourceDir}/builds/${presetName}",
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "onGitHubActions": "FALSE"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ninja-multiconfiguration-vcpkg",
+      "configurePreset": "ninja-multiconfiguration-vcpkg",
+      "displayName": "Build ninja-multiconfiguration-vcpkg",
+      "description": "Build with Ninja the configuration specified with --config"
+    },
+    {
+      "name": "linux-ci",
+      "configurePreset": "linux-ci",
+      "displayName": "Build linux-ci",
+      "description": "Build on Linux CI"
+    }
+  ]
+}

@@ -12,11 +12,6 @@
 #pragma comment(lib, "version.lib")
 #pragma comment(lib, "ntdll.lib")
 #pragma comment(lib, "wbemuuid.lib")
-#if _DEBUG
-#pragma comment(lib, "../3rdparty/infoware/lib/infowared.lib")
-#else
-#pragma comment(lib, "../3rdparty/infoware/lib/infoware.lib")
-#endif
 #pragma comment(lib, "DXGI.lib")
 
 static const char* cache_type_name(iware::cpu::cache_type_t cache_type) noexcept {
