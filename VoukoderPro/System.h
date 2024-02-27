@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../3rdparty/infoware/include/infoware/cpu.hpp"
-#include "../3rdparty/infoware/include/infoware/gpu.hpp"
-#include "../3rdparty/infoware/include/infoware/system.hpp"
-#include "../3rdparty/infoware/include/infoware/version.hpp"
+#include "infoware/cpu.hpp"
+#include "infoware/gpu.hpp"
+#include "infoware/system.hpp"
+#include "infoware/version.hpp"
 #include "json.hpp"
 #include <iostream>
 #include <utility>

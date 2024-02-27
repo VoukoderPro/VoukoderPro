@@ -63,8 +63,6 @@ jobs:
           cmake --build --preset linux-ci --config Release
         working-directory: "/__w/VoukoderPro/VoukoderPro/VoukoderPro/"
 
-      - run: ls "/__w/VoukoderPro/VoukoderPro/VoukoderPro/builds/linux-ci/Release/"
-
       - uses: actions/upload-artifact@v4
         with:
           name: VoukoderDLL-Linux

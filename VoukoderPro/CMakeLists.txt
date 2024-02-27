@@ -7,10 +7,21 @@ endif ()
 
 project(voukoder_pro_dll LANGUAGES CXX)
 
+include(FetchContent)
+
 set(CMAKE_CXX_STANDARD 23)
 
 find_package(Boost REQUIRED COMPONENTS filesystem)
-find_package(infoware REQUIRED)
+
+# infoware
+FetchContent_Declare(
+        GetInfoware
+        GIT_REPOSITORY https://github.com/ThePhD/infoware.git
+        GIT_TAG v0.6.0
+)
+FetchContent_MakeAvailable(GetInfoware)
+
+set_target_properties(infoware PROPERTIES POSITION_INDEPENDENT_CODE True)
 
 set(SRCS
         Assets.cpp
