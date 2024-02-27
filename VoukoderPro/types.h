@@ -12,7 +12,7 @@
 #include <boost/describe/enum.hpp>
 #include <boost/container_hash/hash.hpp>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include "Errors.h"
 
 namespace VoukoderPro

@@ -4,7 +4,7 @@
 #include "infoware/gpu.hpp"
 #include "infoware/system.hpp"
 #include "infoware/version.hpp"
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include <iostream>
 #include <utility>
 #include <sstream>

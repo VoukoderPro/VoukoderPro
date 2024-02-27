@@ -2,7 +2,7 @@
 
 #include <set>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include "ffmpeg.h"
 #include "InputNode.h"
 #include "SceneManager.h"

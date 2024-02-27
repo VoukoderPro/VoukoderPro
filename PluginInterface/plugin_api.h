@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../VoukoderPro/voukoderpro_api.h"
-#include "../VoukoderPro/json.hpp"
+#include "nlohmann/json.hpp"
 
 #include <stdexcept>
 #include <algorithm>

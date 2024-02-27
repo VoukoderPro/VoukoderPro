@@ -6,7 +6,7 @@
 #include <boost/describe/enumerators.hpp>
 #include <boost/describe/enum_to_string.hpp>
 #include <boost/describe/enum_from_string.hpp>
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 
 namespace fs = boost::filesystem;
 

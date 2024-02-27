@@ -5,7 +5,7 @@
 #include <boost/dll/alias.hpp>
 #include <boost/filesystem.hpp>
 #include "voukoderpro_api.h"
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include "Router.h"
 #include "Logger.h"
 #include "Assets.h"

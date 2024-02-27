@@ -13,6 +13,14 @@ set(CMAKE_CXX_STANDARD 23)
 
 find_package(Boost REQUIRED COMPONENTS filesystem)
 
+# json schema validator
+FetchContent_Declare(
+        GetJsonValidator
+        GIT_REPOSITORY https://github.com/pboettch/json-schema-validator.git
+        GIT_TAG 2.3.0
+)
+FetchContent_MakeAvailable(GetJsonValidator)
+
 # infoware
 FetchContent_Declare(
         GetInfoware
@@ -22,7 +30,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(GetInfoware)
 
 set_target_properties(infoware PROPERTIES POSITION_INDEPENDENT_CODE True)
-
+set_target_properties(nlohmann_json_schema_validator PROPERTIES POSITION_INDEPENDENT_CODE True)
 
 set(SRCS
         Assets.cpp
@@ -55,7 +63,7 @@ IF(WIN32)
             ${PROJECT_SOURCE_DIR}/../3rdparty/ffmpeg-6.1-release/lib)
     target_link_libraries(voukoderpro PUBLIC avformat-voukoderpro infoware ${Boost_LIBRARIES})
 ELSE ()
-    target_link_libraries(voukoderpro PUBLIC avformat infoware ${Boost_LIBRARIES})
+    target_link_libraries(voukoderpro PUBLIC avformat infoware ${Boost_LIBRARIES} nlohmann_json_schema_validator)
 ENDIF ()
 
 set_target_properties(voukoderpro PROPERTIES PREFIX "")

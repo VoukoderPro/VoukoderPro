@@ -48,7 +48,7 @@ jobs:
         run: apt upgrade -y
 
       - name: Install Deps
-        run: apt-get install -y cmake ninja-build build-essential git libboost-all-dev pkg-config ffmpeg libavfilter-dev duktape-dev duktape
+        run: apt-get install -y cmake ninja-build build-essential git libboost-all-dev pkg-config ffmpeg libavfilter-dev duktape-dev duktape nlohmann-json3-dev
 
       - uses: actions/checkout@v4
         with:

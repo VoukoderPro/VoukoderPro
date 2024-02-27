@@ -10,7 +10,7 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include "System.h"
 #include "Telemetry.h"
 #include "Version.h"

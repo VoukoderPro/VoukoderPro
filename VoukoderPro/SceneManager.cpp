@@ -21,8 +21,8 @@
 #include "OutputNode.h"
 #include "PostProcNode.h"
 
-#include "../3rdparty/nlohmann/include/json.hpp"
-#include "../3rdparty/nlohmann/include/json-schema.hpp"
+#include "nlohmann/json.hpp"
+#include "nlohmann/json-schema.hpp"
 #include "json-root-schema.h"
 
 namespace VoukoderPro
