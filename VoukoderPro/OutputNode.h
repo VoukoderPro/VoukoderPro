@@ -2,7 +2,7 @@
 
 #include "BaseNode.h"
 #include "EncoderNode.h"
-#include "../3rdparty/duktape-2.7.0/dist/duktape.h"
+#include "duktape.h"
 
 namespace VoukoderPro
 {

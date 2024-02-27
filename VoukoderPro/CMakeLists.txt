@@ -23,6 +23,7 @@ FetchContent_MakeAvailable(GetInfoware)
 
 set_target_properties(infoware PROPERTIES POSITION_INDEPENDENT_CODE True)
 
+
 set(SRCS
         Assets.cpp
         EncoderNode.cpp
