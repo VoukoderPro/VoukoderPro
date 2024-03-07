@@ -14,6 +14,7 @@ namespace VoukoderPro
         registerMP2();
         registerMP3();
         registerMP4();
+        registerMPEG2Video();
         registerWAV();
         registerWavpack();
         registerWEBM();
@@ -584,6 +585,23 @@ namespace VoukoderPro
         const AVOutputFormat* format = av_guess_format(info.id.c_str(), NULL, NULL);
         if (format)
             createFFmpegParameters(info, format->priv_class);
+
+        registerAsset(info);
+    }
+
+    void FFmpegMuxerPlugin::registerMPEG2Video()
+    {
+        AssetInfo info;
+        info.id = "mpeg2video";
+        info.name = "MPEG-2";
+        info.category = std::make_pair("ffmpeg", "FFmpeg");
+        info.description = "MPEG-2 Video";
+        info.type = NodeInfoType::muxer;
+        info.mediaType = MediaType::mux;
+        info.helpUrl = "https://ffmpeg.org/ffmpeg-formats.html#" + info.id;
+        info.allowedInputGroups = {
+            AV_CODEC_ID_MPEG2VIDEO
+        };
 
         registerAsset(info);
     }

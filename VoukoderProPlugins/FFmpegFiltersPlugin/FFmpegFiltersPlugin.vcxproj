@@ -140,8 +140,8 @@
       <EnableUAC>false</EnableUAC>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir "$(VOUKODERPRO_DEBUG_HOME)\plugins"
-copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(VOUKODERPRO_DEBUG_HOME)\plugins\"</Command>
+      <Command>mkdir "$(VOUKODERPRO_DEBUG_HOME)\assets"
+copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(VOUKODERPRO_DEBUG_HOME)\assets\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

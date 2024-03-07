@@ -61,6 +61,7 @@ namespace VoukoderPro
         registerFLAC();
         registerFLV1();
         registerMP2();
+        registerMPEG2Video();
         registerTrueHD();
         registerPCM16le();
         registerPCM24le();
@@ -986,6 +987,28 @@ namespace VoukoderPro
             .option("320 kbit/s", 320000)
             .option("384 kbit/s", 384000)
             .defaultValue(128000);
+
+        return registerAsset(info);
+    }
+
+    int FFmpegEncodersPlugin::registerMPEG2Video()
+    {
+        AssetInfo info;
+        info.id = "mpeg2video";
+        info.name = "MPEG-2 Video";
+        info.category = std::make_pair("ffmpeg", "FFmpeg");
+        info.description = "FFmpegs built-in MPEG-2 video encoder";
+        info.type = NodeInfoType::encoder;
+        info.mediaType = MediaType::video;
+        info.helpUrl = "https://ffmpeg.org/ffmpeg-codecs.html#" + info.id;
+
+        info.format("YUV 420", "yuv420p")
+            .format("YUV 422", "yuv422p");
+
+        // Find encoder by name
+        const AVCodec* codec = avcodec_find_encoder_by_name(info.id.c_str());
+        if (codec)
+            createFFmpegParameters(info, codec->priv_class);
 
         return registerAsset(info);
     }

@@ -32,6 +32,7 @@ namespace VoukoderPro
 		int registerVP9();
 		int registerHAP();
 		int registerMP2();
+		int registerMPEG2Video();
 		int registerPCM16le();
 		int registerPCM24le();
 		int registerPCM32le();

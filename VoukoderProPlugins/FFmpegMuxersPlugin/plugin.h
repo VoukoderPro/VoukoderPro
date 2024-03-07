@@ -28,6 +28,7 @@ namespace VoukoderPro
 		void registerMP2();
 		void registerMP3();
 		void registerMP4();
+		void registerMPEG2Video();
 		void registerWEBM();
 		void registerWAV();
 		void registerWavpack();

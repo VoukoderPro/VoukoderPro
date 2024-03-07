@@ -259,6 +259,11 @@ StatusCode VideoCodec::s_RegisterCodecs(HostListRef* p_pList,
     //uval = 1;
     //codecInfo.SetProperty(pIOPropHasAlpha, propTypeUInt8, &uval, 1);
 
+    std::vector<uint8_t> dataRangeVec;
+    dataRangeVec.push_back(0);
+    dataRangeVec.push_back(1);
+    codecInfo.SetProperty(pIOPropDataRange, propTypeUInt8, dataRangeVec.data(), dataRangeVec.size());
+
     const uint32_t temp = 0;
     codecInfo.SetProperty(pIOPropTemporalReordering, propTypeUInt32, &temp, 1);
 
