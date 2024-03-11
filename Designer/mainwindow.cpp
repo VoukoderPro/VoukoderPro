@@ -6,12 +6,11 @@
 #include "ui_mainwindow.h"
 #include "aboutdialog.h"
 #include "preferencesdialog.h"
-#include "testrundialog.h"
 #include "sceneopendialog.h"
 #include "scenesavedialog.h"
 #include "preferences.h"
 #include "newsdialog.h"
-#include "performancetestdialog.h"
+#include "components/Test/performancetestdialog.h"
 #include "../VoukoderPro/Version.h"
 
 #include <QTimer>
@@ -695,7 +694,6 @@ SceneEditorScene* MainWindow::addSceneTab(std::shared_ptr<VoukoderPro::SceneInfo
     ui->actionNodeOutput->setEnabled(true);
     ui->menuView->setEnabled(true);
     ui->actionViewCenter->setEnabled(true);
-    ui->actionToolsTest_scene->setEnabled(true);
     ui->actionToolsPerformance_Test->setEnabled(true);
 
     connect(scene, &QtNodes::FlowScene::selectionChanged, this, &MainWindow::on_sceneSelectionChanged);
@@ -852,7 +850,6 @@ void MainWindow::closeScene(int index)
             ui->actionNodeOutput->setEnabled(false);
             ui->menuView->setEnabled(false);
             ui->actionViewCenter->setEnabled(false);
-            ui->actionToolsTest_scene->setEnabled(false);
             ui->actionToolsPerformance_Test->setEnabled(false);
         }
     };
@@ -871,18 +868,6 @@ void MainWindow::closeScene(int index)
     }
     else
         closeSceneInternal();
-}
-
-void MainWindow::on_actionToolsTest_scene_triggered()
-{
-    SceneEditorView* view = currentSceneView();
-    if (view)
-    {
-        SceneEditorScene* scene = view->editorScene();
-
-        TestRunDialog dialog(vkdrPro, scene->sceneInfo());
-        dialog.exec();
-    }
 }
 
 void MainWindow::on_scenes_currentChanged(int index)

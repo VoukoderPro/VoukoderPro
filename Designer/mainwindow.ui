@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1421</width>
-    <height>723</height>
+    <width>960</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1421</width>
+     <width>960</width>
      <height>22</height>
     </rect>
    </property>
@@ -100,8 +100,6 @@
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionToolsTest_scene"/>
     <addaction name="actionToolsPerformance_Test"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
@@ -221,6 +219,9 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="allowedAreas">
+    <set>Qt::AllToolBarAreas</set>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -228,10 +229,11 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionWindowNews"/>
+   <addaction name="actionToolsPerformance_Test"/>
   </widget>
   <action name="actionSceneNewEmpty">
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/document</normaloff>:/fugue/document</iconset>
    </property>
    <property name="text">
@@ -248,7 +250,7 @@
   </action>
   <action name="actionSceneOpen">
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/document-open</normaloff>:/fugue/document-open</iconset>
    </property>
    <property name="text">
@@ -266,7 +268,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/document-save</normaloff>:/fugue/document-save</iconset>
    </property>
    <property name="text">
@@ -284,7 +286,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/document-save-as</normaloff>:/fugue/document-save-as</iconset>
    </property>
    <property name="text">
@@ -302,7 +304,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/document-minus</normaloff>:/fugue/document-minus</iconset>
    </property>
    <property name="text">
@@ -344,7 +346,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/scene-center</normaloff>:/fugue/scene-center</iconset>
    </property>
    <property name="text">
@@ -471,7 +473,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/node-delete</normaloff>:/fugue/node-delete</iconset>
    </property>
    <property name="text">
@@ -489,7 +491,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/node-design</normaloff>:/fugue/node-design</iconset>
    </property>
    <property name="text">
@@ -502,24 +504,6 @@
   <action name="actionHelpAbout">
    <property name="text">
     <string>About ...</string>
-   </property>
-  </action>
-  <action name="actionToolsTest_scene">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../fugue.qrc">
-     <normaloff>:/fugue/control</normaloff>:/fugue/control</iconset>
-   </property>
-   <property name="text">
-    <string>Test scene ...</string>
-   </property>
-   <property name="shortcut">
-    <string>F10</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
    </property>
   </action>
   <action name="actionPreferences">
@@ -542,7 +526,7 @@
   </action>
   <action name="actionWindowNews">
    <property name="icon">
-    <iconset resource="../fugue.qrc">
+    <iconset resource="fugue.qrc">
      <normaloff>:/fugue/news</normaloff>:/fugue/news</iconset>
    </property>
    <property name="text">
@@ -556,17 +540,29 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="fugue.qrc">
+     <normaloff>:/fugue/control</normaloff>:/fugue/control</iconset>
+   </property>
    <property name="text">
     <string>Performance Test ...</string>
    </property>
    <property name="visible">
-    <bool>false</bool>
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSupport">
+   <property name="text">
+    <string>Support!</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>
  <resources>
   <include location="designer.qrc"/>
-  <include location="../fugue.qrc"/>
+  <include location="fugue.qrc"/>
  </resources>
  <connections/>
 </ui>

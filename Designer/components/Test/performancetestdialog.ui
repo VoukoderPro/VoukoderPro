@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Scene Test</string>
+   <string>Perform Scene Test</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -19,75 +19,6 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>General</string>
-      </attribute>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>150</width>
-         <height>58</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Test Config</string>
-       </property>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Frame count</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="framesSpinBox">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>999999</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QPushButton" name="importTracksButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>190</y>
-         <width>75</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Import ...</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="exportTracksButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>210</x>
-         <y>190</y>
-         <width>75</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Export ...</string>
-       </property>
-      </widget>
-     </widget>
      <widget class="QWidget" name="video">
       <attribute name="title">
        <string>Video Tracks</string>
@@ -169,14 +100,14 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="addTrackButton">
+           <widget class="QPushButton" name="addVTrackButton">
             <property name="text">
              <string>Add ...</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="editTrackButton">
+           <widget class="QPushButton" name="editVTrackButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -186,7 +117,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="deleteTrackButton">
+           <widget class="QPushButton" name="deleteVTrackButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -256,14 +187,14 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="addTrackButton_3">
+           <widget class="QPushButton" name="addATrackButton">
             <property name="text">
              <string>Add ...</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="editTrackButton_3">
+           <widget class="QPushButton" name="editATrackButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -273,7 +204,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="deleteTrackButton_3">
+           <widget class="QPushButton" name="deleteATrackButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -317,6 +248,26 @@
       <property name="bottomMargin">
        <number>9</number>
       </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Frames / Iterations</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="frames">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>999999</number>
+        </property>
+        <property name="stepType">
+         <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">

@@ -58,7 +58,6 @@ private slots:
     void on_menuNode_aboutToHide();
     void on_actionHelpAbout_triggered();
     void on_scenes_tabCloseRequested(int index);
-    void on_actionToolsTest_scene_triggered();
     void on_actionPreferences_triggered();
     void on_scenes_currentChanged(int index);
     void on_actionNodePostProc_triggered();

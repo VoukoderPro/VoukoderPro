@@ -32,16 +32,18 @@ SOURCES += \
     components/SceneEditor/nodes/ui/propertiesdialog.cpp \
     components/SceneEditor/sceneeditorscene.cpp \
     components/SceneEditor/sceneeditorview.cpp \
+    components/Test/addeditvideotrackdialog.cpp \
+    components/Test/addeditaudiotrackdialog.cpp \
+    components/Test/scenetestdialog.cpp \
     main.cpp \
     mainwindow.cpp \
     newsdialog.cpp \
-    performancetestdialog.cpp \
+    components/Test/performancetestdialog.cpp \
     preferences.cpp \
     preferencesdialog.cpp \
     sceneopendialog.cpp \
     scenesavedialog.cpp \
-    sceneselectdialog.cpp \
-    testrundialog.cpp
+    sceneselectdialog.cpp
 
 HEADERS += \
     aboutdialog.h \
@@ -62,28 +64,32 @@ HEADERS += \
     components/SceneEditor/nodes/ui/propertiesdialog.h \
     components/SceneEditor/sceneeditorscene.h \
     components/SceneEditor/sceneeditorview.h \
+    components/Test/addeditvideotrackdialog.h \
+    components/Test/addeditaudiotrackdialog.h \
+    components/Test/scenetestdialog.h \
     mainwindow.h \
     newsdialog.h \
-    performancetestdialog.h \
+    components/Test/performancetestdialog.h \
     preferences.h \
     preferencesdialog.h \
     sceneopendialog.h \
     scenesavedialog.h \
-    sceneselectdialog.h \
-    testrundialog.h
+    sceneselectdialog.h
 
 FORMS += \
     aboutdialog.ui \
     components/SceneEditor/nodes/ui/inputpropertiesdialog.ui \
     components/SceneEditor/nodes/ui/propertiesdialog.ui \
+    components/Test/addeditvideotrackdialog.ui \
+    components/Test/addeditaudiotrackdialog.ui \
+    components/Test/scenetestdialog.ui \
     mainwindow.ui \
     newsdialog.ui \
-    performancetestdialog.ui \
+    components/Test/performancetestdialog.ui \
     preferencesdialog.ui \
     sceneopendialog.ui \
     scenesavedialog.ui \
-    sceneselectdialog.ui \
-    testrundialog.ui
+    sceneselectdialog.ui
 
 TRANSLATIONS += \
     Designer_en_US.ts
