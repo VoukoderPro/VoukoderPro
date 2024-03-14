@@ -11,6 +11,7 @@
 #include "preferences.h"
 #include "newsdialog.h"
 #include "components/Test/performancetestdialog.h"
+#include "supportdialog.h"
 #include "../VoukoderPro/Version.h"
 
 #include <QTimer>
@@ -904,3 +905,10 @@ void MainWindow::onNewsUpdate(bool unreadNews)
 {
     ui->actionWindowNews->setIcon(QIcon(unreadNews ? ":/fugue/news-new" : ":/fugue/news"));
 }
+
+void MainWindow::on_actionHelpSupport_triggered()
+{
+    SupportDialog dialog;
+    dialog.exec();
+}
+

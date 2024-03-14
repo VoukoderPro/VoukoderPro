@@ -64,9 +64,8 @@ private slots:
     void on_actionSceneNewFilter_triggered();
     void on_actionWindowNews_triggered();
     void on_actionToolsPerformance_Test_triggered();
-
-private slots:
     void onNewsUpdate(bool news);
+    void on_actionHelpSupport_triggered();
 
 private:
     void closeScene(int index);

@@ -43,7 +43,8 @@ SOURCES += \
     preferencesdialog.cpp \
     sceneopendialog.cpp \
     scenesavedialog.cpp \
-    sceneselectdialog.cpp
+    sceneselectdialog.cpp \
+    supportdialog.cpp
 
 HEADERS += \
     aboutdialog.h \
@@ -74,7 +75,8 @@ HEADERS += \
     preferencesdialog.h \
     sceneopendialog.h \
     scenesavedialog.h \
-    sceneselectdialog.h
+    sceneselectdialog.h \
+    supportdialog.h
 
 FORMS += \
     aboutdialog.ui \
@@ -89,7 +91,8 @@ FORMS += \
     preferencesdialog.ui \
     sceneopendialog.ui \
     scenesavedialog.ui \
-    sceneselectdialog.ui
+    sceneselectdialog.ui \
+    supportdialog.ui
 
 TRANSLATIONS += \
     Designer_en_US.ts

@@ -3,5 +3,9 @@
         <file alias="logo512">resource/voukoder_logo_512.png</file>
         <file alias="logo_512">resource/voukoder_512.png</file>
         <file>resource/voukoder_logo.png</file>
+        <file alias="paypal">resource/de-pp-logo-150px.png</file>
+        <file alias="patreon">resource/patreon.png</file>
+        <file alias="wiretransfer">resource/wiretransfer.png</file>
+        <file alias="logo_16">resource/voukoder_logo_16.png</file>
     </qresource>
 </RCC>
