@@ -12,6 +12,7 @@
 #define VPRO_DEFAULT_POSTPROC "/defaults/postproc"
 #define VPRO_PROPERTIES_TECHNAMES "/properties/techNames"
 #define VPRO_NEWS_LASTREAD "/news/lastRead"
+#define VPRO_TEST_CONFIG "/test/config/0"
 
 class Preferences
 {

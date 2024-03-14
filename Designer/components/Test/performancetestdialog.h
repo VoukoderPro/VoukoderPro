@@ -30,16 +30,19 @@ private slots:
     void on_audioTracksWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_tabVideo_currentChanged(int index);
     void on_startButton_clicked();
+    void on_frames_editingFinished();
 
 private:
-    QTreeWidgetItem* addVideoTrack(QTreeWidget* obj, const int width, const int height, const int timebaseNum, const int timebaseDen, const int aspectNum, const int aspectDen, const std::string fieldOrder, const std::string format, const std::string colorRange, const std::string colorSpace, const std::string colorPrimaries, const std::string colorTransfer, const std::string timecode, const std::string language);
+    QTreeWidgetItem* addVideoTrack(QTreeWidget* obj, const int width, const int height, const int timebaseNum, const int timebaseDen, const int aspectNum, const int aspectDen, const std::string fieldOrder, const std::string format, const std::string colorRange, const std::string colorSpace, const std::string colorPrimaries, const std::string colorTransfer);
     QTreeWidgetItem* addAudioTrack(QTreeWidget* obj, const std::string channelLayout, const int sampligRate, const std::string format);
+    void load();
+    void save();
+    void validate();
 
 private:
     Ui::PerformanceTestDialog *ui;
     std::shared_ptr<VoukoderPro::IClient> vkdrPro;
     std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo;
-    void validate();
 };
 
 #endif // PERFORMANCETESTDIALOG_H

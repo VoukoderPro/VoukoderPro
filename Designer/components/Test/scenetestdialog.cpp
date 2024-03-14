@@ -18,7 +18,7 @@ void Worker::run()
         return;
 
     // Init
-    if (vkdrpro->init([&](std::string msg) { emit message(QString::fromStdString(msg)); }) < 0)
+    if (vkdrpro->init([&](std::string msg){ emit message(QString::fromStdString(msg)); }) < 0)
         return;
 
     vkdrpro->setScene(sceneInfo);
@@ -27,11 +27,12 @@ void Worker::run()
     if (vkdrpro->open(project) < 0)
         return;
 
-    //int64_t apts = 0;
-
     // Iterate about all configured frames
     for (int i = 0; i < iterations; ++i)
     {
+        if (stopped)
+            break;
+
         // Iterate over all tracks
         for (int t = 0; t < project.tracks.size(); t++)
         {
@@ -73,7 +74,7 @@ void Worker::run()
             }
             else if (type == "audio")
             {
-                const int channelCount = std::get<int>(track.at(VoukoderPro::pPropChannelCount));
+                //const int channelCount = std::get<int>(track.at(VoukoderPro::pPropChannelCount));
 
                 // Create buffer
                 uint8_t* abuffer[2];
@@ -105,7 +106,7 @@ void Worker::run()
 
 void Worker::stopp()
 {
-
+    stopped = true;
 }
 
 SceneTestDialog::SceneTestDialog(std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo, VoukoderPro::config project, const int iterations, QWidget *parent)
@@ -124,14 +125,33 @@ SceneTestDialog::SceneTestDialog(std::shared_ptr<VoukoderPro::SceneInfo> sceneIn
     // Start test
     worker = new Worker(sceneInfo, project, iterations);
     connect(worker, &Worker::message, this, [&](QString msg){ ui->logPanel->appendPlainText(msg); });
-    connect(worker, &Worker::finished, this, [&](){
-        ui->logPanel->appendPlainText("Feddisch!");
+    connect(worker, &Worker::finished, this, [&]()
+    {
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();
+
+        ui->logPanel->appendPlainText("----\nExported " + QString::number(iterations) + " frames in " + QString::number((double)duration / 1000000.0) + " seconds.\nThis is a theoretical average export speed of " + QString::number(1000000.0 / ((double)duration / (double)iterations)) + " fps.\nIMPORTANT! Real exports using an NLE might be slower due to the NLE overhead.");
     });
-    connect(worker, &Worker::finished, worker, &QObject::deleteLater);
+    //connect(worker, &Worker::finished, worker, &QObject::deleteLater);
+
+    start = std::chrono::high_resolution_clock::now();
+
     worker->start();
 }
 
 SceneTestDialog::~SceneTestDialog()
 {
+    if (worker)
+        delete worker;
+
     delete ui;
 }
+
+void SceneTestDialog::on_buttonBox_clicked(QAbstractButton *button)
+{
+    button->setEnabled(false);
+
+    // Stop worker thread
+    worker->stopp();
+    worker->wait();
+}
+

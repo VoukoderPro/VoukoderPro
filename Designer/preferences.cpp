@@ -19,6 +19,7 @@ Preferences::Preferences():
     data[nlohmann::ordered_json::json_pointer(VPRO_DEFAULT_POSTPROC)] = "exec";
     data[nlohmann::ordered_json::json_pointer(VPRO_PROPERTIES_TECHNAMES)] = false;
     data[nlohmann::ordered_json::json_pointer(VPRO_NEWS_LASTREAD)] = 0;
+    data[nlohmann::ordered_json::json_pointer(VPRO_TEST_CONFIG)] = nlohmann::ordered_json::object();
 }
 
 int Preferences::load()

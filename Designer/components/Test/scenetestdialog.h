@@ -1,6 +1,8 @@
 #ifndef SCENETESTDIALOG_H
 #define SCENETESTDIALOG_H
 
+#include <chrono>
+
 #include <QDialog>
 #include <QThread>
 #include <QAbstractButton>
@@ -22,6 +24,7 @@ private:
     std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo;
     VoukoderPro::config project;
     const int iterations;
+    bool stopped = false;
 };
 
 namespace Ui {
@@ -36,10 +39,14 @@ public:
     explicit SceneTestDialog(std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo, VoukoderPro::config project, const int iterations, QWidget *parent = nullptr);
     ~SceneTestDialog();
 
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
+
 private:
     Ui::SceneTestDialog *ui;
     std::shared_ptr<VoukoderPro::IClient> vkdrPro;
     std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo;
+    std::chrono::high_resolution_clock::time_point start;
     Worker* worker;
 };
 

@@ -3,6 +3,8 @@
 
 #include <QMessageBox>
 
+#include "json.hpp"
+#include "preferences.h"
 #include "components/Test/addeditvideotrackdialog.h"
 #include "components/Test/addeditaudiotrackdialog.h"
 #include "components/Test/scenetestdialog.h"
@@ -35,7 +37,11 @@ PerformanceTestDialog::PerformanceTestDialog(std::shared_ptr<VoukoderPro::IClien
     //addVideoTrack(ui->videoTracksWidget, 1920, 1080, 1, 30, 1, 1, "progressive", "yuv420p", "tv", "bt709", "bt709", "bt709", "00:00:00:00", "eng");
     //addAudioTrack(ui->audioTracksWidget, "FL+FR", 44100, "fltp");
 
+    load();
+
     validate();
+
+    ui->startButton->setFocus();
 }
 
 PerformanceTestDialog::~PerformanceTestDialog()
@@ -45,8 +51,7 @@ PerformanceTestDialog::~PerformanceTestDialog()
 
 QTreeWidgetItem* PerformanceTestDialog::addVideoTrack(QTreeWidget* parent, const int width, const int height, const int timebaseNum, const int timebaseDen,
                                           const int aspectNum, const int aspectDen, const std::string fieldOrder, const std::string format,
-                                          const std::string colorRange, const std::string colorSpace, const std::string colorPrimaries, const std::string colorTransfer,
-                                          const std::string timecode, const std::string language)
+                                          const std::string colorRange, const std::string colorSpace, const std::string colorPrimaries, const std::string colorTransfer)
 {
     QTreeWidgetItem* track = new QTreeWidgetItem(ui->videoTracksWidget);
     track->setText(0, QString::number(width));
@@ -125,6 +130,8 @@ void PerformanceTestDialog::on_addVTrackButton_clicked()
         ui->videoTracksWidget->setFocus();
 
         validate();
+
+        save();
     }
 }
 
@@ -139,6 +146,8 @@ void PerformanceTestDialog::on_editVTrackButton_clicked()
         ui->videoTracksWidget->setFocus();
 
         validate();
+
+        save();
     }
 }
 
@@ -149,6 +158,8 @@ void PerformanceTestDialog::on_deleteVTrackButton_clicked()
         delete ui->videoTracksWidget->currentItem();
 
         validate();
+
+        save();
     }
 }
 
@@ -173,6 +184,8 @@ void PerformanceTestDialog::on_addATrackButton_clicked()
         ui->audioTracksWidget->setFocus();
 
         validate();
+
+        save();
     }
 }
 
@@ -187,6 +200,8 @@ void PerformanceTestDialog::on_editATrackButton_clicked()
         ui->audioTracksWidget->setFocus();
 
         validate();
+
+        save();
     }
 }
 
@@ -197,6 +212,8 @@ void PerformanceTestDialog::on_deleteATrackButton_clicked()
         delete ui->audioTracksWidget->currentItem();
 
         validate();
+
+        save();
     }
 }
 
@@ -211,6 +228,98 @@ void PerformanceTestDialog::on_tabVideo_currentChanged(int index)
         ui->videoTracksWidget->setFocus();
     else if (index == 1)
         ui->audioTracksWidget->setFocus();
+}
+
+void PerformanceTestDialog::load()
+{
+    // Load test config
+    auto& prefs = Preferences::instance();
+    nlohmann::ordered_json config = prefs.get(VPRO_TEST_CONFIG, nlohmann::ordered_json::object());
+
+    try
+    {
+        ui->frames->setValue(config["iterations"].get<int>());
+
+        for(const auto& track : config["video"])
+            addVideoTrack(ui->videoTracksWidget,
+                          track[VoukoderPro::pPropWidth].get<int>(),
+                          track[VoukoderPro::pPropHeight].get<int>(),
+                          track[VoukoderPro::pPropTimebaseNum].get<int>(),
+                          track[VoukoderPro::pPropTimebaseDen].get<int>(),
+                          track[VoukoderPro::pPropAspectNum].get<int>(),
+                          track[VoukoderPro::pPropAspectDen].get<int>(),
+                          track[VoukoderPro::pPropFieldOrder].get<std::string>(),
+                          track[VoukoderPro::pPropFormat].get<std::string>(),
+                          track[VoukoderPro::pPropColorRange].get<std::string>(),
+                          track[VoukoderPro::pPropColorSpace].get<std::string>(),
+                          track[VoukoderPro::pPropColorPrimaries].get<std::string>(),
+                          track[VoukoderPro::pPropColorTransfer].get<std::string>());
+
+        for(const auto& track : config["audio"])
+            addAudioTrack(ui->videoTracksWidget,
+                          track[VoukoderPro::pPropChannelLayout].get<std::string>(),
+                          track[VoukoderPro::pPropSamplingRate].get<int>(),
+                          track[VoukoderPro::pPropFormat].get<std::string>());
+    }
+    catch (...)
+    {
+
+    }
+}
+
+void PerformanceTestDialog::save()
+{
+    nlohmann::ordered_json config;
+    config["iterations"] = ui->frames->value();
+    config["video"] = nlohmann::ordered_json::array();
+    config["audio"] = nlohmann::ordered_json::array();
+
+    for (int i = 0; i < ui->videoTracksWidget->topLevelItemCount(); i++)
+    {
+        nlohmann::ordered_json videoTrack = nlohmann::ordered_json::object();
+
+        auto item = ui->videoTracksWidget->topLevelItem(i);
+
+        videoTrack[VoukoderPro::pPropWidth] = item->text(0).toInt();
+        videoTrack[VoukoderPro::pPropHeight] = item->text(1).toInt();
+
+        const QStringList timebase = item->text(2).split('/');
+        videoTrack[VoukoderPro::pPropTimebaseNum] = timebase.at(0).toInt();
+        videoTrack[VoukoderPro::pPropTimebaseDen] = timebase.at(1).toInt();
+
+        const QStringList aspect = item->text(3).split(':');
+        videoTrack[VoukoderPro::pPropAspectNum] = aspect.at(0).toInt();
+        videoTrack[VoukoderPro::pPropAspectDen] = aspect.at(1).toInt();
+
+        videoTrack[VoukoderPro::pPropFieldOrder] = item->text(4).toStdString();
+        videoTrack[VoukoderPro::pPropFormat] = item->text(5).toStdString();
+        videoTrack[VoukoderPro::pPropColorRange] = item->text(6).toStdString();
+        videoTrack[VoukoderPro::pPropColorSpace] = item->text(7).toStdString();
+        videoTrack[VoukoderPro::pPropColorPrimaries] = item->text(8).toStdString();
+        videoTrack[VoukoderPro::pPropColorTransfer] = item->text(9).toStdString();
+
+        config["video"].push_back(videoTrack);
+    }
+
+    for (int i = 0; i < ui->audioTracksWidget->topLevelItemCount(); i++)
+    {
+        nlohmann::ordered_json audioTrack = nlohmann::ordered_json::object();
+
+        auto item = ui->audioTracksWidget->topLevelItem(i);
+
+        const QString layout = item->text(0);
+        //audioTrack[VoukoderPro::pPropChannelCount] = (int)layout.split("+").size();
+        audioTrack[VoukoderPro::pPropChannelLayout] = layout.toStdString();
+        audioTrack[VoukoderPro::pPropSamplingRate] = item->text(1).toInt();
+        audioTrack[VoukoderPro::pPropFormat] = item->text(2).toStdString();
+
+        config["audio"].push_back(audioTrack);
+    }
+
+    // Save test config
+    auto& prefs = Preferences::instance();
+    prefs.set(VPRO_TEST_CONFIG, config);
+    prefs.save();
 }
 
 void PerformanceTestDialog::on_startButton_clicked()
@@ -257,7 +366,7 @@ void PerformanceTestDialog::on_startButton_clicked()
         audioTrack[VoukoderPro::pPropType] = "audio";
 
         const QString layout = item->text(0);
-        audioTrack[VoukoderPro::pPropChannelCount] = (int)layout.split("+").size();
+        //audioTrack[VoukoderPro::pPropChannelCount] = (int)layout.split("+").size();
         audioTrack[VoukoderPro::pPropChannelLayout] = layout.toStdString();
 
         audioTrack[VoukoderPro::pPropSamplingRate] = item->text(1).toInt();
@@ -268,5 +377,10 @@ void PerformanceTestDialog::on_startButton_clicked()
     // Start test
     SceneTestDialog dialog(sceneInfo, project, ui->frames->value(), this);
     dialog.exec();
+}
+
+void PerformanceTestDialog::on_frames_editingFinished()
+{
+    save();
 }
 
