@@ -62,6 +62,14 @@
     <Content Include="Version.wxi" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\VoukoderPro-Confidential\AppPlugins\VEGASProPlugin\VEGASProPlugin.vcxproj">
+      <Name>VEGASProPlugin</Name>
+      <Project>{c9eb4cb5-d754-4945-b5ad-2cbff886fa71}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\AppPlugins\AfterEffectsPlugin\AfterEffectsPlugin.vcxproj">
       <Name>AfterEffectsPlugin</Name>
       <Project>{4bfc58b1-64e6-453d-82d7-24303ccdee66}</Project>

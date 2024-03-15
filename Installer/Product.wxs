@@ -241,7 +241,7 @@
 		<ComponentGroup Id="VoukoderPro">
 			<Component Id="VoukoderPro" Guid="C50AC0A0-3C18-424F-A73B-9EDEC9EE95CE" Directory="INSTALLFOLDER">
 				<File Id="VoukoderPro" Source="$(var.VoukoderPro.TargetPath)" />
-				<File Id="SceneDesigner" Source="..\build-Designer-Desktop_Qt_6_6_0_$(var.QtToolChain)bit-release\release\Designer.exe" />
+				<File Id="SceneDesigner" Source="..\build-Designer-Desktop_Qt_6_6_1_$(var.QtToolChain)bit-release\release\Designer.exe" />
 				<File Id="Qt6Core" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Core.dll" />
 				<File Id="Qt6Guid" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Gui.dll" />
 				<File Id="Qt6Widgets" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Widgets.dll" />
