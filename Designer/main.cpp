@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QCommandLineParser>
 
 #include <boost/dll/import.hpp>
 
@@ -17,10 +18,10 @@
 int main(int argc, char *argv[])
 {
     // Set up the application
-    QApplication a(argc, argv);
-    a.setApplicationName(QString(APP_NAME));
-    a.setApplicationVersion(APP_VERSION);
-    a.setStyle("Fusion");
+    QApplication app(argc, argv);
+    app.setApplicationName(QString(APP_NAME));
+    app.setApplicationVersion(APP_VERSION);
+    app.setStyle("Fusion");
 
     // Set up translations
     QTranslator translator;
@@ -28,10 +29,29 @@ int main(int argc, char *argv[])
     for (const QString &locale : uiLanguages) {
         const QString baseName = "Designer_" + QLocale(locale).name();
         if (translator.load(":/i18n/" + baseName)) {
-            a.installTranslator(&translator);
+            app.installTranslator(&translator);
             break;
         }
     }
+
+    // Define command line options
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Test helper");
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    // Open a scene on e.g. double click
+    QCommandLineOption openSceneFile("open", "Open a .scene file on startup.");
+    parser.addOption(openSceneFile);
+
+    // Show the scene selection dialog
+    QCommandLineOption selectScene("select", "Show the scene selection dialog on startup.");
+    parser.addOption(selectScene);
+
+    parser.addPositionalArgument("name", QCoreApplication::translate("main", "Source file to copy."));
+
+    // Process the actual command line arguments given by the user
+    parser.process(app);
 
     boost::function<pluginapi_create_t> factory;
     std::shared_ptr<VoukoderPro::IClient> vkdrPro = nullptr;
@@ -43,7 +63,7 @@ int main(int argc, char *argv[])
     }
     catch (boost::system::system_error e)
     {
-        QMessageBox::critical(nullptr, a.applicationName(), "Unable to load voukoderpro.dll!\n\n" + QString::fromStdString(e.what()));
+        QMessageBox::critical(nullptr, app.applicationName(), "Unable to load voukoderpro.dll!\n\n" + QString::fromStdString(e.what()));
         return -1;
     }
 
@@ -52,38 +72,34 @@ int main(int argc, char *argv[])
     // Initialize VoukoderPro
     if ((ret = vkdrPro->init()) < 0)
     {
-        QMessageBox::critical(nullptr, a.applicationName(), "VoukoderPro initialization failed!");
+        QMessageBox::critical(nullptr, app.applicationName(), "VoukoderPro initialization failed!");
         return ret;
     }
 
-    QString selectedScene = "";
-
-    if (argc > 1)
+    // Handle command line params
+    QString name = "";
+    const QStringList args = parser.positionalArguments();
+    if (parser.isSet(selectScene))
     {
-        const QString param = QString::fromLocal8Bit(argv[1]);
-
-        if (param.toLower() == "/sceneselect")
+        SceneSelectDialog dialog(vkdrPro, args.length() > 0 ? args.at(0) : "");
+        if (dialog.exec() == QDialog::Accepted)
         {
-            const QString name = argc > 2 ? QString::fromLocal8Bit(argv[2]) : "";
+            QTextStream out(stdout);
+            out << dialog.selectedScene();
 
-            SceneSelectDialog dialog(vkdrPro, name);
-            if (dialog.exec() == QDialog::Accepted)
-            {
-                QTextStream out(stdout);
-                out << dialog.selectedScene();
-
-                return 0;
-            }
-
-            return -1;
+            return 0;
         }
 
-        selectedScene = param;
+        return -1;
+    }
+    else if (parser.isSet(openSceneFile))
+    {
+        name = args.length() > 0 ? args.at(0) : "";
     }
 
     // Create and show main window
-    MainWindow w(vkdrPro, selectedScene);
+    MainWindow w(vkdrPro, name);
     w.show();
 
-    return a.exec();
+    return app.exec();
 }

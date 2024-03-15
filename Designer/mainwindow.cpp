@@ -46,7 +46,7 @@ MainWindow::MainWindow(std::shared_ptr<VoukoderPro::IClient> vkdrPro, const QStr
     {
         if (QFileInfo::exists(name))
         {
-            std::shared_ptr<VoukoderPro::SceneInfo> scene;
+            std::shared_ptr<VoukoderPro::SceneInfo> scene = std::make_shared<VoukoderPro::SceneInfo>();
             if (sceneMgr->importScene(scene, name.toStdString()) == 0)
                 addSceneTab(scene);
         }

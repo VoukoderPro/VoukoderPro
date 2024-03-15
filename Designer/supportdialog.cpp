@@ -30,6 +30,5 @@ void SupportDialog::on_pushButton_2_clicked()
 
 void SupportDialog::on_pushButton_clicked()
 {
-    QMessageBox::information(this, "VoukoderPro", "To make a SWIFT payment using IBAN and BIC please send an email to daniel@voukoder.org.\nIt is also possible to send you an invoice or receipt if needed.");
+    QMessageBox::information(this, "VoukoderPro", "To make a payment using IBAN and BIC please send an email to daniel@voukoder.org.\n\nIt is also possible to send you an invoice if needed.");
 }
-

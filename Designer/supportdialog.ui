@@ -33,7 +33,7 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>VoukoderPro is an LGPL licensed OpenSource project. You can use it for free and you can even take a look at its source code and make changes if you like.</string>
+      <string>VoukoderPro is an LGPL licensed OpenSource project. You can use it for free and you can take a look at its source code and make changes if you like.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -43,7 +43,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>But it also means its developer, Daniel, does not make much money with it. Voukoder and VoukoderPro are both hobby projects he mainly works on in his spare time after his day job.</string>
+      <string>But it also means the developer, Daniel, works for free. Voukoder and VoukoderPro are both hobby projects he mainly works on in his spare time after his day job.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

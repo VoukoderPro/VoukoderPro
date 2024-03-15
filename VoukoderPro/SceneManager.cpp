@@ -12,8 +12,6 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/compute/detail/sha1.hpp>
 
-#include "Assets.h"
-
 #include "InputNode.h"
 #include "FilterNode.h"
 #include "EncoderNode.h"
@@ -34,8 +32,8 @@
 namespace VoukoderPro
 {
 	/**
-	* NodeInfo > ordered_json
-	*/
+    * NodeInfo > ordered_json
+    */
 	void to_json(nlohmann::ordered_json& j, const NodeInfo& p)
 	{
 		j = nlohmann::ordered_json{

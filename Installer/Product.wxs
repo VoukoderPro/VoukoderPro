@@ -133,7 +133,7 @@
 					<!-- Register .scene file extension -->
 					<ProgId Id="Voukoder.VoukoderPro" Description="VoukoderPro scene file">
 						<Extension Id="scene" ContentType="application/voukoderpro">
-							<Verb Id="open" Command="open" Target="[INSTALLFOLDER]Designer.exe" Argument="&quot;%1&quot;"/>
+							<Verb Id="open" Command="open" Target="[INSTALLFOLDER]Designer.exe" Argument="--open &quot;%1&quot;"/>
 						</Extension>
 					</ProgId>
 				</Component>

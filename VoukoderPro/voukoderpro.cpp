@@ -306,7 +306,7 @@ namespace VoukoderPro
 	int Client::sceneSelect(std::string& name)
 	{
 		boost::process::ipstream pipe;
-		boost::process::child c((homeDir / "Designer.exe").string(), boost::process::args({ "/sceneselect", name }), boost::process::std_out > pipe);
+		boost::process::child c((homeDir / "Designer.exe").string(), boost::process::args({ "--select", name }), boost::process::std_out > pipe);
 		
 		std::getline(pipe, name);
 		c.wait();
