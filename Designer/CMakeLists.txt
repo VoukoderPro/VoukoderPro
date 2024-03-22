@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.28)
 
 if(onGitHubActions)
     set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../vcpkg/scripts/buildsystems/vcpkg.cmake")
@@ -51,6 +51,7 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
         GIT_TAG 2.2.4
         PATCH_COMMAND ${PatchNE2Cmake}
+        EXCLUDE_FROM_ALL
 )
 FUNCTION( NE2_MakeAvailable )
     set(BUILD_TESTING OFF)

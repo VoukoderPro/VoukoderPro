@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.28)
 project(x264_encoder_plugin_cmake LANGUAGES CXX)
 
 set(PLUGIN_NAME "voukoder_pro")
@@ -45,5 +45,8 @@ set_target_properties(IOPlugin
         PREFIX ""
         OUTPUT_NAME ${PLUGIN_NAME}
         SUFFIX ".dvcp"
-        LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${PLUGIN_NAME}.dvcp.bundle/Contents/${DR_ARCH}"
+)
+
+install(TARGETS IOPlugin
+        LIBRARY DESTINATION "opt/resolve/IOPlugins/${PLUGIN_NAME}.dvcp.bundle/Contents/${DR_ARCH}"
 )
