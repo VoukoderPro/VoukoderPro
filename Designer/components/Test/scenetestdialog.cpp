@@ -131,7 +131,6 @@ SceneTestDialog::SceneTestDialog(std::shared_ptr<VoukoderPro::SceneInfo> sceneIn
 
         ui->logPanel->appendPlainText("----\nExported " + QString::number(iterations) + " frames in " + QString::number((double)duration / 1000000.0) + " seconds.\nThis is a theoretical average export speed of " + QString::number(1000000.0 / ((double)duration / (double)iterations)) + " fps.\nIMPORTANT! Real exports using an NLE might be slower due to the NLE overhead.");
     });
-    //connect(worker, &Worker::finished, worker, &QObject::deleteLater);
 
     start = std::chrono::high_resolution_clock::now();
 
