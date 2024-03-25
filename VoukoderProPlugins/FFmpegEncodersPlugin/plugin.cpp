@@ -1,40 +1,44 @@
 #include "plugin.h"
 
+#include <boost/algorithm/string/predicate.hpp>
+
 namespace VoukoderPro
 {
     FFmpegEncodersPlugin::FFmpegEncodersPlugin() : EncoderPlugin()
     {
-        // Video
-        registerCFHD();
-        registerFFv1();
-        registerFFvhuff();
-        registerGIF();
-        registerProResKS();
-        registerUTVideo();
-        registerQuickTimeRLE();
-        registerVP9();
-        
-        /*
         const AVCodec* codec = NULL;
         void* opaque = NULL;
 
-        while ((codec = av_codec_iterate(&opaque))) {
-            if (codec->type == AVMEDIA_TYPE_VIDEO) {
+        while ((codec = av_codec_iterate(&opaque)))
+        {
+            // Has this encoder already been registered?
+            if (codec->id == AV_CODEC_ID_NONE || 
+                std::find_if(std::begin(infos), std::end(infos), [&](AssetInfo info) -> bool
+                {
+                    return info.name == codec->name;
+                }) != infos.end())
+                continue;
 
-                if (!codec->pix_fmts || std::find_if(std::begin(infos), std::end(infos), [&](AssetInfo info) -> bool
-                    {
-                        return info.codec == codec->id;
-                    }) != infos.end())
-                    continue;
+            AssetInfo info;
+            info.id = codec->name;
+            info.name = codec->name;
+            info.description = codec->long_name;
+            info.type = NodeInfoType::encoder;
+            info.helpUrl = "https://ffmpeg.org/ffmpeg-encoders.html#" + info.id;
 
-                AssetInfo info;
-                info.id = codec->name;
-                info.name = codec->name;
-                info.description = codec->long_name;
-                info.type = NodeInfoType::encoder;
+            // Set the right category
+            if (boost::algorithm::ends_with(codec->name, "_amf"))
+                info.category = std::make_pair("amd", "AMD");
+            else if (boost::algorithm::ends_with(codec->name, "_nvenc"))
+                info.category = std::make_pair("nvidia", "Nvidia");
+            else if (boost::algorithm::ends_with(codec->name, "_qsv"))
+                info.category = std::make_pair("intel", "Intel");
+            else
+                info.category = std::make_pair("ffmpeg", "FFmpeg");
+
+            if (codec->type == AVMEDIA_TYPE_VIDEO && codec->pix_fmts)
+            {
                 info.mediaType = MediaType::video;
-                info.helpUrl = "https://ffmpeg.org/ffmpeg-encoders.html#" + info.id;
-                info.category = std::make_pair("unsupported", "FFmpeg (Unsupported)");
 
                 const enum AVPixelFormat* p;
                 for (p = codec->pix_fmts; *p != -1; p++) {
@@ -43,30 +47,27 @@ namespace VoukoderPro
                         info.format(pix_fmt_name, pix_fmt_name);
                     }
                 }
-
-                // Iterate over filter options
-                createFFmpegParameters(info, codec->priv_class);
-
-                registerAsset(info);
             }
-        }
-        */
+            else if (codec->type == AVMEDIA_TYPE_AUDIO && codec->sample_fmts)
+            {
+                info.mediaType = MediaType::audio;
 
-        // Audio
-        registerAAC();
-        registerAC3();
-        registerALAC();
-        registerDCA();
-        registerEAC3();
-        registerFLAC();
-        registerFLV1();
-        registerMP2();
-        registerMPEG2Video();
-        registerTrueHD();
-        registerPCM16le();
-        registerPCM24le();
-        registerPCM32le();
-        registerWavPack();
+                const enum AVSampleFormat* p;
+                for (p = codec->sample_fmts; *p != -1; p++) {
+                    const char* sample_fmt_name = av_get_sample_fmt_name(*p);
+                    if (sample_fmt_name) {
+                        info.format(sample_fmt_name, sample_fmt_name);
+                    }
+                }
+            }
+            else
+                continue;
+
+            // Iterate over filter options
+            createFFmpegParameters(info, codec->priv_class);
+
+            registerAsset(info);
+        }
     }
 
     int FFmpegEncodersPlugin::registerAAC()

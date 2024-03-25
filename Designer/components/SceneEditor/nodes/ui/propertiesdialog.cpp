@@ -1,7 +1,5 @@
 #include "propertiesdialog.h"
 
-#include <filesystem>
-
 #include <QPushButton>
 #include <QMessageBox>
 #include <QDesktopServices>
@@ -99,7 +97,7 @@ PropertiesDialog::PropertiesDialog(std::shared_ptr<VoukoderPro::NodeInfo> nodeIn
 //        msgBox.exec();
     }
 
-    ui->encoders->setSortingEnabled(false);
+    ui->encoders->sortByColumn(0, Qt::SortOrder::AscendingOrder);
     ui->encoders->setFocus();
 
     for(int i = 0; i < ui->variablesWidget->columnCount(); i++)
@@ -543,21 +541,24 @@ void PropertiesDialog::on_encoders_currentItemChanged(QTreeWidgetItem* current, 
                 propertyParamMap.insert(std::make_pair(property, baseParam));
             }
 
-            QtBrowserItem* browserGroup = ui->propertyBrowser->addProperty(groupProperty);
-            ui->propertyBrowser->setExpanded(browserGroup, true);
-
-            // Background color
-            switch (group->type())
+            if (groupProperty->subProperties().size() > 0)
             {
-            case VoukoderPro::ItemParamGroupType::Forced:
-                //ui->propertyBrowser->setBackgroundColor(browserGroup, QColor::fromRgb(255, 255, 205));
+                QtBrowserItem* browserGroup = ui->propertyBrowser->addProperty(groupProperty);
                 ui->propertyBrowser->setExpanded(browserGroup, true);
-                break;
 
-            case VoukoderPro::ItemParamGroupType::Standard:
-                //ui->propertyBrowser->setBackgroundColor(browserGroup, QColor::fromRgb(205, 255, 255));
-                ui->propertyBrowser->setExpanded(browserGroup, true);
-                break;
+                // Background color
+                switch (group->type())
+                {
+                case VoukoderPro::ItemParamGroupType::Forced:
+                    //ui->propertyBrowser->setBackgroundColor(browserGroup, QColor::fromRgb(255, 255, 205));
+                    ui->propertyBrowser->setExpanded(browserGroup, true);
+                    break;
+
+                case VoukoderPro::ItemParamGroupType::Standard:
+                    //ui->propertyBrowser->setBackgroundColor(browserGroup, QColor::fromRgb(205, 255, 255));
+                    ui->propertyBrowser->setExpanded(browserGroup, true);
+                    break;
+                }
             }
         }
 

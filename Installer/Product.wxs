@@ -257,16 +257,10 @@
 				<File Id="qwindows" Source="$(var.QtDir)\$(var.QtToolChain)\plugins\platforms\qwindows.dll" />
 			</Component>
 			<Component Id="VoukoderProPlugins" Directory="assets" Guid="88021C9C-56B3-4F33-814A-A4A6B5135B11">
-				<File Id="amfencoders" Source="$(var.amf-encoders.TargetPath)" />
 				<File Id="ffmpegencoders" Source="$(var.ffmpeg-encoders.TargetPath)" />
 				<File Id="ffmpegfilters" Source="$(var.ffmpeg-filters.TargetPath)" />
 				<File Id="ffmpegmuxers" Source="$(var.ffmpeg-muxers.TargetPath)" />
 				<File Id="ffmpegoutputs" Source="$(var.ffmpeg-outputs.TargetPath)" />
-				<File Id="lameencoders" Source="$(var.lame-encoders.TargetPath)" />
-				<File Id="nvencencoders" Source="$(var.nvenc-encoders.TargetPath)" />
-				<File Id="qsvencoders" Source="$(var.qsv-encoders.TargetPath)" />
-				<File Id="svtencoders" Source="$(var.svt-encoders.TargetPath)" />
-				<File Id="xiphencoders" Source="$(var.xiph-encoders.TargetPath)" />
 				<File Id="execpostproc" Source="$(var.exec-postproc.TargetPath)" />
 			</Component>
 		</ComponentGroup>

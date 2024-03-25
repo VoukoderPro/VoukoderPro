@@ -174,7 +174,7 @@ namespace VoukoderPro
 			{ "drawbox", "Draw Box" },
 			{ "drawgraph", "Draw Graph" },
 			{ "drawgrid", "Draw Grid" },
-			{ "edgedetect", "Edge Detect" },
+			//{ "edgedetect", "Edge Detect" },
 			{ "elbg", "Posterize (ELBG)" },
 			{ "entropy", "Entropy" },
 			{ "erosion", "Erosion" },

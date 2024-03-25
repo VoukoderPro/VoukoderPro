@@ -18,9 +18,6 @@ namespace VoukoderPro
 
     class Assets
     {
-    private:
-        Assets();
-
     public:
         Assets(const Assets&) = delete;
         Assets& operator=(const Assets&) = delete;
@@ -38,6 +35,10 @@ namespace VoukoderPro
             instance.init();
             return instance;
         }
+
+    private:
+        Assets();
+        void registerAsset(const std::string filename);
 
     private:
         std::vector<boost::function<voukoderpro_plugin_api_create_t>> factories;

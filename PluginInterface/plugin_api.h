@@ -368,16 +368,9 @@ namespace VoukoderPro
 
             auto& basic = info.group("param", "Parameters", ItemParamGroupType::Standard);
 
-            int prevOffset = -1;
-            const AVOption* option = NULL;
-            while ((option = av_opt_next(&priv_class, option)) != NULL)
+            const AVOption* option = av_opt_next(&priv_class, NULL);
+            while (option != NULL)
             {
-                // Skip option values
-                if (option->type == AV_OPT_TYPE_CONST || prevOffset == option->offset)
-                    continue;
-
-                prevOffset = option->offset;
-
                 const std::string name = Id2Name(option->name);
                 const std::string description = option->help ? Id2Name(option->help) : "";
 
@@ -392,24 +385,23 @@ namespace VoukoderPro
                     ItemParam<int>& param = basic.param<int>(option->name, name)
                         .description(description)
                         .defaultValue(dbl2int((double)option->default_val.i64));
+                    param.minValue(dbl2int(option->min));
+                    param.maxValue(dbl2int(option->max));
 
                     if (option->unit)
                     {
-                        int64_t po = INT_MIN;
-                        const AVOption* unit = NULL;
+                        if (param.def() == -1)
+                            param.option("(Auto)", -1);
 
-                        while ((unit = av_opt_next(&priv_class, unit)))
-                            if (unit->type == AV_OPT_TYPE_CONST && unit->unit && !strcmp(unit->unit, option->unit) && po != unit->default_val.i64)
-                            {
-                                po = unit->default_val.i64;
-                                param.option(Id2Name(unit->help && strlen(unit->help) > 0 ? unit->help : unit->name), (int)unit->default_val.i64);
-                            }
+                        const char* optUnit = av_strdup(option->unit);
+
+                        while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
+                            param.option(Id2Name(option->help && strlen(option->help) > 0 ? option->help : option->name), (int)option->default_val.i64);
+
+                        if (option)
+                            continue;
                     }
-                    else
-                    {
-                        param.minValue(dbl2int(option->min));
-                        param.maxValue(dbl2int(option->max));
-                    }
+
                     break;
                 }
 
@@ -419,12 +411,23 @@ namespace VoukoderPro
                     ItemParam<double>& param = basic.param<double>(option->name, name)
                         .description(description)
                         .defaultValue(std::isnan(option->default_val.dbl) ? std::min(std::max(option->min, 0.0), option->max) : option->default_val.dbl);
+                    param.minValue(option->min);
+                    param.maxValue(option->max);
 
-                    if (!option->unit)
+                    if (option->unit)
                     {
-                        param.minValue(option->min);
-                        param.maxValue(option->max);
+                        if (param.def() == -1)
+                            param.option("(Auto)", -1);
+
+                        const char* optUnit = av_strdup(option->unit);
+
+                        while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
+                            param.option(Id2Name(option->help && strlen(option->help) > 0 ? option->help : option->name), (int)option->default_val.i64);
+
+                        if (option)
+                            continue;
                     }
+
                     break;
                 }
 
@@ -461,10 +464,26 @@ namespace VoukoderPro
                 }
 
                 case AV_OPT_TYPE_FLAGS:
-                    basic.param<flags>(option->name, name)
+                {
+                    ItemParam<flags>& item = basic.param<flags>(option->name, name)
                         .description(description)
                         .defaultValue(0);
+
+                    // Options unit name
+                    const char* optUnit = av_strdup(option->unit);
+
+                    // Add all flags belonging to the options unit name
+                    if (option->unit)
+                    {
+                        while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
+                            item.flag(Id2Name(option->name));
+
+                        if (option)
+                            continue;
+                    }
+
                     break;
+                }
 
                 case AV_OPT_TYPE_DURATION:
                     basic.param<std::string>(option->name, name)
@@ -473,8 +492,11 @@ namespace VoukoderPro
                     break;
 
                 default:
-                    continue;
+                    break;
                 }
+
+                if (option)
+                    option = av_opt_next(&priv_class, option);
             }
         }
     };

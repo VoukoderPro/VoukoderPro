@@ -1,5 +1,7 @@
 #include "Assets.h"
 
+#include <boost/algorithm/string/predicate.hpp>
+
 namespace VoukoderPro
 {
 	Assets::Assets():
@@ -15,6 +17,8 @@ namespace VoukoderPro
 		if (!boost::filesystem::is_directory(pluginPath))
 			return;
 
+		std::vector<std::string> filenames_later;
+
 		// Investigate all plugins in the plugin directory
 		auto it = boost::filesystem::directory_iterator(pluginPath);
 		for (auto& element : it)
@@ -23,24 +27,42 @@ namespace VoukoderPro
 			if (element.path().extension() != boost::dll::shared_library::suffix())
 				continue;
 
-			// Try to load it
+			// Register the assets
 			const std::string filename = element.path().string();
-
-			try
+			if (boost::algorithm::starts_with(filename, "ffmpeg-"))
 			{
-				// Try to instanciate the plugin
-				boost::function<voukoderpro_plugin_api_create_t> factory = boost::dll::import_alias<voukoderpro_plugin_api_create_t>(filename.c_str(), "CreateInstance", boost::dll::load_mode::append_decorations);
-				std::shared_ptr<plugin_api> plugin = factory();
-
-				factories.push_back(factory);
-
-				// Register plugin
-				plugins.push_back(plugin);
+				filenames_later.push_back(filename);
 			}
-			catch (boost::system::system_error e)
+			else
 			{
-				BLOG(warning) << "Unable to load plugin: " << filename;
+				registerAsset(filename);
 			}
+		}
+
+		// Register some assets later
+		for (const auto& filename : filenames_later)
+			registerAsset(filename);
+	}
+
+	/**
+	* Registers a single plugin
+	*/
+	void Assets::registerAsset(const std::string filename)
+	{
+		try
+		{
+			// Try to instanciate the plugin
+			boost::function<voukoderpro_plugin_api_create_t> factory = boost::dll::import_alias<voukoderpro_plugin_api_create_t>(filename.c_str(), "CreateInstance", boost::dll::load_mode::append_decorations);
+			std::shared_ptr<plugin_api> plugin = factory();
+
+			factories.push_back(factory);
+
+			// Register plugin
+			plugins.push_back(plugin);
+		}
+		catch (boost::system::system_error e)
+		{
+			BLOG(warning) << "Unable to load plugin: " << filename;
 		}
 	}
 
