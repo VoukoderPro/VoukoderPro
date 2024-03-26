@@ -120,3 +120,7 @@ target_include_directories(VoukoderDesigner PRIVATE
         ${Boost_INCLUDE_DIRS})
 
 target_link_libraries(VoukoderDesigner PRIVATE Qt6::Core Qt6::Gui Qt6::Network Qt6::Widgets Qt6::UiTools PropertyBrowser ${Boost_LIBRARIES} nodes)
+
+install(TARGETS VoukoderDesigner
+        RUNTIME DESTINATION usr/bin
+)

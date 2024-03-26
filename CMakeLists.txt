@@ -9,12 +9,3 @@ add_subdirectory(AppPlugins)
 
 add_custom_target(FullBuild)
 add_dependencies(FullBuild voukoderpro VoukoderDesigner AppPlugins)
-
-install(TARGETS voukoderpro
-        LIBRARY DESTINATION usr/lib
-        ARCHIVE DESTINATION usr/lib
-        RUNTIME DESTINATION usr/bin
-)
-install(TARGETS VoukoderDesigner
-        RUNTIME DESTINATION usr/bin
-)

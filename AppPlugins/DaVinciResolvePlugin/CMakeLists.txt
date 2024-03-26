@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD 23)
 find_package(PkgConfig REQUIRED)
 
 find_package(Boost REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 #pkg_check_modules(X264 REQUIRED x264)
 
@@ -28,7 +29,7 @@ add_library(IOPlugin
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(IOPlugin PRIVATE ${Boost_LIBRARIES})
+target_link_libraries(IOPlugin PRIVATE ${Boost_LIBRARIES} Qt6::Core)
 
 if((${CMAKE_SYSTEM_NAME} STREQUAL "Windows" OR ${CMAKE_SYSTEM_NAME} EQUAL "MSYS") AND ${CMAKE_SIZEOF_VOID_P} EQUAL 8)
     set(DR_ARCH "Win64")

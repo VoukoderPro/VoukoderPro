@@ -12,6 +12,7 @@ include(FetchContent)
 set(CMAKE_CXX_STANDARD 23)
 
 find_package(Boost REQUIRED COMPONENTS filesystem)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 # json schema validator
 FetchContent_Declare(
@@ -65,7 +66,11 @@ IF(WIN32)
             ${PROJECT_SOURCE_DIR}/../3rdparty/ffmpeg-6.1-release/lib)
     target_link_libraries(voukoderpro PUBLIC avformat-voukoderpro infoware ${Boost_LIBRARIES})
 ELSE ()
-    target_link_libraries(voukoderpro PUBLIC avformat infoware ${Boost_LIBRARIES} nlohmann_json_schema_validator)
+    target_link_libraries(voukoderpro PUBLIC avformat infoware ${Boost_LIBRARIES} nlohmann_json_schema_validator Qt6::Core)
 ENDIF ()
 
 set_target_properties(voukoderpro PROPERTIES PREFIX "")
+
+install(TARGETS voukoderpro
+        LIBRARY DESTINATION usr/lib
+)
