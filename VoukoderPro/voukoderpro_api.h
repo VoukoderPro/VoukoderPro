@@ -1,9 +1,14 @@
 #pragma once
 
+#ifndef VP_API
+#define VP_API
+
 #include "../VoukoderPro/types.h"
 #include "../PluginInterface/properties.h"
 
 #include <boost/date_time/gregorian/gregorian.hpp>
+#include "boost/function.hpp"
+#include "boost/dll.hpp"
 
 #ifdef _DEBUG
 #define VOUKODERPRO_HOME \
@@ -70,3 +75,7 @@ namespace VoukoderPro
         //virtual std::shared_ptr<IPerformanceManager> performanceManager() = 0;
     };
 }
+
+typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
+
+#endif

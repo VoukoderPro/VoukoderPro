@@ -10,8 +10,6 @@
 
 #include "../../VoukoderPro/voukoderpro_api.h"
 
-typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 #define ALIGN16(value) (((value + 15) >> 4) << 4)
 #define ALIGN32(X) (((mfxU32)((X) + 31)) & (~(mfxU32)31))
 

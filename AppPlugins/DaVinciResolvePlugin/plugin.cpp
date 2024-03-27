@@ -51,7 +51,7 @@ StatusCode g_HandleCreateObj(unsigned char* p_pUUID, ObjectRef* p_ppObj)
 StatusCode g_HandlePluginStart()
 {
     boost::function<pluginapi_create_t> factory;
-    boost::shared_ptr<VoukoderPro::IClient> vkdrpro;
+    std::shared_ptr<VoukoderPro::IClient> vkdrpro;
 
     try
     {

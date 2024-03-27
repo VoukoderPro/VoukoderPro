@@ -3,8 +3,6 @@
 
 #include "boost/dll/import.hpp"
 
-typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 Worker::Worker(std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo, VoukoderPro::config project, const int iterations):
     sceneInfo(sceneInfo), project(project), iterations(iterations)
 {}
