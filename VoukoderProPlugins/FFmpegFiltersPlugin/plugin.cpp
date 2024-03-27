@@ -40,6 +40,53 @@ namespace VoukoderPro
 			FreeLibrary(cuda);
 		}
 
+		//AVFilterGraph* filterGraph = avfilter_graph_alloc();
+
+		//void* opaque = NULL;
+		//const AVFilter* filter = NULL;
+		//while ((filter = av_filter_iterate(&opaque)))
+		//{
+		//	AVFilterContext* filterCtx = avfilter_graph_alloc_filter(filterGraph, filter, filter->name);
+
+		//	AssetInfo info;
+		//	info.id = filter->name;
+		//	info.name = filter->name;
+		//	info.description = filter->description;
+		//	info.type = NodeInfoType::filter;
+		//	//info.mediaType = M
+		//	info.helpUrl = "https://ffmpeg.org/ffmpeg-filters.html#" + info.id;
+
+
+		//	for (unsigned j = 0; j < filterCtx->nb_inputs; j++)
+		//	{
+		//		filterCtx->inputs[j]->
+
+		//			// Type (Audio / video, 
+		//	}
+		//	av_opt_next()
+
+
+		//	for (int i = 0; i < filterCtx->nb_inputs; i++) {
+		//		AVFilterPad* pad = filterCtx->input_pads[i];
+		//		if (!pad)
+		//			continue;
+		//		printf("  Input Pad: %s\n", pad->name);
+		//	}
+
+		//	// Select the right category
+		//	if (boost::algorithm::ends_with(id, "_cuda") || id == "hwdownload")
+		//		info.category = std::make_pair("cuda", "CUDA");
+		//	else if (boost::algorithm::ends_with(id, "_qsv"))
+		//		info.category = std::make_pair("qsv", "QSV");
+		//	else
+		//		info.category = std::make_pair("ffmpeg", "FFmpeg");
+
+		//	// Iterate over filter options
+		//	createFFmpegParameters(info, filter->priv_class);
+
+		//	registerAsset(info);
+		//}
+
 		std::map<std::string, std::string> audioFilters = {
 			{ "acompressor", "Compressor" },
 			{ "acontrast", "Contrast" },
