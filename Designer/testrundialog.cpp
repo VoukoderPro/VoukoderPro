@@ -7,8 +7,6 @@
 //#include <boost/dll/alias.hpp>
 #include <boost/filesystem.hpp>
 
-typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 static const int TEST_FRAMES = 1;
 
 static void fill_yuv_image(uint8_t* vbuffer[3], int linesize[3], int frame_index, int width, int height)

@@ -10,8 +10,6 @@
 #include "preferences.h"
 #include "newsdialog.h"
 
-typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

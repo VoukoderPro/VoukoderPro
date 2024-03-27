@@ -10,8 +10,6 @@
 #include "AEGP_SuiteHandler.h"
 #include "../../VoukoderPro/voukoderpro_api.h"
 
-typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 #define ARB_VERSION 1
 
 #ifdef __cplusplus

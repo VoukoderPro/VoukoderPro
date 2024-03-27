@@ -51,7 +51,7 @@ public:
         if (val8 != 0)
         {
             boost::function<pluginapi_create_t> factory;
-            boost::shared_ptr<VoukoderPro::IClient> vkdrpro;
+            std::shared_ptr<VoukoderPro::IClient> vkdrpro;
 
             try
             {
@@ -115,7 +115,7 @@ private:
     StatusCode RenderGeneral(HostListRef* p_pSettingsList)
     {
         boost::function<pluginapi_create_t> factory;
-        boost::shared_ptr<VoukoderPro::IClient> vkdrpro;
+        std::shared_ptr<VoukoderPro::IClient> vkdrpro;
 
         try
         {

@@ -10,8 +10,6 @@
 
 using namespace IOPlugin;
 
-typedef boost::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 class UISettingsController;
 
 static inline int hash(const char* str)

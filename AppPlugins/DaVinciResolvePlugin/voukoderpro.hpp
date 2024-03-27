@@ -15,8 +15,6 @@ using json = nlohmann::json;
 
 #include "../../VoukoderPro/voukoderpro_api.h"
 
-typedef boost::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 class VoukoderBase
 {
 public:
@@ -45,5 +43,5 @@ public:
 
 protected:
     boost::function<pluginapi_create_t> factory;
-    boost::shared_ptr<VoukoderPro::IClient> vkdrpro = nullptr;
+    std::shared_ptr<VoukoderPro::IClient> vkdrpro = nullptr;
 };
