@@ -1,39 +1,24 @@
 #include "plugin.h"
 
-#include <filesystem>
-
-/*
-  crypto
-  fd
-  ffrtmphttp
-  file
-  ftp
-  gopher
-  gophers
-  http
-  httpproxy
-  https
-  icecast
-  md5
-  pipe
-  prompeg
-  rtmp
-  rtmps
-  rtmpt
-  rtmpts
-  rtp
-  srtp
-  tee
-  tcp
-  tls
-  udp
-  udplite
-  */
-
 namespace VoukoderPro
 {
     FFmpegOutputsPlugin::FFmpegOutputsPlugin()
     {
+        //void* opaque = nullptr;
+        //const char* proto = nullptr;
+        //while ((proto = avio_enum_protocols(&opaque, 1)))
+        //{
+        //    AssetInfo info;
+        //    info.id = proto;
+        //    info.name = Id2Name(proto);
+        //    info.category = std::make_pair("ffmpeg", "FFmpeg");
+        //    info.description = "";
+        //    info.type = NodeInfoType::output;
+        //    info.mediaType = MediaType::mux;
+        //    info.helpUrl = "https://ffmpeg.org/ffmpeg-protocols.html#" + info.id;
+        //    registerAsset(info);
+        //}
+
         // FILE
         {
             AssetInfo info;

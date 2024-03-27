@@ -12,6 +12,30 @@ SceneEditorFilterNodeModel::SceneEditorFilterNodeModel(std::shared_ptr<VoukoderP
 {}
 
 /**
+ * @brief SceneEditorFilterNodeModel::nPorts
+ * @param portType
+ * @return
+ */
+unsigned int SceneEditorFilterNodeModel::nPorts(QtNodes::PortType portType) const
+{
+    return 1;
+}
+
+/**
+ * @brief SceneEditorFilterNodeModel::dataType
+ * @param portType
+ * @param portIndex
+ * @return
+ */
+QtNodes::NodeDataType SceneEditorFilterNodeModel::dataType(QtNodes::PortType portType, QtNodes::PortIndex portIndex) const
+{
+    if (_nodeInfo->mediaType == VoukoderPro::MediaType::video)
+        return QtNodes::NodeDataType{ TYPE_RAW_VIDEO, "video" };
+    else
+        return QtNodes::NodeDataType{ TYPE_RAW_AUDIO, "audio" };
+}
+
+/**
  * @brief SceneEditorFilterNodeModel::hasProperties
  * @return
  */

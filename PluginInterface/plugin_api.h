@@ -366,7 +366,7 @@ namespace VoukoderPro
                 return ret;
             };
 
-            auto& basic = info.group("param", "Parameters", ItemParamGroupType::Standard);
+            auto& basic = info.group("specific", "Specific", ItemParamGroupType::Standard);
 
             const AVOption* option = av_opt_next(&priv_class, NULL);
             while (option != NULL)
