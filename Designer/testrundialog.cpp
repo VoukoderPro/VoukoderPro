@@ -38,7 +38,7 @@ void Worker::run()
     Q_EMIT step();
 
     // Create voukoderpro class factory
-    auto factory = VOUKODERPRO_CREATE_INSTANCE;
+    auto factory = VoukoderProCreateInstance();
     auto vkdrpro = factory();
     if (!vkdrpro)
         return;

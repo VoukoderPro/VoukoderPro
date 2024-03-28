@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     try
     {
-        factory = VOUKODERPRO_CREATE_INSTANCE;
+        factory = VoukoderProCreateInstance();
         vkdrPro = factory();
     }
     catch (boost::system::system_error e)

@@ -18,14 +18,6 @@
     []()->std::string { const char* c = std::getenv("VOUKODERPRO_HOME"); return c ? std::string(c) : ""; }()
 #endif
 
-#define VOUKODERPRO_DATA \
-    boost::filesystem::path(std::getenv("LOCALAPPDATA")) / "VoukoderPro"
-
-#define VOUKODERPRO_CREATE_INSTANCE \
-	boost::dll::import_alias<pluginapi_create_t>( \
-    []() { std::string c = VOUKODERPRO_HOME; return !c.empty() ? boost::filesystem::path(c) / "voukoderpro" : ""; }(), \
-	"createInstance", boost::dll::load_mode::append_decorations)
-
 namespace VoukoderPro
 {
     struct config : public configType
@@ -78,4 +70,33 @@ namespace VoukoderPro
 
 typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
 
+inline boost::function<pluginapi_create_t> VoukoderProCreateInstance(){
+    std::string c = VOUKODERPRO_HOME;
+    // If VOUKODERPRO_HOME not set, search system-wide
+    boost::dll::fs::path dllName="voukoderpro";
+    if (!c.empty()){
+        dllName = boost::filesystem::path(c) / "voukoderpro";
+    }
+    return boost::dll::import_alias<pluginapi_create_t>(dllName,"createInstance", boost::dll::load_mode::append_decorations | boost::dll::load_mode::search_system_folders);
+}
+
+#ifdef __WIN32
+inline boost::filesystem::path VoukoderProData(){
+    return boost::filesystem::path(std::getenv("LOCALAPPDATA")) / "VoukoderPro";
+}
+#else
+
+inline boost::filesystem::path VoukoderProData() {
+    std::string xdgDataHome(std::getenv("XDG_DATA_HOME"));
+    boost::filesystem::path dataDir;
+    if (xdgDataHome.empty()) {
+        boost::filesystem::path home(std::getenv("HOME"));
+        dataDir = home / ".local" / "share";
+    } else {
+        dataDir = boost::filesystem::path(xdgDataHome);
+    }
+    return dataDir / "VoukoderPro";
+}
+
 #endif
+#endif // VP_API

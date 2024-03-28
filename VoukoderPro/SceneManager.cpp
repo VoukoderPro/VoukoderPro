@@ -99,7 +99,7 @@ namespace VoukoderPro
 	}
 
 	SceneManager::SceneManager():
-		sceneFile(fs::path(VOUKODERPRO_DATA) / "scenes.json")
+		sceneFile(fs::path(VoukoderProData()) / "scenes.json")
 	{}
 
 	int SceneManager::load(std::vector<std::shared_ptr<SceneInfo>>& sceneInfos)

@@ -55,7 +55,7 @@ public:
 
             try
             {
-                factory = VOUKODERPRO_CREATE_INSTANCE;
+                factory = VoukoderProCreateInstance();
                 vkdrpro = factory();
 
                 if (!vkdrpro)
@@ -119,7 +119,7 @@ private:
 
         try
         {
-            factory = VOUKODERPRO_CREATE_INSTANCE;
+            factory = VoukoderProCreateInstance();
             vkdrpro = factory();
 
             if (!vkdrpro)
