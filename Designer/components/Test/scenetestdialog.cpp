@@ -10,7 +10,7 @@ Worker::Worker(std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo, VoukoderPro::c
 void Worker::run()
 {
     // Create voukoderpro class factory
-    auto factory = VOUKODERPRO_CREATE_INSTANCE;
+    auto factory = VoukoderProCreateInstance();
     auto vkdrpro = factory();
     if (!vkdrpro)
         return;
