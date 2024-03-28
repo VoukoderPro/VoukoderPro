@@ -55,7 +55,7 @@ StatusCode g_HandlePluginStart()
 
     try
     {
-        factory = VOUKODERPRO_CREATE_INSTANCE;
+        factory = VoukoderProCreateInstance();
         vkdrpro = factory();
 
         if (!vkdrpro)

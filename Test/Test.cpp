@@ -11,7 +11,7 @@ int main()
 
     try
     {
-        factory = VOUKODERPRO_CREATE_INSTANCE;
+        factory = VoukoderProCreateInstance();
         vkdrpro = factory();
 
         if (!vkdrpro)

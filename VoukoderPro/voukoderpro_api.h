@@ -6,6 +6,7 @@
 #include "../VoukoderPro/types.h"
 #include "../PluginInterface/properties.h"
 
+#include "QStandardPaths"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include "boost/function.hpp"
 #include "boost/dll.hpp"
@@ -19,12 +20,8 @@
 #endif
 
 #define VOUKODERPRO_DATA \
-    boost::filesystem::path(std::getenv("LOCALAPPDATA")) / "VoukoderPro"
+    boost::filesystem::path(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation)[0].toStdString()) / "VoukoderPro"
 
-#define VOUKODERPRO_CREATE_INSTANCE \
-	boost::dll::import_alias<pluginapi_create_t>( \
-    []() { std::string c = VOUKODERPRO_HOME; return !c.empty() ? boost::filesystem::path(c) / "voukoderpro" : ""; }(), \
-	"createInstance", boost::dll::load_mode::append_decorations)
 
 namespace VoukoderPro
 {
@@ -77,5 +74,15 @@ namespace VoukoderPro
 }
 
 typedef std::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
+
+inline boost::function<pluginapi_create_t> VoukoderProCreateInstance(){
+    std::string c = VOUKODERPRO_HOME;
+    // If VOUKODERPRO_HOME not set, search system-wide
+    boost::dll::fs::path dllName="voukoderpro";
+    if (!c.empty()){
+        dllName = boost::filesystem::path(c) / "voukoderpro";
+    }
+    return boost::dll::import_alias<pluginapi_create_t>(dllName,"createInstance", boost::dll::load_mode::append_decorations | boost::dll::load_mode::search_system_folders);
+}
 
 #endif

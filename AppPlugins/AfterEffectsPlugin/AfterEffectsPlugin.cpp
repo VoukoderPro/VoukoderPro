@@ -10,7 +10,7 @@
 #include <boost/function.hpp>
 #include <boost/dll.hpp>
 
-extern boost::function<pluginapi_create_t> factory = VOUKODERPRO_CREATE_INSTANCE;
+boost::function<pluginapi_create_t> factory = VoukoderProCreateInstance();
 static std::shared_ptr<VoukoderPro::IClient> vkdrpro = NULL;
 
 AEGP_PluginID S_mem_id = 0;

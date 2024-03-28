@@ -28,7 +28,7 @@ public:
         try
         {
             // Create voukoderpro class factory
-            factory = VOUKODERPRO_CREATE_INSTANCE;
+            factory = VoukoderProCreateInstance();
 
             // Create an instance
             vkdrpro = factory();
