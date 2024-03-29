@@ -25,7 +25,7 @@ namespace VoukoderPro
 	static std::string logbuffer;
 
 	Client::Client() :
-		homeDir(VOUKODERPRO_HOME), dataDir(VOUKODERPRO_DATA), sceneInfo({})
+		homeDir(VOUKODERPRO_HOME), dataDir(VoukoderProData()), sceneInfo({})
 	{
 		// Make sure all dirs exists where data should be stored
 		if (!boost::filesystem::is_directory(dataDir))
@@ -567,7 +567,7 @@ namespace VoukoderPro
 		// Logging
 		logging::add_common_attributes();
 
-        fs::path dataDir(VOUKODERPRO_DATA);
+        fs::path dataDir(VoukoderProData());
 
 		logging::add_file_log(
             boost::log::keywords::file_name = (dataDir / "logs" / "voukoderpro-%N.log").c_str(),

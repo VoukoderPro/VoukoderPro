@@ -6,7 +6,6 @@
 #include "../VoukoderPro/types.h"
 #include "../PluginInterface/properties.h"
 
-#include "QStandardPaths"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include "boost/function.hpp"
 #include "boost/dll.hpp"
@@ -18,10 +17,6 @@
 #define VOUKODERPRO_HOME \
     []()->std::string { const char* c = std::getenv("VOUKODERPRO_HOME"); return c ? std::string(c) : ""; }()
 #endif
-
-#define VOUKODERPRO_DATA \
-    boost::filesystem::path(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation)[0].toStdString()) / "VoukoderPro"
-
 
 namespace VoukoderPro
 {
@@ -85,4 +80,23 @@ inline boost::function<pluginapi_create_t> VoukoderProCreateInstance(){
     return boost::dll::import_alias<pluginapi_create_t>(dllName,"createInstance", boost::dll::load_mode::append_decorations | boost::dll::load_mode::search_system_folders);
 }
 
+#ifdef __WIN32
+inline boost::filesystem::path VoukoderProData(){
+    return boost::filesystem::path(std::getenv("LOCALAPPDATA")) / "VoukoderPro";
+}
+#else
+
+inline boost::filesystem::path VoukoderProData() {
+    std::string xdgDataHome(std::getenv("XDG_DATA_HOME"));
+    boost::filesystem::path dataDir;
+    if (xdgDataHome.empty()) {
+        boost::filesystem::path home(std::getenv("HOME"));
+        dataDir = home / ".local" / "share";
+    } else {
+        dataDir = boost::filesystem::path(xdgDataHome);
+    }
+    return dataDir / "VoukoderPro";
+}
+
 #endif
+#endif // VP_API
