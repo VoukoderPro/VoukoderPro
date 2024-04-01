@@ -1,8 +1,11 @@
 #include "Telemetry.h"
 
+#ifdef _WIN32
 #include <Windows.h>
-#include <sstream>
 #include <sddl.h>
+#endif
+
+#include <sstream>
 #include <thread>
 #include <random>
 #include <chrono>
@@ -16,6 +19,7 @@ extern "C" {
 #include "../3rdparty/curl-8.2.1/include/curl/curl.h"
 }
 
+#ifdef _WIN32
 #pragma comment(lib, "crypt32.lib")
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Wldap32.lib")
@@ -23,6 +27,7 @@ extern "C" {
 #pragma comment(lib, "../3rdparty/openssl-3.1.2/lib/libcrypto.lib")
 #pragma comment(lib, "../3rdparty/openssl-3.1.2/lib/libssl.lib")
 #pragma comment(lib, "../3rdparty/curl-8.2.1/lib/libcurl_a.lib")
+#endif
 
 /* Instructions
 * 
@@ -42,6 +47,8 @@ namespace VoukoderPro
 
     int Telemetry::event(const std::string& name, const std::map<std::string, std::string>& params)
     {
+
+#ifdef _WIN32
         const std::string id = (getUserIdentifier() == "" ? "<error>" : getUserIdentifier());
 
         std::thread worker([id,name,params]()
@@ -121,13 +128,13 @@ namespace VoukoderPro
                 curl_global_cleanup();
             });
         worker.detach();
-
+#endif
         return 0;
     }
 
     std::string Telemetry::getUserIdentifier()
     {
-#ifdef WIN32
+#ifdef _WIN32
         HANDLE hToken;
         if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken))
             return "";
@@ -165,6 +172,8 @@ namespace VoukoderPro
         delete[] pTokenUser;
 
         return sha1;
+#else
+        return calculateSHA1(std::wstring(0));
 #endif
     }
 
