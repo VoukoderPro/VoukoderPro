@@ -6,7 +6,7 @@
 #include "../VoukoderPro/voukoderpro_api.h"
 
 Preferences::Preferences():
-    filename((VOUKODERPRO_DATA / "preferences.json").string())
+    filename((VoukoderProData() / "preferences.json").string())
 {
     // Provide a default configuration
     data[nlohmann::ordered_json::json_pointer(VPRO_GENERAL_OPEN_SCENE)] = "simple";
