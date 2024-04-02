@@ -35,7 +35,7 @@ namespace VoukoderPro
                 if (codec->id != AV_CODEC_ID_NONE &&
                     std::find(info.allowedInputGroups.begin(), info.allowedInputGroups.end(), codec->id) == info.allowedInputGroups.end() && // Is codec already in list?
                     avformat_query_codec(format, codec->id, FF_COMPLIANCE_NORMAL) == 1)  // Is codec supported?
-                    info.allowedInputGroups.push_back(codec->id);
+                        info.allowedInputGroups.push_back(codec->id);
             }
 
             registerAsset(info);
