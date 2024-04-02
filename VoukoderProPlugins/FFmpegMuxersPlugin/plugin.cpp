@@ -25,7 +25,7 @@ namespace VoukoderPro
             info.helpUrl = "https://ffmpeg.org/ffmpeg-formats.html#" + info.id;
 
             // Iterate over filter options
-            createFFmpegParameters(info, format->priv_class);
+            addPrivateOptions(info, format->priv_class);
 
             // Find the allowed codecs for this muxer
             void* opaque2 = NULL;

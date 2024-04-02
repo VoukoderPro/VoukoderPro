@@ -388,7 +388,7 @@ namespace VoukoderPro
 			info.category = std::make_pair("ffmpeg", "FFmpeg");
 
         // Iterate over filter options
-        createFFmpegParameters(info, filter->priv_class);
+		addPrivateOptions(info, filter->priv_class);
 
         registerAsset(info);
     }

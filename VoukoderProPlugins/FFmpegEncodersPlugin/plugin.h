@@ -11,6 +11,9 @@ namespace VoukoderPro
 	public:
 		FFmpegEncodersPlugin();
 
+	private:
+		void addGlobalOptions(AssetInfo& info, AVCodecContext* codecCtx, int flags);
+
 	public:
 		static std::shared_ptr<FFmpegEncodersPlugin> CreateInstance()
 		{

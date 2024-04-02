@@ -351,7 +351,7 @@ namespace VoukoderPro
         /**
          * Create the parameter list based on the info stored in FFmpeg.
          */
-        const void createFFmpegParameters(AssetInfo& info, const AVClass* priv_class)
+        const void addPrivateOptions(AssetInfo& info, const AVClass* priv_class)
         {
             const auto dbl2int = [](const double value) -> int {
                 int ret;
@@ -366,7 +366,7 @@ namespace VoukoderPro
                 return ret;
             };
 
-            auto& basic = info.group("specific", "Specific", ItemParamGroupType::Standard);
+            ItemParamGroup& group = info.group("private", "Private", ItemParamGroupType::Standard);
 
             const AVOption* option = av_opt_next(&priv_class, NULL);
             while (option != NULL)
@@ -374,125 +374,140 @@ namespace VoukoderPro
                 const std::string name = Id2Name(option->name);
                 const std::string description = option->help ? Id2Name(option->help) : "";
 
-                //
-                std::string type;
-                switch (option->type)
-                {
-                case AV_OPT_TYPE_INT:
-                case AV_OPT_TYPE_INT64:
-                case AV_OPT_TYPE_UINT64:
-                {
-                    ItemParam<int>& param = basic.param<int>(option->name, name)
-                        .description(description)
-                        .defaultValue(dbl2int((double)option->default_val.i64));
-                    param.minValue(dbl2int(option->min));
-                    param.maxValue(dbl2int(option->max));
-
-                    if (option->unit)
+                // Ignore options that are already in a group
+                bool ignore = false;
+                for (const auto& grp : info.groups)
+                    if (grp.second->contains(option->name))
                     {
-                        if (param.def() == -1)
-                            param.option("(Auto)", -1);
+                        ignore = true;
+                        break;
+                    }
 
+                if (!ignore)
+                {
+                    //
+                    std::string type;
+                    switch (option->type)
+                    {
+                    case AV_OPT_TYPE_INT:
+                    case AV_OPT_TYPE_INT64:
+                    case AV_OPT_TYPE_UINT64:
+                    {
+                        ItemParam<int>& param = group.param<int>(option->name, name)
+                            .description(description)
+                            .defaultValue(dbl2int((double)option->default_val.i64));
+                        param.minValue(dbl2int(option->min));
+                        param.maxValue(dbl2int(option->max));
+
+                        if (option->unit)
+                        {
+                            if (param.def() == -1)
+                                param.option("(Auto)", -1);
+
+                            if (boost::algorithm::ends_with(info.id, "_qsv") && param.name() == "preset" && param.def() == 0)
+                                param.option("(None)", 0);
+
+                            const char* optUnit = av_strdup(option->unit);
+
+                            while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
+                                param.option(Id2Name(option->help && strlen(option->help) > 0 ? option->help : option->name), (int)option->default_val.i64);
+
+                            if (option)
+                                continue;
+                        }
+
+                        break;
+                    }
+
+                    case AV_OPT_TYPE_DOUBLE:
+                    case AV_OPT_TYPE_FLOAT:
+                    {
+                        ItemParam<double>& param = group.param<double>(option->name, name)
+                            .description(description)
+                            .defaultValue(std::isnan(option->default_val.dbl) ? std::min(std::max(option->min, 0.0), option->max) : option->default_val.dbl);
+                        param.minValue(option->min);
+                        param.maxValue(option->max);
+
+                        if (option->unit)
+                        {
+                            if (param.def() == -1)
+                                param.option("(Auto)", -1);
+
+                            const char* optUnit = av_strdup(option->unit);
+
+                            while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
+                                param.option(Id2Name(option->help && strlen(option->help) > 0 ? option->help : option->name), (int)option->default_val.i64);
+
+                            if (option)
+                                continue;
+                        }
+
+                        break;
+                    }
+
+                    case AV_OPT_TYPE_BOOL:
+                    {
+                        group.param<bool>(option->name, name)
+                            .description(description)
+                            .defaultValue(option->default_val.i64 > 0);
+                        break;
+                    }
+
+                    case AV_OPT_TYPE_STRING:
+                    case AV_OPT_TYPE_COLOR:
+                    case AV_OPT_TYPE_IMAGE_SIZE:
+                    case AV_OPT_TYPE_VIDEO_RATE:
+                    {
+                        group.param<std::string>(option->name, name)
+                            .description(description)
+                            .defaultValue(option->default_val.str ? option->default_val.str : "");
+                        break;
+                    }
+
+                    case AV_OPT_TYPE_RATIONAL:
+                    {
+                        ItemParam<std::string> item = group.param<std::string>(option->name, name)
+                            .description(description);
+
+                        if (option->default_val.dbl)
+                        {
+                            const AVRational ratio = av_d2q(option->default_val.dbl, INT_MAX);
+                            item.defaultValue(std::to_string(ratio.num) + "/" + std::to_string(ratio.den));
+                        }
+                        break;
+                    }
+
+                    case AV_OPT_TYPE_FLAGS:
+                    {
+                        ItemParam<flags>& item = group.param<flags>(option->name, name)
+                            .description(description)
+                            .defaultValue(0);
+
+                        // Options unit name
                         const char* optUnit = av_strdup(option->unit);
 
-                        while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
-                            param.option(Id2Name(option->help && strlen(option->help) > 0 ? option->help : option->name), (int)option->default_val.i64);
+                        // Add all flags belonging to the options unit name
+                        if (option->unit)
+                        {
+                            while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
+                                item.flag(Id2Name(option->name));
 
-                        if (option)
-                            continue;
+                            if (option)
+                                continue;
+                        }
+
+                        break;
                     }
 
-                    break;
-                }
+                    case AV_OPT_TYPE_DURATION:
+                        group.param<std::string>(option->name, name)
+                            .description(description)
+                            .defaultValue(std::to_string(option->default_val.i64) + "s");
+                        break;
 
-                case AV_OPT_TYPE_DOUBLE:
-                case AV_OPT_TYPE_FLOAT:
-                {
-                    ItemParam<double>& param = basic.param<double>(option->name, name)
-                        .description(description)
-                        .defaultValue(std::isnan(option->default_val.dbl) ? std::min(std::max(option->min, 0.0), option->max) : option->default_val.dbl);
-                    param.minValue(option->min);
-                    param.maxValue(option->max);
-
-                    if (option->unit)
-                    {
-                        if (param.def() == -1)
-                            param.option("(Auto)", -1);
-
-                        const char* optUnit = av_strdup(option->unit);
-
-                        while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
-                            param.option(Id2Name(option->help && strlen(option->help) > 0 ? option->help : option->name), (int)option->default_val.i64);
-
-                        if (option)
-                            continue;
+                    default:
+                        break;
                     }
-
-                    break;
-                }
-
-                case AV_OPT_TYPE_BOOL:
-                {
-                    basic.param<bool>(option->name, name)
-                        .description(description)
-                        .defaultValue(option->default_val.i64 > 0);
-                    break;
-                }
-
-                case AV_OPT_TYPE_STRING:
-                case AV_OPT_TYPE_COLOR:
-                case AV_OPT_TYPE_IMAGE_SIZE:
-                case AV_OPT_TYPE_VIDEO_RATE:
-                {
-                    basic.param<std::string>(option->name, name)
-                        .description(description)
-                        .defaultValue(option->default_val.str ? option->default_val.str : "");
-                    break;
-                }
-
-                case AV_OPT_TYPE_RATIONAL:
-                {
-                    ItemParam<std::string> item = basic.param<std::string>(option->name, name)
-                        .description(description);
-
-                    if (option->default_val.dbl)
-                    {
-                        const AVRational ratio = av_d2q(option->default_val.dbl, INT_MAX);
-                        item.defaultValue(std::to_string(ratio.num) + "/" + std::to_string(ratio.den));
-                    }
-                    break;
-                }
-
-                case AV_OPT_TYPE_FLAGS:
-                {
-                    ItemParam<flags>& item = basic.param<flags>(option->name, name)
-                        .description(description)
-                        .defaultValue(0);
-
-                    // Options unit name
-                    const char* optUnit = av_strdup(option->unit);
-
-                    // Add all flags belonging to the options unit name
-                    if (option->unit)
-                    {
-                        while ((option = av_opt_next(&priv_class, option)) && option->unit && strcmp(optUnit, option->unit) == 0)
-                            item.flag(Id2Name(option->name));
-
-                        if (option)
-                            continue;
-                    }
-
-                    break;
-                }
-
-                case AV_OPT_TYPE_DURATION:
-                    basic.param<std::string>(option->name, name)
-                        .description(description)
-                        .defaultValue(std::to_string(option->default_val.i64) + "s");
-                    break;
-
-                default:
-                    break;
                 }
 
                 if (option)

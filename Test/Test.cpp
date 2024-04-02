@@ -2,12 +2,10 @@
 
 #include <iostream>
 
-typedef boost::shared_ptr<VoukoderPro::IClient>(pluginapi_create_t)();
-
 int main()
 {
     boost::function<pluginapi_create_t> factory;
-    boost::shared_ptr<VoukoderPro::IClient> vkdrpro;
+    std::shared_ptr<VoukoderPro::IClient> vkdrpro;
 
     try
     {
