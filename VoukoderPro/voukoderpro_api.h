@@ -80,12 +80,11 @@ inline boost::function<pluginapi_create_t> VoukoderProCreateInstance(){
     return boost::dll::import_alias<pluginapi_create_t>(dllName,"createInstance", boost::dll::load_mode::append_decorations | boost::dll::load_mode::search_system_folders);
 }
 
-#ifdef __WIN32
+#ifdef _WIN32
 inline boost::filesystem::path VoukoderProData(){
     return boost::filesystem::path(std::getenv("LOCALAPPDATA")) / "VoukoderPro";
 }
 #else
-
 inline boost::filesystem::path VoukoderProData() {
     std::string xdgDataHome(std::getenv("XDG_DATA_HOME"));
     boost::filesystem::path dataDir;
@@ -97,6 +96,5 @@ inline boost::filesystem::path VoukoderProData() {
     }
     return dataDir / "VoukoderPro";
 }
-
 #endif
 #endif // VP_API
