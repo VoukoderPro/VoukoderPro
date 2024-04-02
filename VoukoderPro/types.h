@@ -306,6 +306,14 @@ namespace VoukoderPro
             return _type;
         }
 
+        bool contains(const std::string id)
+        {
+            return std::find_if(params.begin(), params.end(), [id](ItemParamBase* param) -> bool
+                {
+                    return param->name() == id;
+                }) != params.end();
+        }
+
         std::vector<ItemParamBase*> params;
 
     private:
