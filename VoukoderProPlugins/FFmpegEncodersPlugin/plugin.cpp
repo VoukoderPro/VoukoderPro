@@ -389,6 +389,15 @@ namespace VoukoderPro
                 .maxValue(100000)
                 .defaultValue(2000);
         }
+        else if (info.id == "vc2")
+        {
+            global.param<int>("b", "Average Bitrate [kbit/s]", 1)
+                .description("The average data rate allowed by the encoder.")
+                .multiplierValue(1024)
+                .minValue(0)
+                .maxValue(288000)
+                .defaultValue(15000);
+        }
         else if (info.id == "aac")
         {
             global.param<std::string>("rc", "Strategy")
