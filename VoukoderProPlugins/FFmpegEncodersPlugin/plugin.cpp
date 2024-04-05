@@ -308,6 +308,51 @@ namespace VoukoderPro
                 .maxValue(99999)
                 .defaultValue(0);
         }
+        else if (info.id == "mpeg1video" || info.id == "mpeg2video")
+        {
+            global.param<std::string>("rc", "Strategy")
+                .ignore(true)
+                .description("The encoding mode to use. Choose Constant Bitrate (CBR), Constant Quantizer (CQP) or Variable Bitrate (VBR) and if two encoding passes should be used (VBR only).")
+                .option("Average Bitrate", "avr", [](const ItemParamAction& action) {
+                    action.setVisible("global.minrate", false);
+                    action.setVisible("global.maxrate", false);
+                    action.setVisible("global.bufsize", false);
+                })
+                .option("Constant / Variable Bitrate", "cvbr", [](const ItemParamAction& action) {
+                    action.setVisible("global.minrate", true);
+                    action.setVisible("global.maxrate", true);
+                    action.setVisible("global.bufsize", true);
+                })
+                .defaultValue("avr");
+
+            global.param<int>("b", "Bitrate [kbit/s]", 1)
+                .description("The data rate allowed by the encoder.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+
+            global.param<int>("minrate", "Min. Bitrate [kbit/s]", 1)
+                .description("Higher value can improve maximum quality, but increases decoder requirements.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+
+            global.param<int>("maxrate", "Max. Bitrate [kbit/s]", 1)
+                .description("Higher value can improve maximum quality, but increases decoder requirements.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+
+            global.param<int>("bufsize", "Buffer Size [kbit/s]", 1)
+                .description("The encoder bitstream buffer size.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+        }
         else if (info.id == "libvpx" || info.id == "libvpx-vp9")
         {
             global.param<std::string>("_strategy", "Strategy")

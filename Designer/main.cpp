@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
     // Define command line options
     QCommandLineParser parser;
-    parser.setApplicationDescription("Test helper");
+    parser.setApplicationDescription(app.applicationName());
     parser.addHelpOption();
     parser.addVersionOption();
 
