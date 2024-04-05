@@ -40,7 +40,7 @@
 </table>
 
 ### Stay up-to-date, discuss on the forums and get all announcements and news at https://www.voukoderpro.org.
-- Patreon: https://www.patreon.com/voukoder
-- Paypal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S6LGDW9QZYBTL&source=url
-- Twitter/X: https://twitter.com/LordVouk
-- BlueSky: https://bsky.app/profile/voukoder.bsky.social
+- Support us on [Patreon](https://www.patreon.com/voukoder)
+- Support us with [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S6LGDW9QZYBTL&source=url)
+- Follow us on [Twitter/X](https://twitter.com/LordVouk)
+- Follow us on [BlueSky](https://bsky.app/profile/voukoder.bsky.social)
