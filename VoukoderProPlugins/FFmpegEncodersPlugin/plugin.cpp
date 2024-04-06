@@ -443,6 +443,16 @@ namespace VoukoderPro
                 .maxValue(288000)
                 .defaultValue(15000);
         }
+        else if (info.id == "prores_aw")
+        {
+            global.param<int>("profile", "Profile")
+                .description("The average data rate allowed by the encoder.")
+                .option("422 Proxy (APCO)", 0)
+                .option("422 LT (APCS)", 1)
+                .option("422 SD (APCN)", 2)
+                .option("422 HQ (APCH)", 3)
+                .defaultValue(1);
+        }
         else if (info.id == "aac")
         {
             global.param<std::string>("rc", "Strategy")
