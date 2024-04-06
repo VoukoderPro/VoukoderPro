@@ -10,15 +10,9 @@
 #include <boost/url.hpp>
 #include <boost/compute/detail/sha1.hpp>
 
-#ifdef _WIN32
-extern "C" {
-#include "../3rdparty/curl-8.2.1/include/curl/curl.h"
-}
-#else
 extern "C" {
 #include "curl/curl.h"
 }
-#endif
 
 namespace VoukoderPro
 {
