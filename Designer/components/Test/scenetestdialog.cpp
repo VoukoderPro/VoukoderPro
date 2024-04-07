@@ -1,8 +1,6 @@
 #include "scenetestdialog.h"
 #include "ui_scenetestdialog.h"
 
-#include "boost/dll/import.hpp"
-
 Worker::Worker(std::shared_ptr<VoukoderPro::SceneInfo> sceneInfo, VoukoderPro::config project, const int iterations):
     sceneInfo(sceneInfo), project(project), iterations(iterations)
 {}
@@ -72,8 +70,6 @@ void Worker::run()
             }
             else if (type == "audio")
             {
-                //const int channelCount = std::get<int>(track.at(VoukoderPro::pPropChannelCount));
-
                 // Create buffer
                 uint8_t* abuffer[2];
                 size_t asize = 1024;
@@ -123,7 +119,7 @@ SceneTestDialog::SceneTestDialog(std::shared_ptr<VoukoderPro::SceneInfo> sceneIn
     // Start test
     worker = new Worker(sceneInfo, project, iterations);
     connect(worker, &Worker::message, this, [&](QString msg){ ui->logPanel->appendPlainText(msg); });
-    connect(worker, &Worker::finished, this, [&]()
+    connect(worker, &Worker::finished, this, [=]()
     {
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start).count();
 

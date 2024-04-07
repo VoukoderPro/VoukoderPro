@@ -34,9 +34,6 @@ PerformanceTestDialog::PerformanceTestDialog(std::shared_ptr<VoukoderPro::IClien
     ui->audioTracksWidget->setColumnWidth(1, 150);
     ui->audioTracksWidget->setColumnWidth(2, 150);
 
-    //addVideoTrack(ui->videoTracksWidget, 1920, 1080, 1, 30, 1, 1, "progressive", "yuv420p", "tv", "bt709", "bt709", "bt709", "00:00:00:00", "eng");
-    //addAudioTrack(ui->audioTracksWidget, "FL+FR", 44100, "fltp");
-
     load();
 
     validate();
@@ -67,13 +64,6 @@ QTreeWidgetItem* PerformanceTestDialog::addVideoTrack(QTreeWidget* parent, const
 
     parent->addTopLevelItem(track);
 
-    // const QList<QTreeWidgetItem*> selectedItems = parent->selectedItems();
-    // if (selectedItems.size() == 1)
-    // {
-    //     parent->setCurrentItem(track);
-    //     parent->setSortingEnabled(false);
-    // }
-
     return track;
 }
 
@@ -85,13 +75,6 @@ QTreeWidgetItem* PerformanceTestDialog::addAudioTrack(QTreeWidget* parent, const
     track->setText(2, QString::fromStdString(format));
 
     parent->addTopLevelItem(track);
-
-    // const QList<QTreeWidgetItem*> selectedItems = parent->selectedItems();
-    // if (selectedItems.size() == 1)
-    // {
-    //     parent->setCurrentItem(track);
-    //     parent->setSortingEnabled(false);
-    // }
 
     return track;
 }
