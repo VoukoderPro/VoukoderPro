@@ -22,19 +22,19 @@
   <tr>
     <td>Engine</td>
     <td>Working</td>
-    <td></td>
+    <td>To do</td>
     <td>In progress</td>
   </tr>
   <tr>
     <td>NLE Plugins</td>
     <td>Working</td>
-    <td></td>
+    <td>To do</td>
     <td>In progress</td>
   </tr>
   <tr>
     <td>Designer App</td>
     <td>Working</td>
-    <td></td>
+    <td>To do</td>
     <td>In progress</td>
   </tr>
 </table>
