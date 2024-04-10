@@ -164,7 +164,7 @@ namespace VoukoderPro
 
         int close()
         {
-            return avcodec_close(codecCtx.get());
+            return 0;
         }
 
         void setCodecContext(std::shared_ptr<AVCodecContext> codecCtx)

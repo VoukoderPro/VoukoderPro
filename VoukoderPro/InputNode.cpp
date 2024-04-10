@@ -230,10 +230,6 @@ namespace VoukoderPro
 			return ERR_FAIL;
 		}
 
-		// Workaround/Hack: av_buffersrc_write_frame sets the old channel layout to active
-		if (frame)
-			frame->channel_layout = 0;
-
 		int ret = BaseNode::checkFrame(nleTrackIndex);
 
 		//data->performance->end();

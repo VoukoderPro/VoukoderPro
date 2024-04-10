@@ -140,13 +140,13 @@
 			</Directory>
 			<Directory Id="System64Folder">
 				<Component Id="FFmpeg" Guid="FC83373A-2161-475B-951D-B62468926976">
-					<File Id="avcodec60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avcodec-voukoderpro-60.dll" />
-					<File Id="avdevice60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avdevice-voukoderpro-60.dll" />
-					<File Id="avfilter60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avfilter-voukoderpro-9.dll" />
-					<File Id="avformat60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avformat-voukoderpro-60.dll" />
-					<File Id="avutil60" Source="..\3rdparty\ffmpeg-6.1-release\bin\avutil-voukoderpro-58.dll" />
-					<File Id="swresample60" Source="..\3rdparty\ffmpeg-6.1-release\bin\swresample-voukoderpro-4.dll" />
-					<File Id="swscale60" Source="..\3rdparty\ffmpeg-6.1-release\bin\swscale-voukoderpro-7.dll" />
+					<File Id="avcodec70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avcodec-voukoderpro-61.dll" />
+					<File Id="avdevice70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avdevice-voukoderpro-61.dll" />
+					<File Id="avfilter70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avfilter-voukoderpro-10.dll" />
+					<File Id="avformat70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avformat-voukoderpro-61.dll" />
+					<File Id="avutil70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avutil-voukoderpro-59.dll" />
+					<File Id="swresample70" Source="..\3rdparty\ffmpeg-7.0-release\bin\swresample-voukoderpro-5.dll" />
+					<File Id="swscale70" Source="..\3rdparty\ffmpeg-7.0-release\bin\swscale-voukoderpro-8.dll" />
 				</Component>
 			</Directory>
 			<Directory Id="AFTERFXINSTALLDIR">
