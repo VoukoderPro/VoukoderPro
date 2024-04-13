@@ -3,11 +3,31 @@
 #include <filesystem>
 #include <boost/algorithm/string.hpp>
 
+#include "Assets.h"
+
 namespace VoukoderPro
 {
 	PostProcNode::PostProcNode(std::shared_ptr<NodeInfo> nodeInfo):
 		BaseNode(nodeInfo)
 	{}
+
+	int PostProcNode::preinit(const int nleTrackIndex, std::shared_ptr<NodeData> nleData)
+	{
+		// Do we have a nodeId given?
+		if (nodeInfo->data.find("id") != nodeInfo->data.end())
+		{
+			const std::string id = nodeInfo->data["id"].get<std::string>();
+
+			auto instance = Assets::instance().createAssetInstance(id, nodeInfo->type);
+			if (!instance)
+			{
+				BLOG(warning) << "PostProc node (Id: " << nodeInfo->id << ") does not have a plugin id associated which is required for this type!";
+				return ERR_FAIL;
+			}
+
+			plugins.insert(std::make_pair(nleTrackIndex, instance));
+		}
+	}
 
 	int PostProcNode::init()
 	{

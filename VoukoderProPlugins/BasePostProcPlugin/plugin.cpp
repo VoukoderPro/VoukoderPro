@@ -50,18 +50,30 @@ namespace VoukoderPro
 
         if (params.contains("exec"))
         {
-            const std::string exec = params["exec"].get<std::string>();
+            std::string exec = params["exec"].get<std::string>();
 
             // Should we wait for program termination
             bool wait = true;
             if (params.contains("wait"))
                 wait = params["wait"].get<bool>();
 
+#if _WIN32
+            // Execute the command using the shell
+            if (!exec.empty())
+                exec = "cmd /C " + exec;
+#endif
+
             // Execute command line
-            if (wait)
-                ret = boost::process::system(exec);
-            else
-                boost::process::spawn(exec);
+            try
+            {
+                boost::process::child process(exec);
+
+                if (wait)
+                    process.wait();
+            }
+            catch (...)
+            {
+            }
         }
 
         return ret;

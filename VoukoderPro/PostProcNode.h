@@ -8,6 +8,7 @@ namespace VoukoderPro
     {
     public:
         PostProcNode(std::shared_ptr<NodeInfo> nodeInfo);
+        int preinit(const int nleTrackIndex, std::shared_ptr<NodeData> nleData);
         int init();
         int open();
         int close();

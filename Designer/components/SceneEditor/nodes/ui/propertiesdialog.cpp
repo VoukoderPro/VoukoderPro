@@ -439,7 +439,14 @@ void PropertiesDialog::on_encoders_currentItemChanged(QTreeWidgetItem* current, 
                     VoukoderPro::ItemParam<int>* param = static_cast<VoukoderPro::ItemParam<int>*>(baseParam);
 
                     // Get the selected value and fall back to the default value if not value is selected
-                    const auto selectedValue = encoderParams.contains(param->name()) ? encoderParams[param->name()].get<int>() : param->def() * param->multiplier();
+                    int selectedValue = param->def() * param->multiplier();
+                    if (encoderParams.contains(param->name()))
+                    {
+                        try {
+                            selectedValue = encoderParams[param->name()].get<int>();
+                        } catch (...) {
+                        }
+                    }
 
                     if (param->options().size() > 0)
                     {
@@ -473,7 +480,14 @@ void PropertiesDialog::on_encoders_currentItemChanged(QTreeWidgetItem* current, 
                     VoukoderPro::ItemParam<double>* param = static_cast<VoukoderPro::ItemParam<double>*>(baseParam);
 
                     // Get the selected value and fall back to the default value if not value is selected
-                    const auto selectedValue = encoderParams.contains(param->name()) ? encoderParams[param->name()].get<double>() : param->def() * param->multiplier();
+                    double selectedValue = param->def() * param->multiplier();
+                    if (encoderParams.contains(param->name()))
+                    {
+                        try {
+                            selectedValue = encoderParams[param->name()].get<double>();
+                        } catch (...) {
+                        }
+                    }
 
                     if (param->options().size() > 0)
                     {
@@ -507,7 +521,14 @@ void PropertiesDialog::on_encoders_currentItemChanged(QTreeWidgetItem* current, 
                     VoukoderPro::ItemParam<bool>* param = static_cast<VoukoderPro::ItemParam<bool>*>(baseParam);
 
                     // Get the selected value and fall back to the default value if not value is selected
-                    bool selectedValue = encoderParams.contains(param->name()) ? encoderParams[param->name()].get<bool>() : param->def();
+                    bool selectedValue = param->def() * param->multiplier();
+                    if (encoderParams.contains(param->name()))
+                    {
+                        try {
+                            selectedValue = encoderParams[param->name()].get<bool>();
+                        } catch (...) {
+                        }
+                    }
 
                     const QString yes = showTechNames ? "1" : tr("Yes");
                     const QString no = showTechNames ? "0" : tr("No");

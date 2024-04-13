@@ -457,6 +457,7 @@ namespace VoukoderPro
                     case AV_OPT_TYPE_COLOR:
                     case AV_OPT_TYPE_IMAGE_SIZE:
                     case AV_OPT_TYPE_VIDEO_RATE:
+                    case AV_OPT_TYPE_DICT:
                     {
                         group.param<std::string>(option->name, name)
                             .description(description)
