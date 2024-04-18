@@ -455,7 +455,7 @@ namespace VoukoderPro
         }
         else if (info.id == "aac")
         {
-            global.param<std::string>("rc", "Strategy")
+            global.param<std::string>("rc", "Strategy").ignore(true)
                 .description("The encoding mode to use. Choose Constant Bitrate (CBR), Constant Quantizer (CQP) or Variable Bitrate (VBR) and if two encoding passes should be used (VBR only).")
                 .option("Constant Bitrate", "cbr", [&](const ItemParamAction& action)
                     {
@@ -470,17 +470,16 @@ namespace VoukoderPro
 
             global.param<int>("b", "Bit rate", 1)
                 .description("The constant bit rate in kbit/s for all channels.")
-                .multiplierValue(1024)
-                .option("64 kbit/s", 64)
-                .option("96 kbit/s", 96)
-                .option("128 kbit/s", 128)
-                .option("192 kbit/s", 192)
-                .option("256 kbit/s", 256)
-                .option("320 kbit/s", 320)
-                .option("384 kbit/s", 384)
-                .option("448 kbit/s", 448)
-                .option("512 kbit/s", 512)
-                .defaultValue(128);
+                .option("64 kbit/s", 64000)
+                .option("96 kbit/s", 96000)
+                .option("128 kbit/s", 128000)
+                .option("192 kbit/s", 192000)
+                .option("256 kbit/s", 256000)
+                .option("320 kbit/s", 320000)
+                .option("384 kbit/s", 384000)
+                .option("448 kbit/s", 448000)
+                .option("512 kbit/s", 512000)
+                .defaultValue(96000);
 
             global.param<int>("global_quality", "Quality", 1)
                 .description("The quality as a variable bit rate in kbit/s per channel.")
