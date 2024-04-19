@@ -12,11 +12,14 @@ namespace VoukoderPro
         while ((codec = av_codec_iterate(&opaque)))
         {
             // Has this encoder already been registered?
-            if (codec->id == AV_CODEC_ID_NONE || 
-                std::find_if(std::begin(infos), std::end(infos), [&](AssetInfo info) -> bool
+            if (std::find_if(std::begin(infos), std::end(infos), [&](AssetInfo info) -> bool
                 {
                     return info.name == codec->name;
                 }) != infos.end())
+                continue;
+
+            // Do we want to skip this codec?
+            if (codec->id == AV_CODEC_ID_NONE || !av_codec_is_encoder(codec))
                 continue;
 
             AssetInfo info;
@@ -25,6 +28,10 @@ namespace VoukoderPro
             info.description = codec->long_name;
             info.type = NodeInfoType::encoder;
             info.helpUrl = "https://ffmpeg.org/ffmpeg-codecs.html#" + info.id;
+
+            // Mark experimental encoders as such
+            if ((codec->capabilities & AV_CODEC_CAP_EXPERIMENTAL))
+                info.name += " (Experimental)";
 
             // Set the right category
             if (boost::algorithm::ends_with(codec->name, "_amf"))

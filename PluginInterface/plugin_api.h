@@ -91,6 +91,8 @@ namespace VoukoderPro
         {
             int ret = 0;
 
+            codecCtx->strict_std_compliance = FF_COMPLIANCE_EXPERIMENTAL;
+
             // Configure the codec context
             switch (codecCtx->codec_type)
             {
