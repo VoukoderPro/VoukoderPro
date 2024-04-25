@@ -74,8 +74,8 @@
 		</Property>
 		
 		<!-- Adobe Premiere Pro -->
-		<Property Id="ADOBEPREMIEREPLUGINPATH">
-			<RegistrySearch Id="AdobePremierePluginPath" Root="HKLM" Key="SOFTWARE\Adobe\Premiere Pro\CurrentVersion" Name="Plug-InsDir" Type="raw" />
+		<Property Id="ADOBEPREMIEREPLUGINPATH" Value="$(env.ProgramW6432)\Adobe\Common\Plug-ins\7.0\MediaCore">
+			<!-- RegistrySearch Id="AdobePremierePluginPath" Root="HKLM" Key="SOFTWARE\Adobe\Premiere Pro\CurrentVersion" Name="Plug-InsDir" Type="raw" / -->
 		</Property>
 
 		<!-- DaVinci Resolve Studio -->
