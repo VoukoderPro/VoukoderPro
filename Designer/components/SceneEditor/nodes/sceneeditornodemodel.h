@@ -4,12 +4,18 @@
 #include <nodes/NodeData>
 
 #include "../VoukoderPro/voukoderpro_api.h"
+#include "designer_types.h"
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QLabel>
 
+#ifdef CMAKE_PROPERTY_BROWSER
+#include "qtpropertybrowser/qttreepropertybrowser.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
+#else
 #include "include/QtPropertyBrowser/qttreepropertybrowser.h"
 #include "include/QtPropertyBrowser/qtvariantproperty.h"
+#endif
 #include "sceneeditornodedata.h"
 
 #define TYPE_RAW_VIDEO "uncompressed_video"
