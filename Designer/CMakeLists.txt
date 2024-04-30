@@ -51,7 +51,7 @@ target_link_libraries(PropertyBrowser PRIVATE Qt6::Core Qt6::Widgets)
 FetchContent_Declare(
         NodeEditor2
         GIT_REPOSITORY https://github.com/RealXuChe/nodeeditor.git
-        GIT_TAG 2.2.5
+        GIT_TAG 2.2.6
 #        PATCH_COMMAND ${PatchNE2Cmake}
         EXCLUDE_FROM_ALL
 )
