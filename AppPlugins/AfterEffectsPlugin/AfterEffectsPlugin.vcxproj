@@ -47,17 +47,17 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>VoukoderPro</TargetName>
     <TargetExt>.aex</TargetExt>
-    <IncludePath>$(BoostHome);inc;aftereffects_cc2015\Examples\Headers;aftereffects_cc2015\Examples\Util;aftereffects_cc2015\Examples\Headers\SP;C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswud;$(IncludePath);C:\Users\Daniel\source\external\include</IncludePath>
+    <IncludePath>$(BOOST_ROOT);inc;aftereffects_cc2015\Examples\Headers;aftereffects_cc2015\Examples\Util;aftereffects_cc2015\Examples\Headers\SP;C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswud;$(IncludePath);C:\Users\Daniel\source\external\include</IncludePath>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
-    <LibraryPath>$(BoostHome)\stage\lib;lib;C:\Users\Daniel\source\external\lib\debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(BOOST_ROOT)\stage\lib;lib;C:\Users\Daniel\source\external\lib\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>VoukoderPro</TargetName>
     <TargetExt>.aex</TargetExt>
-    <IncludePath>$(BoostHome);inc;aftereffects_cc2015\Examples\Headers;aftereffects_cc2015\Examples\Util;aftereffects_cc2015\Examples\Headers\SP;C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswu;$(IncludePath);C:\Users\Daniel\source\external\include</IncludePath>
+    <IncludePath>$(BOOST_ROOT);inc;aftereffects_cc2015\Examples\Headers;aftereffects_cc2015\Examples\Util;aftereffects_cc2015\Examples\Headers\SP;C:\wxWidgets-3.1.2\lib\vc_x64_lib\mswu;$(IncludePath);C:\Users\Daniel\source\external\include</IncludePath>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
-    <LibraryPath>$(BoostHome)\stage\lib;lib;C:\Users\Daniel\source\external\lib\release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(BOOST_ROOT)\stage\lib;lib;C:\Users\Daniel\source\external\lib\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

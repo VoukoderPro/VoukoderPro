@@ -78,16 +78,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(BoostHome);$(IncludePath)</IncludePath>
-    <LibraryPath>$(BoostHome)\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST_ROOT);$(IncludePath)</IncludePath>
+    <LibraryPath>$(BOOST_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
     <TargetName>voukoderpro_plugin</TargetName>
     <TargetExt>.dvcp</TargetExt>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(BoostHome);$(IncludePath)</IncludePath>
-    <LibraryPath>$(BoostHome)\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST_ROOT);$(IncludePath)</IncludePath>
+    <LibraryPath>$(BOOST_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
     <TargetName>voukoderpro_plugin</TargetName>
     <TargetExt>.dvcp</TargetExt>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
@@ -142,7 +142,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>Version.lib;bcrypt.lib;libboost_thread-vc143-mt-gd-x64-1_80.lib;libboost_filesystem-vc143-mt-gd-x64-1_80.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Version.lib;bcrypt.lib;libboost_thread-vc143-mt-gd-x64-$(BOOST_VERSION).lib;libboost_filesystem-vc143-mt-gd-x64-$(BOOST_VERSION).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\IOPlugins\voukoderpro_plugin.dvcp.bundle\Contents\Win64\"</Command>
@@ -168,7 +168,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>Version.lib;bcrypt.lib;libboost_thread-vc143-mt-x64-1_80.lib;libboost_filesystem-vc143-mt-x64-1_80.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Version.lib;bcrypt.lib;libboost_thread-vc143-mt-x64-$(BOOST_VERSION).lib;libboost_filesystem-vc143-mt-x64-$(BOOST_VERSION).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>signtool.exe sign /f "C:\Users\daniel\OneDrive - Voukoder\Business\Zertifikate\daniel_stankewitz_nopass.pfx" /fd SHA256  /tr http://ts.ssl.com /td sha256 /v "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)"</Command>

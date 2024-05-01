@@ -105,10 +105,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 # Boost
-INCLUDEPATH += $$(BoostHome)
-DEPENDPATH += $$(BoostHome)
-win32:LIBS += -L$$(BoostHome)\stage\lib
-unix:LIBS += -L$$(BoostHome)\stage\lib -llibboost_filesystem-mgw11-mt-x64-1_80
+INCLUDEPATH += $$(BOOST_ROOT)
+DEPENDPATH += $$(BOOST_ROOT)
+win32:LIBS += -L$$(BOOST_ROOT)\stage\lib
+unix:LIBS += -L$$(BOOST_ROOT)\stage\lib -llibboost_filesystem-mgw11-mt-x64-1_80
 
 # Node Editor
 DEFINES += NODE_EDITOR_STATIC

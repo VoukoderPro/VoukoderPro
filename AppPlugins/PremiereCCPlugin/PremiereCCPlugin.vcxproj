@@ -80,17 +80,17 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(BoostHome);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_ROOT);$(IncludePath)</IncludePath>
     <TargetExt>.prm</TargetExt>
-    <LibraryPath>$(BoostHome)\stage\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(BOOST_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
     <TargetName>VoukoderPro</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(BoostHome);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_ROOT);$(IncludePath)</IncludePath>
     <TargetExt>.prm</TargetExt>
-    <LibraryPath>$(BoostHome)\stage\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(BOOST_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
     <TargetName>VoukoderPro</TargetName>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
