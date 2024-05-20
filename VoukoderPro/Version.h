@@ -2,8 +2,8 @@
 
 #define VKDRPRO_VERSION_MAJOR 1
 #define VKDRPRO_VERSION_MINOR 2
-#define VKDRPRO_VERSION_PATCH 4
-#define VKDRPRO_VERSION_PUBLIC "Version 1.2.4"
+#define VKDRPRO_VERSION_PATCH 5
+#define VKDRPRO_VERSION_PUBLIC "Version 1.2.5"
 
 #define xstr(a) nstr(a)
 #define nstr(a) #a

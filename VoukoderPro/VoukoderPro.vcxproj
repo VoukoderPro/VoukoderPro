@@ -80,16 +80,16 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
     <TargetName>voukoderpro</TargetName>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_ROOT);..\3rdparty\nlohmann\include;../3rdparty/curl-8.2.1/include/;..\3rdparty\$(FFmpegDir)-debug\include;..\3rdparty\infoware\include;..\3rdparty\steamworks_sdk_155\sdk\public;C:\OpenSSL\include;..\3rdparty\leveldb-1.23;3rdparty\leveldb-1.23\include;..\3rdparty\leveldb-1.23\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(BOOST_ROOT)\stage\lib;..\3rdparty\$(FFmpegDir)-debug\lib;..\3rdparty\steamworks_sdk_155\sdk\redistributable_bin\win64;C:\OpenSSL\lib;..\3rdparty\leveldb-1.23\build\Debug</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_ROOT);..\3rdparty\nlohmann\include;../3rdparty/curl-8.2.1/include/;..\3rdparty\$(FFmpegDir)\include;..\3rdparty\infoware\include;..\3rdparty\steamworks_sdk_155\sdk\public;C:\OpenSSL\include;..\3rdparty\leveldb-1.23;3rdparty\leveldb-1.23\include;..\3rdparty\leveldb-1.23\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(BOOST_ROOT)\stage\lib;..\3rdparty\$(FFmpegDir)\lib;..\3rdparty\steamworks_sdk_155\sdk\redistributable_bin\win64;C:\OpenSSL\lib;..\3rdparty\leveldb-1.23\build\Debug</LibraryPath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
     <TargetName>voukoderpro</TargetName>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_ROOT);..\3rdparty\nlohmann\include;../3rdparty/curl-8.2.1/include/;..\3rdparty\$(FFmpegDir)-release\include;..\3rdparty\infoware\include;..\3rdparty\steamworks_sdk_155\sdk\public;C:\OpenSSL\include;..\3rdparty\leveldb-1.23;3rdparty\leveldb-1.23\include;..\3rdparty\leveldb-1.23\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(BOOST_ROOT)\stage\lib;..\3rdparty\$(FFmpegDir)-release\lib;..\3rdparty\steamworks_sdk_155\sdk\redistributable_bin\win64;C:\OpenSSL\lib;..\3rdparty\leveldb-1.23\build\Release</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_ROOT);..\3rdparty\nlohmann\include;../3rdparty/curl-8.2.1/include/;..\3rdparty\$(FFmpegDir)\include;..\3rdparty\infoware\include;..\3rdparty\steamworks_sdk_155\sdk\public;C:\OpenSSL\include;..\3rdparty\leveldb-1.23;3rdparty\leveldb-1.23\include;..\3rdparty\leveldb-1.23\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(BOOST_ROOT)\stage\lib;..\3rdparty\$(FFmpegDir)\lib;..\3rdparty\steamworks_sdk_155\sdk\redistributable_bin\win64;C:\OpenSSL\lib;..\3rdparty\leveldb-1.23\build\Release</LibraryPath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -146,7 +146,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_6_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
-copy "$(SolutionDir)3rdparty\$(FFmpegDir)-$(Configuration)\bin\*.dll" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_6_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
+copy "$(SolutionDir)3rdparty\$(FFmpegDir)\bin\*.dll" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_6_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -176,7 +176,7 @@ copy "$(SolutionDir)3rdparty\$(FFmpegDir)-$(Configuration)\bin\*.dll" "C:\Users\
       <Command>signtool.exe sign /f "C:\Users\daniel\OneDrive - Voukoder\Business\Zertifikate\daniel_stankewitz_nopass.pfx" /fd SHA256  /tr http://ts.ssl.com /td sha256 /v "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)"
 copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_6_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
 copy "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "C:\Program Files\VoukoderPro\"
-copy "$(SolutionDir)3rdparty\$(FFmpegDir)-$(Configuration)\bin\*.dll" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_6_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
+copy "$(SolutionDir)3rdparty\$(FFmpegDir)\bin\*.dll" "C:\Users\daniel\source\repos\VoukoderPro\build-Designer-Desktop_Qt_6_6_1_MSVC2019_64bit-$(Configuration)\$(Configuration)\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

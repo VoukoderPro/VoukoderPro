@@ -41,6 +41,20 @@
 				<ComponentRef Id="DaVinciResolvePlugin" />
 			</Feature>
 			<Feature Id="VEGASPro" Title="VEGAS Pro">
+				<!--
+				# <Feature Id="MagixVEGASPro15" Title="VEGAS Pro 15" Level="2" ConfigurableDirectory="VEGAS15PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+				#	<ComponentRef Id="VEGASProPlugin.15" />
+				#	<ComponentRef Id="VEGASProPlugin.15.fiocfg" />
+				#</Feature>
+				#<Feature Id="MagixVEGASPro16" Title="VEGAS Pro 16" Level="2" ConfigurableDirectory="VEGAS16PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+				#	<ComponentRef Id="VEGASProPlugin.16" />
+				#	<ComponentRef Id="VEGASProPlugin.16.fiocfg" />
+				#</Feature>
+				#<Feature Id="MagixVEGASPro17" Title="VEGAS Pro 17" Level="2" ConfigurableDirectory="VEGAS17PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+				#	<ComponentRef Id="VEGASProPlugin.17" />
+				#	<ComponentRef Id="VEGASProPlugin.17.fiocfg" />
+				#</Feature>
+				-->
 				<Feature Id="MagixVEGASPro18" Title="VEGAS Pro 18" Level="2" ConfigurableDirectory="VEGAS18PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
 					<ComponentRef Id="VEGASProPlugin.18" />
 					<ComponentRef Id="VEGASProPlugin.18.fiocfg" />
@@ -82,6 +96,9 @@
 		<Property Id="DAVINCIRESOLVEPLUGINPATH" Value="$(env.ProgramData)\Blackmagic Design\DaVinci Resolve" />
 
 		<!-- VEGAS Pro -->
+		<Property Id="VEGAS15PLUGINPATH" Value="$(env.ProgramW6432)\VEGAS\VEGAS Pro 15.0\" />
+		<Property Id="VEGAS16PLUGINPATH" Value="$(env.ProgramW6432)\VEGAS\VEGAS Pro 16.0\" />
+		<Property Id="VEGAS17PLUGINPATH" Value="$(env.ProgramW6432)\VEGAS\VEGAS Pro 17.0\" />
 		<Property Id="VEGAS18PLUGINPATH">
 			<RegistrySearch Id="VEGAS18InstallPath" Root="HKLM" Key="SOFTWARE\MAGIX\VEGAS_Pro_18" Name="ProgramPath" Type="raw" />
 		</Property>
@@ -140,13 +157,13 @@
 			</Directory>
 			<Directory Id="System64Folder">
 				<Component Id="FFmpeg" Guid="FC83373A-2161-475B-951D-B62468926976">
-					<File Id="avcodec70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avcodec-voukoderpro-61.dll" />
-					<File Id="avdevice70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avdevice-voukoderpro-61.dll" />
-					<File Id="avfilter70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avfilter-voukoderpro-10.dll" />
-					<File Id="avformat70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avformat-voukoderpro-61.dll" />
-					<File Id="avutil70" Source="..\3rdparty\ffmpeg-7.0-release\bin\avutil-voukoderpro-59.dll" />
-					<File Id="swresample70" Source="..\3rdparty\ffmpeg-7.0-release\bin\swresample-voukoderpro-5.dll" />
-					<File Id="swscale70" Source="..\3rdparty\ffmpeg-7.0-release\bin\swscale-voukoderpro-8.dll" />
+					<File Id="avcodec70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avcodec-voukoderpro-61.dll" />
+					<File Id="avdevice70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avdevice-voukoderpro-61.dll" />
+					<File Id="avfilter70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avfilter-voukoderpro-10.dll" />
+					<File Id="avformat70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avformat-voukoderpro-61.dll" />
+					<File Id="avutil70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avutil-voukoderpro-59.dll" />
+					<File Id="swresample70" Source="..\3rdparty\$(env.FFmpegDir)\bin\swresample-voukoderpro-5.dll" />
+					<File Id="swscale70" Source="..\3rdparty\$(env.FFmpegDir)\bin\swscale-voukoderpro-8.dll" />
 				</Component>
 			</Directory>
 			<Directory Id="AFTERFXINSTALLDIR">
@@ -171,6 +188,42 @@
 								</Directory>
 							</Directory>
 						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS15PLUGINPATH">
+				<Component Id="VEGASProPlugin.15.fiocfg" Guid="31C28E32-E10C-4C4A-A7E9-DDE68BE5E1A4">
+					<File Id="VEGASProPlugin.15.fiocfg" Source="VoukoderProVEGAS15-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO15DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO15DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.15" Guid="3A79196E-79DA-4203-A460-B08237BAD3EE">
+							<File Id="VEGASProPlugin.15" Source="$(var.VEGASProOldPlugin.TargetPath)" Name="voukoderproplug-vegas15.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS16PLUGINPATH">
+				<Component Id="VEGASProPlugin.16.fiocfg" Guid="ED01B99E-6A19-4955-A1EA-97DDFAA516D5">
+					<File Id="VEGASProPlugin.16.fiocfg" Source="VoukoderProVEGAS16-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO16DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO16DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.16" Guid="CB92840C-80AC-4473-8454-C8CAA86385EC">
+							<File Id="VEGASProPlugin.16" Source="$(var.VEGASProOldPlugin.TargetPath)" Name="voukoderproplug-vegas16.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="VEGAS17PLUGINPATH">
+				<Component Id="VEGASProPlugin.17.fiocfg" Guid="67990956-E70D-46DA-9808-2B7AC4D09F00">
+					<File Id="VEGASProPlugin.17.fiocfg" Source="VoukoderProVEGAS17-x64.fio2007-config" KeyPath="yes" />
+				</Component>
+				<Directory Id="FIO17DIR" Name="FileIO Plug-Ins">
+					<Directory Id="VOUKODERPRO17DIR" Name="voukoderproplug">
+						<Component Id="VEGASProPlugin.17" Guid="E185A03C-6A33-4585-B0A2-BECE88B8A3F0">
+							<File Id="VEGASProPlugin.17" Source="$(var.VEGASProOldPlugin.TargetPath)" Name="voukoderproplug-vegas17.dll" />
+						</Component>
 					</Directory>
 				</Directory>
 			</Directory>
