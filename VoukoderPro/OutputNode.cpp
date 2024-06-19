@@ -220,9 +220,6 @@ namespace VoukoderPro
 			for (auto& [key, val] : nodeInfo->data["params"].items())
 				av_dict_set(&opts, key.c_str(), val.get<std::string>().c_str(), 0);
 
-		// Always write a timecode
-		av_dict_set(&opts, "write_tmcd", "1", 0);
-
 		// Write header
 		if ((ret = avformat_write_header(formatCtx.get(), &opts)) < 0)
 		{

@@ -42,18 +42,18 @@
 			</Feature>
 			<Feature Id="VEGASPro" Title="VEGAS Pro">
 				<!--
-				# <Feature Id="MagixVEGASPro15" Title="VEGAS Pro 15" Level="2" ConfigurableDirectory="VEGAS15PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
-				#	<ComponentRef Id="VEGASProPlugin.15" />
-				#	<ComponentRef Id="VEGASProPlugin.15.fiocfg" />
-				#</Feature>
-				#<Feature Id="MagixVEGASPro16" Title="VEGAS Pro 16" Level="2" ConfigurableDirectory="VEGAS16PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
-				#	<ComponentRef Id="VEGASProPlugin.16" />
-				#	<ComponentRef Id="VEGASProPlugin.16.fiocfg" />
-				#</Feature>
-				#<Feature Id="MagixVEGASPro17" Title="VEGAS Pro 17" Level="2" ConfigurableDirectory="VEGAS17PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
-				#	<ComponentRef Id="VEGASProPlugin.17" />
-				#	<ComponentRef Id="VEGASProPlugin.17.fiocfg" />
-				#</Feature>
+				<Feature Id="MagixVEGASPro15" Title="VEGAS Pro 15" Level="2" ConfigurableDirectory="VEGAS15PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.15" />
+					<ComponentRef Id="VEGASProPlugin.15.fiocfg" />
+				</Feature>
+				<Feature Id="MagixVEGASPro16" Title="VEGAS Pro 16" Level="2" ConfigurableDirectory="VEGAS16PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.16" />
+					<ComponentRef Id="VEGASProPlugin.16.fiocfg" />
+				</Feature>
+				<Feature Id="MagixVEGASPro17" Title="VEGAS Pro 17" Level="2" ConfigurableDirectory="VEGAS17PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
+					<ComponentRef Id="VEGASProPlugin.17" />
+					<ComponentRef Id="VEGASProPlugin.17.fiocfg" />
+				</Feature>
 				-->
 				<Feature Id="MagixVEGASPro18" Title="VEGAS Pro 18" Level="2" ConfigurableDirectory="VEGAS18PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
 					<ComponentRef Id="VEGASProPlugin.18" />
@@ -191,7 +191,7 @@
 					</Directory>
 				</Directory>
 			</Directory>
-			<Directory Id="VEGAS15PLUGINPATH">
+			<!--<Directory Id="VEGAS15PLUGINPATH">
 				<Component Id="VEGASProPlugin.15.fiocfg" Guid="31C28E32-E10C-4C4A-A7E9-DDE68BE5E1A4">
 					<File Id="VEGASProPlugin.15.fiocfg" Source="VoukoderProVEGAS15-x64.fio2007-config" KeyPath="yes" />
 				</Component>
@@ -226,7 +226,7 @@
 						</Component>
 					</Directory>
 				</Directory>
-			</Directory>
+			</Directory>-->
 			<Directory Id="VEGAS18PLUGINPATH">
 				<Component Id="VEGASProPlugin.18.fiocfg" Guid="21B87B37-8F7C-487A-BA52-2DF5DEC34F75">
 					<File Id="VEGASProPlugin.18.fiocfg" Source="VoukoderProVEGAS18-x64.fio2007-config" KeyPath="yes" />
