@@ -27,6 +27,7 @@ namespace VoukoderPro
 
 			plugins.insert(std::make_pair(nleTrackIndex, instance));
 		}
+		return 0;
 	}
 
 	int PostProcNode::init()
