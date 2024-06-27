@@ -90,9 +90,6 @@
     <ClInclude Include="Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Telemetry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PerformanceManager.h">
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
@@ -104,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="JavaScript.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry.h">
+      <Filter>Source Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

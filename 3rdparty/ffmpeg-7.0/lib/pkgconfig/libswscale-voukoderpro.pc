@@ -1,0 +1,13 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libswscale-voukoderpro
+Description: FFmpeg image rescaling library
+Version: 8.1.100
+Requires: 
+Requires.private: libavutil-voukoderpro >= 59.8.100
+Conflicts:
+Libs: -L${libdir}  -lswscale-voukoderpro 
+Cflags: -I${includedir}

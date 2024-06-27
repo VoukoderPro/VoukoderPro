@@ -228,66 +228,6 @@ namespace VoukoderPro
             return ret;
         }
 
-        bool isAvailable()
-        {
-            bool ret = false;
-
-            auto codec = avcodec_find_encoder_by_name(info.id.c_str());
-            if (codec != NULL)
-            {
-                AVCodecContext* codecContext = avcodec_alloc_context3(codec);
-                if (codecContext != NULL)
-                {
-                    codecContext->strict_std_compliance = FF_COMPLIANCE_EXPERIMENTAL;
-
-                    if (codec->type == AVMEDIA_TYPE_VIDEO)
-                    {
-                        codecContext->width = 320;
-                        codecContext->height = 240;
-                        codecContext->time_base = { 1, 25 };
-                        codecContext->framerate = av_inv_q(codecContext->time_base);
-                        codecContext->sample_aspect_ratio = { 1, 1 };
-                        codecContext->field_order = AV_FIELD_PROGRESSIVE;
-                        codecContext->pix_fmt = codec->pix_fmts ? codec->pix_fmts[0] : AV_PIX_FMT_YUV420P;
-                    }
-                    else if (codec->type == AVMEDIA_TYPE_AUDIO)
-                    {
-                        //if (codec->ch_layouts)
-                        //    codecContext->ch_layout = codec->ch_layouts[0];
-                        //else
-                        //    av_channel_layout_from_mask(&codecContext->ch_layout, AV_CH_LAYOUT_STEREO);
-                        //codecContext->sample_rate = codec->supported_samplerates ? codec->supported_samplerates[0] : 48000;
-                        //codecContext->sample_fmt = codec->sample_fmts ? codec->sample_fmts[0] : AV_SAMPLE_FMT_FLTP;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                    // Open the codec
-                    try
-                    {
-                        const int res = avcodec_open2(codecContext, codec, NULL);
-
-                        // Only 0 is successful
-                        ret = res == 0;
-
-                        //if (!ret)
-                        //    vkLogInfoVA("- Encoder initialization failed (Code: %d)", res);
-                    }
-                    catch (...)
-                    {
-                        return false;
-                    }
-
-                    // Close the codec
-                    avcodec_free_context(&codecContext);
-                }
-            }
-
-            return ret;
-        }
-
     private:
         std::shared_ptr<AVCodecContext> codecCtx = nullptr;
         std::shared_ptr<AVPacket> packet = std::shared_ptr<AVPacket>(av_packet_alloc(), [](AVPacket* ptr) { av_packet_free(&ptr); });

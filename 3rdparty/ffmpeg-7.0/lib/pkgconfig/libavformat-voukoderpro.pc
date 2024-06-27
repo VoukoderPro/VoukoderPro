@@ -1,0 +1,13 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavformat-voukoderpro
+Description: FFmpeg container format library
+Version: 61.1.100
+Requires: 
+Requires.private: libavcodec-voukoderpro >= 61.3.100, libswresample-voukoderpro >= 5.1.100, libavutil-voukoderpro >= 59.8.100
+Conflicts:
+Libs: -L${libdir}  -lavformat-voukoderpro 
+Cflags: -I${includedir}

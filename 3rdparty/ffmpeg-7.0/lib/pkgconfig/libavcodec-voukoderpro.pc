@@ -1,0 +1,13 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavcodec-voukoderpro
+Description: FFmpeg codec library
+Version: 61.3.100
+Requires: 
+Requires.private: libswresample-voukoderpro >= 5.1.100, libavutil-voukoderpro >= 59.8.100
+Conflicts:
+Libs: -L${libdir}  -lavcodec-voukoderpro 
+Cflags: -I${includedir}

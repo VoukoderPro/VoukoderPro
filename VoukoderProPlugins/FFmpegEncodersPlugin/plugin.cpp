@@ -19,7 +19,8 @@ namespace VoukoderPro
                 continue;
 
             // Do we want to skip this codec?
-            if (codec->id == AV_CODEC_ID_NONE || !av_codec_is_encoder(codec))
+            if (codec->id == AV_CODEC_ID_NONE || codec->id == AV_CODEC_ID_ANULL || codec->id == AV_CODEC_ID_VNULL ||
+                !av_codec_is_encoder(codec))
                 continue;
 
             AssetInfo info;
@@ -33,6 +34,10 @@ namespace VoukoderPro
             if ((codec->capabilities & AV_CODEC_CAP_EXPERIMENTAL))
                 info.name += " (Experimental)";
 
+            // Hide (double/planar) audio encoders
+            if (boost::algorithm::ends_with(codec->name, "_planar"))
+                continue;
+
             // Set the right category
             if (boost::algorithm::ends_with(codec->name, "_amf"))
                 info.category = std::make_pair("amd", "AMD");
@@ -40,8 +45,16 @@ namespace VoukoderPro
                 info.category = std::make_pair("nvidia", "Nvidia");
             else if (boost::algorithm::ends_with(codec->name, "_qsv"))
                 info.category = std::make_pair("intel", "Intel");
+            else if (boost::algorithm::ends_with(codec->name, "_mf"))
+                info.category = std::make_pair("msmf", "Microsoft Media Foundation");
+            else if (boost::algorithm::ends_with(codec->name, "_vaapi"))
+                info.category = std::make_pair("vaapi", "VA-API");
+            else if (boost::algorithm::starts_with(codec->name, "pcm_"))
+                info.category = std::make_pair("pcm", "PCM (Uncompressed)");
+            else if (boost::algorithm::starts_with(codec->name, "adpcm_"))
+                info.category = std::make_pair("adpcm", "ADPCM (Adaptive Differencial PCM)");
             else
-                info.category = std::make_pair("ffmpeg", "FFmpeg");
+                info.category = std::make_pair("ffmpeg", "General");
 
             AVCodecContext* codecCtx = avcodec_alloc_context3(codec);
 
@@ -54,9 +67,8 @@ namespace VoukoderPro
                 for (p = codec->pix_fmts; *p != -1; p++)
                 {
                     const char* pix_fmt_name = av_get_pix_fmt_name(*p);
-                    if (pix_fmt_name) {
+                    if (pix_fmt_name)
                         info.format(pix_fmt_name, pix_fmt_name);
-                    }
                 }
 
                 // Add the global options
@@ -70,9 +82,8 @@ namespace VoukoderPro
                 for (p = codec->sample_fmts; *p != -1; p++)
                 {
                     const char* sample_fmt_name = av_get_sample_fmt_name(*p);
-                    if (sample_fmt_name) {
+                    if (sample_fmt_name)
                         info.format(sample_fmt_name, sample_fmt_name);
-                    }
                 }
 
                 // Add the global options
@@ -527,6 +538,20 @@ namespace VoukoderPro
                 .option("640 kbit/s", 640000)
                 .defaultValue(192000);
         }
+        else if (info.id == "cinepak")
+        {
+            global.param<int>("global_quality", "Quality factor")
+                .description("Quality factor. Lower is better. Higher gives lower bitrate.")
+                .minValue(1)
+                .maxValue(1000)
+                .defaultValue(10);
+
+            global.param<int>("g", "Keyframe interval")
+                .description("A keyframe is inserted at least every x frames, sometimes sooner.")
+                .minValue(1)
+                .maxValue(9999)
+                .defaultValue(60);
+        }
         else if (info.id == "dca")
         {
             global.param<int>("b", "Bitrate")
@@ -592,6 +617,48 @@ namespace VoukoderPro
                 .option("256 kbit/s", 256000)
                 .option("320 kbit/s", 320000)
                 .defaultValue(96000);
+        }
+        else if (info.id == "libtheora")
+        {
+            global.param<int>("b", "Bitrate [kbit/s]", 1)
+                .description("The data rate allowed by the encoder.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+        }
+        else if (info.id == "libtwolame")
+        {
+            global.param<int>("b", "Bit rate")
+                .description("The constant bit rate in kbit/s for all channels.")
+                .option("32 kbit/s", 32000)
+                .option("40 kbit/s", 40000)
+                .option("48 kbit/s", 48000)
+                .option("64 kbit/s", 64000)
+                .option("80 kbit/s", 80000)
+                .option("96 kbit/s", 96000)
+                .option("112 kbit/s", 112000)
+                .option("128 kbit/s", 128000)
+                .option("160 kbit/s", 160000)
+                .option("192 kbit/s", 192000)
+                .option("224 kbit/s", 224000)
+                .option("256 kbit/s", 256000)
+                .option("320 kbit/s", 320000)
+                .defaultValue(96000);
+                }
+        else if (info.id == "libopencore-amrnb")
+        {
+            global.param<int>("b", "Bit rate")
+                .description("The constant bit rate in bit/s for all channels.")
+                .option("4750 bit/s", 4750)
+                .option("5150 bit/s", 5150)
+                .option("5900 bit/s", 5900)
+                .option("6700 bit/s", 6700)
+                .option("7400 bit/s", 7400)
+                .option("7950 bit/s", 7950)
+                .option("10200 bit/s", 10200)
+                .option("12200 bit/s", 12200)
+                .defaultValue(7950);
         }
         else if (info.id == "libopus" || info.id == "opus")
         {

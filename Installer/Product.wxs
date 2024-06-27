@@ -131,6 +131,15 @@
 					<Directory Id="tls" Name="tls"/>
 					<Directory Id="platforms" Name="platforms"/>
 					<Directory Id="assets" Name="assets"/>
+					<Component Id="FFmpeg" Guid="FC83373A-2161-475B-951D-B62468926976">
+						<File Id="avcodec70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avcodec-voukoderpro-61.dll" />
+						<File Id="avdevice70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avdevice-voukoderpro-61.dll" />
+						<File Id="avfilter70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avfilter-voukoderpro-10.dll" />
+						<File Id="avformat70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avformat-voukoderpro-61.dll" />
+						<File Id="avutil70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avutil-voukoderpro-59.dll" />
+						<File Id="swresample70" Source="..\3rdparty\$(env.FFmpegDir)\bin\swresample-voukoderpro-5.dll" />
+						<File Id="swscale70" Source="..\3rdparty\$(env.FFmpegDir)\bin\swscale-voukoderpro-8.dll" />
+					</Component>
 				</Directory>
 			</Directory>
 			<Directory Id="DesktopFolder" Name="Desktop">
@@ -153,17 +162,6 @@
 							<Verb Id="open" Command="open" Target="[INSTALLFOLDER]Designer.exe" Argument="--open &quot;%1&quot;"/>
 						</Extension>
 					</ProgId>
-				</Component>
-			</Directory>
-			<Directory Id="System64Folder">
-				<Component Id="FFmpeg" Guid="FC83373A-2161-475B-951D-B62468926976">
-					<File Id="avcodec70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avcodec-voukoderpro-61.dll" />
-					<File Id="avdevice70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avdevice-voukoderpro-61.dll" />
-					<File Id="avfilter70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avfilter-voukoderpro-10.dll" />
-					<File Id="avformat70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avformat-voukoderpro-61.dll" />
-					<File Id="avutil70" Source="..\3rdparty\$(env.FFmpegDir)\bin\avutil-voukoderpro-59.dll" />
-					<File Id="swresample70" Source="..\3rdparty\$(env.FFmpegDir)\bin\swresample-voukoderpro-5.dll" />
-					<File Id="swscale70" Source="..\3rdparty\$(env.FFmpegDir)\bin\swscale-voukoderpro-8.dll" />
 				</Component>
 			</Directory>
 			<Directory Id="AFTERFXINSTALLDIR">
@@ -299,7 +297,8 @@
 				<File Id="Qt6Guid" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Gui.dll" />
 				<File Id="Qt6Widgets" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Widgets.dll" />
 				<File Id="Qt6Network" Source="$(var.QtDir)\$(var.QtToolChain)\bin\Qt6Network.dll" />
-				<Environment Id="myEnvironmentVariable" Name="VOUKODERPRO_HOME" Value="[INSTALLFOLDER]" Action="set" System="yes" />
+				<Environment Id="env_VOUKODERPRO_HOME" Name="VOUKODERPRO_HOME" Value="[INSTALLFOLDER]" Action="set" System="yes" />
+				<Environment Id="env_PATH" Name="PATH" Value="[INSTALLFOLDER]" Part="last" Action="set" System="yes" />
 			</Component>
 			<Component Id="VoukoderProDesignerTLS" Directory="tls" Guid="F9873EFF-C483-4AEE-BEF1-DD60D471A788">
 				<File Id="qcertonlybackend" Source="$(var.QtDir)\$(var.QtToolChain)\plugins\tls\qcertonlybackend.dll" />

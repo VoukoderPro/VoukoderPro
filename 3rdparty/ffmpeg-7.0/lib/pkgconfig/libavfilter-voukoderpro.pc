@@ -1,0 +1,13 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavfilter-voukoderpro
+Description: FFmpeg audio/video filtering library
+Version: 10.1.100
+Requires: 
+Requires.private: libswscale-voukoderpro >= 8.1.100, libavformat-voukoderpro >= 61.1.100, libavcodec-voukoderpro >= 61.3.100, libswresample-voukoderpro >= 5.1.100, libavutil-voukoderpro >= 59.8.100
+Conflicts:
+Libs: -L${libdir}  -lavfilter-voukoderpro 
+Cflags: -I${includedir}
