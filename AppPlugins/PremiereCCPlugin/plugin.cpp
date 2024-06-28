@@ -593,9 +593,12 @@ prMALError CPremierePluginApp::validateParamChanged(exParamChangedRec* paramRecP
 	exOneParamValueRec entry;
 	for (auto const& sceneInfo : scenes)
 	{
+		// Convert UTF8 to UTF16
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
+
 		// Create a hash key first
 		entry.intValue = hash(sceneInfo->name.c_str());
-		suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, VPROVoukoderProConfigurations, &entry, std::wstring(sceneInfo->name.begin(), sceneInfo->name.end()).c_str());
+		suites.exportParamSuite->AddConstrainedValuePair(pluginId, 0, VPROVoukoderProConfigurations, &entry, converter.from_bytes(sceneInfo->name).c_str());
 
 		// Map the hash key to the config id
 		m_scenes.insert(std::make_pair(entry.intValue, sceneInfo));
