@@ -1,0 +1,4 @@
+mkdir <build-dir>
+cd ./<build-dir>
+cmake ..
+cmake --build . -t VoukoderDesigner

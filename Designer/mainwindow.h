@@ -9,14 +9,11 @@
 #include "components/SceneEditor/sceneeditorview.h"
 #include "preferences.h"
 #include "newsdialog.h"
+#include "designer_types.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
-Q_DECLARE_METATYPE(VoukoderPro::NodeInfo)
-Q_DECLARE_METATYPE(VoukoderPro::SceneInfo)
-Q_DECLARE_METATYPE(VoukoderPro::AssetInfo)
 
 class MainWindow : public QMainWindow
 {

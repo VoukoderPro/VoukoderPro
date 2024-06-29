@@ -3,8 +3,6 @@
 #include <boost/describe/enum_to_string.hpp>
 #include <QLabel>
 
-Q_DECLARE_METATYPE(VoukoderPro::AssetInfo)
-
 /**
  * @brief SceneEditorNodeModel::SceneEditorNodeModel
  * @param nodeInfo

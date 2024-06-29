@@ -5,8 +5,7 @@
 #include <QTreeWidgetItem>
 
 #include "../VoukoderPro/voukoderpro_api.h"
-
-Q_DECLARE_METATYPE(std::shared_ptr<VoukoderPro::SceneInfo>)
+#include "designer_types.h"
 
 namespace Ui {
 class SceneOpenDialog;
