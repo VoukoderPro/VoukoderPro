@@ -118,7 +118,7 @@ namespace VoukoderPro
 			//avfilter_graph_set_auto_convert(data->filterGraph.get(), AVFILTER_AUTO_CONVERT_NONE);
 
 			// Parse the filter graph
-			AVFilterInOut* filterInputs, * filterOutputs;
+			AVFilterInOut *filterInputs, *filterOutputs;
 			if ((ret = avfilter_graph_parse2(filterGraph.get(), nleData->filterConfig.c_str(), &filterInputs, &filterOutputs)) < 0)
 			{
 				BLOG(error) << "Unable to parse filter graph.";
@@ -196,18 +196,21 @@ namespace VoukoderPro
 				if (colorRange != "auto")
 					frame->color_range = (AVColorRange)av_color_range_from_name(colorRange.c_str());
 			}
+
 			if (color.contains("matrix"))
 			{
 				const std::string colorSpace = color["matrix"].get<std::string>();
 				if (colorSpace != "auto")
 					frame->colorspace = (AVColorSpace)av_color_space_from_name(colorSpace.c_str());
 			}
+
 			if (color.contains("primaries"))
 			{
 				const std::string colorPrimaries = color["primaries"].get<std::string>();
 				if (colorPrimaries != "auto")
 					frame->color_primaries = (AVColorPrimaries)av_color_primaries_from_name(colorPrimaries.c_str());
 			}
+
 			if (color.contains("transfer"))
 			{
 				const std::string colorTransfer = color["transfer"].get<std::string>();
@@ -220,21 +223,11 @@ namespace VoukoderPro
 		if (!frame)
 			return BaseNode::checkFrame(nleTrackIndex, true);
 
-		//data->performance->start("filterIn");
-
 		// Send frame to filters
 		if (av_buffersrc_write_frame(inputCtxs.at(nleTrackIndex), frame.get()) < 0)
-		{
-			//data->performance->end();
-
 			return ERR_FAIL;
-		}
 
-		int ret = BaseNode::checkFrame(nleTrackIndex);
-
-		//data->performance->end();
-
-		return ret;
+		return BaseNode::checkFrame(nleTrackIndex);
 	}
 
 	/**

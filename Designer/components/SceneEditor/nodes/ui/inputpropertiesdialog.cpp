@@ -177,4 +177,6 @@ void InputPropertiesDialog::getValues(nlohmann::ordered_json& data)
 void InputPropertiesDialog::on_trackStrategy_currentIndexChanged(int index)
 {
     ui->lineEdit->setEnabled(index == 1);
+    if (index == 1)
+        ui->lineEdit->setFocus();
 }

@@ -62,9 +62,9 @@
     <Content Include="Version.wxi" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\VoukoderPro-Confidential\AppPlugins\VEGASProOldPlugin\VEGASProPlugin.vcxproj">
-      <Name>VEGASProOldPlugin</Name>
-      <Project>{9415d1be-7a2d-4c15-b01a-4ca67b0c2276}</Project>
+    <ProjectReference Include="..\..\VoukoderPro-Confidential\AppPlugins\VEGASPro22Plugin\VEGASProPlugin.vcxproj">
+      <Name>VEGAS22ProPlugin</Name>
+      <Project>{223bb252-6c1f-4c0b-a21d-6a4b3cf2064b}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

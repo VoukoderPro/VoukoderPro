@@ -325,8 +325,6 @@ namespace VoukoderPro
 		// Handle encoded packets
 		const std::function<bool(std::shared_ptr<AVCodecContext>, std::shared_ptr<AVPacket>)> callback = [&](std::shared_ptr<AVCodecContext> codecCtx, std::shared_ptr<AVPacket> packet)
 		{
-			//data->performance->start("encodeOut[pts=" + std::to_string(packet->pts) + "]");
-
 			// We don't need the frame anymore
 			av_frame_unref(frame.get());
 
@@ -334,27 +332,6 @@ namespace VoukoderPro
 			for (int i = 0; i < outputs.size(); i++)
 				if (outputs.at(i).lock()->mux(codecCtx, i, packet) < 0)
 					break;
-
-			//for (int i = 0; i < outputs.size(); i++)
-			//{
-			//	auto muxer = outputs.at(i).lock();
-
-			//	BLOG(severity_level::info) << "Encoded " << boost::describe::enum_to_string<MediaType>(nodeInfo->mediaType, 0) << " frame with pts " << packet->pts;
-
-			//	data->performance->start("muxerIn[muxer=" + muxer->nodeInfo->id + "]");
-
-			//	// Mux the packet
-			//	if (muxer->mux(codecCtx, i, packet) < 0)
-			//	{
-			//		data->performance->end();
-
-			//		return false;
-			//	}
-
-			//	data->performance->end();
-			//}
-
-			//data->performance->end();
 
 			return true;
 		};
@@ -380,16 +357,9 @@ namespace VoukoderPro
 			// Get frame
 			if (ret >= 0)
 			{
-				//data->performance->start("filterOut[pts=" + std::to_string(frame->pts) + "]");
-
-				//data->performance->start("encodeIn");
-
 				auto encoderAsset = std::static_pointer_cast<EncoderAsset>(plugins.at(nleTrackIndex));
 				if ((ret = encoderAsset->encode(frame, callback)) != ERR_OK)
 					break; // TODO?
-
-				//data->performance->end();
-				//data->performance->end();
 
 				// Encode the frame
 				if (ret < ERR_OK)

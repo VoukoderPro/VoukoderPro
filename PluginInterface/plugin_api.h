@@ -107,6 +107,9 @@ namespace VoukoderPro
                 codecCtx->framerate = av_inv_q(codecCtx->time_base);
                 codecCtx->sample_aspect_ratio.num = std::get<int>(properties.at(pPropAspectNum));
                 codecCtx->sample_aspect_ratio.den = std::get<int>(properties.at(pPropAspectDen));
+                codecCtx->pix_fmt = av_get_pix_fmt(std::get<std::string>(properties.at(VoukoderPro::pPropFormat)).c_str());
+                
+                // Set the field order
                 std::string fieldOrder = std::get<std::string>(properties.at(pPropFieldOrder));
                 if (fieldOrder == "tff")
                     codecCtx->field_order = AV_FIELD_TT;
@@ -114,7 +117,8 @@ namespace VoukoderPro
                     codecCtx->field_order = AV_FIELD_BB;
                 else
                     codecCtx->field_order = AV_FIELD_PROGRESSIVE;
-                codecCtx->pix_fmt = av_get_pix_fmt(std::get<std::string>(properties.at(VoukoderPro::pPropFormat)).c_str());
+
+                // Set the color sets
                 if (properties.find(VoukoderPro::pPropColorRange) != properties.end())
                     codecCtx->color_range = (AVColorRange)av_color_range_from_name(std::get<std::string>(properties.at(VoukoderPro::pPropColorRange)).c_str());
                 if (properties.find(VoukoderPro::pPropColorSpace) != properties.end())
@@ -123,6 +127,7 @@ namespace VoukoderPro
                     codecCtx->color_primaries = (AVColorPrimaries)av_color_primaries_from_name(std::get<std::string>(properties.at(VoukoderPro::pPropColorPrimaries)).c_str());
                 if (properties.find(VoukoderPro::pPropColorTransfer) != properties.end())
                     codecCtx->color_trc = (AVColorTransferCharacteristic)av_color_transfer_from_name(std::get<std::string>(properties.at(VoukoderPro::pPropColorTransfer)).c_str());
+
                 break;
             }
             case AVMEDIA_TYPE_AUDIO:
@@ -156,7 +161,7 @@ namespace VoukoderPro
                 else if (val.is_boolean())
                     value = val.get<bool>() ? "1" : "0";
                 else
-                    value += "error";
+                    value = "error";
 
                 av_dict_set(&opts, key.c_str(), value.c_str(), 0);
             }
@@ -341,7 +346,7 @@ namespace VoukoderPro
                         param.minValue(dbl2int(option->min));
                         param.maxValue(dbl2int(option->max));
 
-                        if (option->unit)
+                        if (option->unit && param.minimum() > INT_MIN && param.maximum() < INT_MAX)
                         {
                             if (param.def() == -1)
                                 param.option("(Auto)", -1);

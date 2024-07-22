@@ -41,20 +41,6 @@
 				<ComponentRef Id="DaVinciResolvePlugin" />
 			</Feature>
 			<Feature Id="VEGASPro" Title="VEGAS Pro">
-				<!--
-				<Feature Id="MagixVEGASPro15" Title="VEGAS Pro 15" Level="2" ConfigurableDirectory="VEGAS15PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
-					<ComponentRef Id="VEGASProPlugin.15" />
-					<ComponentRef Id="VEGASProPlugin.15.fiocfg" />
-				</Feature>
-				<Feature Id="MagixVEGASPro16" Title="VEGAS Pro 16" Level="2" ConfigurableDirectory="VEGAS16PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
-					<ComponentRef Id="VEGASProPlugin.16" />
-					<ComponentRef Id="VEGASProPlugin.16.fiocfg" />
-				</Feature>
-				<Feature Id="MagixVEGASPro17" Title="VEGAS Pro 17" Level="2" ConfigurableDirectory="VEGAS17PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
-					<ComponentRef Id="VEGASProPlugin.17" />
-					<ComponentRef Id="VEGASProPlugin.17.fiocfg" />
-				</Feature>
-				-->
 				<Feature Id="MagixVEGASPro18" Title="VEGAS Pro 18" Level="2" ConfigurableDirectory="VEGAS18PLUGINPATH" InstallDefault="local" Description="Please select the VEGAS Pro installation directory.">
 					<ComponentRef Id="VEGASProPlugin.18" />
 					<ComponentRef Id="VEGASProPlugin.18.fiocfg" />
@@ -189,42 +175,6 @@
 					</Directory>
 				</Directory>
 			</Directory>
-			<!--<Directory Id="VEGAS15PLUGINPATH">
-				<Component Id="VEGASProPlugin.15.fiocfg" Guid="31C28E32-E10C-4C4A-A7E9-DDE68BE5E1A4">
-					<File Id="VEGASProPlugin.15.fiocfg" Source="VoukoderProVEGAS15-x64.fio2007-config" KeyPath="yes" />
-				</Component>
-				<Directory Id="FIO15DIR" Name="FileIO Plug-Ins">
-					<Directory Id="VOUKODERPRO15DIR" Name="voukoderproplug">
-						<Component Id="VEGASProPlugin.15" Guid="3A79196E-79DA-4203-A460-B08237BAD3EE">
-							<File Id="VEGASProPlugin.15" Source="$(var.VEGASProOldPlugin.TargetPath)" Name="voukoderproplug-vegas15.dll" />
-						</Component>
-					</Directory>
-				</Directory>
-			</Directory>
-			<Directory Id="VEGAS16PLUGINPATH">
-				<Component Id="VEGASProPlugin.16.fiocfg" Guid="ED01B99E-6A19-4955-A1EA-97DDFAA516D5">
-					<File Id="VEGASProPlugin.16.fiocfg" Source="VoukoderProVEGAS16-x64.fio2007-config" KeyPath="yes" />
-				</Component>
-				<Directory Id="FIO16DIR" Name="FileIO Plug-Ins">
-					<Directory Id="VOUKODERPRO16DIR" Name="voukoderproplug">
-						<Component Id="VEGASProPlugin.16" Guid="CB92840C-80AC-4473-8454-C8CAA86385EC">
-							<File Id="VEGASProPlugin.16" Source="$(var.VEGASProOldPlugin.TargetPath)" Name="voukoderproplug-vegas16.dll" />
-						</Component>
-					</Directory>
-				</Directory>
-			</Directory>
-			<Directory Id="VEGAS17PLUGINPATH">
-				<Component Id="VEGASProPlugin.17.fiocfg" Guid="67990956-E70D-46DA-9808-2B7AC4D09F00">
-					<File Id="VEGASProPlugin.17.fiocfg" Source="VoukoderProVEGAS17-x64.fio2007-config" KeyPath="yes" />
-				</Component>
-				<Directory Id="FIO17DIR" Name="FileIO Plug-Ins">
-					<Directory Id="VOUKODERPRO17DIR" Name="voukoderproplug">
-						<Component Id="VEGASProPlugin.17" Guid="E185A03C-6A33-4585-B0A2-BECE88B8A3F0">
-							<File Id="VEGASProPlugin.17" Source="$(var.VEGASProOldPlugin.TargetPath)" Name="voukoderproplug-vegas17.dll" />
-						</Component>
-					</Directory>
-				</Directory>
-			</Directory>-->
 			<Directory Id="VEGAS18PLUGINPATH">
 				<Component Id="VEGASProPlugin.18.fiocfg" Guid="21B87B37-8F7C-487A-BA52-2DF5DEC34F75">
 					<File Id="VEGASProPlugin.18.fiocfg" Source="VoukoderProVEGAS18-x64.fio2007-config" KeyPath="yes" />
@@ -232,7 +182,7 @@
 				<Directory Id="FIO18DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO18DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.18" Guid="E0074222-DFF2-4B90-B942-8D8A2216E9C6">
-							<File Id="VEGASProPlugin.18" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas18.dll" />
+							<File Id="VEGASProPlugin.18" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas18.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -244,7 +194,7 @@
 				<Directory Id="FIO19DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO19DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.19" Guid="F5E585B7-9AC9-4ACF-99E6-F4B295400DE0">
-							<File Id="VEGASProPlugin.19" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas19.dll" />
+							<File Id="VEGASProPlugin.19" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas19.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -256,7 +206,7 @@
 				<Directory Id="FIO20DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO20DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.20" Guid="3C663F7B-692E-48A9-A53B-AC5CBE4BB38F">
-							<File Id="VEGASProPlugin.20" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas20.dll" />
+							<File Id="VEGASProPlugin.20" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas20.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -268,7 +218,7 @@
 				<Directory Id="FIO21DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO21DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.21" Guid="19C6C226-0559-4225-AB7C-B5B71AD9678D">
-							<File Id="VEGASProPlugin.21" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas21.dll" />
+							<File Id="VEGASProPlugin.21" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas21.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -280,7 +230,7 @@
 				<Directory Id="FIO22DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO22DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.22" Guid="014E9792-29FD-42B4-BEEE-DC40E88ADE83">
-							<File Id="VEGASProPlugin.22" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas22.dll" />
+							<File Id="VEGASProPlugin.22" Source="$(var.VEGAS22ProPlugin.TargetPath)" Name="voukoderproplug-vegas22.dll" />
 						</Component>
 					</Directory>
 				</Directory>

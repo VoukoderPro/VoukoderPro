@@ -31,7 +31,7 @@ namespace VoukoderPro
             info.helpUrl = "https://ffmpeg.org/ffmpeg-codecs.html#" + info.id;
 
             // Mark experimental encoders as such
-            if ((codec->capabilities & AV_CODEC_CAP_EXPERIMENTAL))
+            if (codec->capabilities & AV_CODEC_CAP_EXPERIMENTAL)
                 info.name += " (Experimental)";
 
             // Hide (double/planar) audio encoders
@@ -391,6 +391,7 @@ namespace VoukoderPro
 
             global.param<int>("b", "Average Bitrate [kbit/s]", 1)
                 .description("The average data rate allowed by the encoder.")
+                .multiplierValue(1024)
                 .minValue(0)
                 .maxValue(288000)
                 .defaultValue(15000);
@@ -451,6 +452,69 @@ namespace VoukoderPro
                 .minValue(1)
                 .maxValue(100000)
                 .defaultValue(2000);
+        }
+        else if (info.id == "libx264" || info.id == "libx265")
+        {
+            global.param<int>("rc", "Strategy")
+                .description("Bit rate control mode")
+                .option("Constant Rate Factor", 0, [](const ItemParamAction& action)
+                    {
+                        action.setVisible("global.crf", true);
+                        action.setVisible("global.qp", false);
+                        action.setVisible("global.b", false);
+                        action.setVisible("global.minrate", false);
+                        action.setVisible("global.maxrate", false);
+                    })
+                .option("Constant Quantizer Parameter", 1, [](const ItemParamAction& action)
+                    {
+                        action.setVisible("global.crf", false);
+                        action.setVisible("global.qp", true);
+                        action.setVisible("global.b", false);
+                        action.setVisible("global.minrate", false);
+                        action.setVisible("global.maxrate", false);
+                    })
+                .option("Constant Bitrate", 2, [](const ItemParamAction& action)
+                    {
+                        action.setVisible("global.crf", false);
+                        action.setVisible("global.qp", false);
+                        action.setVisible("global.b", true);
+                        action.setVisible("global.minrate", true);
+                        action.setVisible("global.maxrate", true);
+                    })
+                .defaultValue(0);
+
+            global.param<int>("crf", "Constant Rate Factor", 1)
+                .description("Lower values mean better quality but increase the processing time.")
+                .minValue(1)
+                .maxValue(51)
+                .defaultValue(info.id == "libx264" ? 23 : 28);
+
+            global.param<int>("qp", "Initial QP level value", 1)
+                .description("Initial QP level value")
+                .minValue(1)
+                .maxValue(51)
+                .defaultValue(info.id == "libx264" ? 23 : 28);
+
+            global.param<int>("b", "Bitrate [kbit/s]", 1)
+                .description("The data rate allowed by the encoder.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+
+            global.param<int>("minrate", "Min. Bitrate [kbit/s]", 1)
+                .description("Higher value can improve maximum quality, but increases decoder requirements.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
+
+            global.param<int>("maxrate", "Max. Bitrate [kbit/s]", 1)
+                .description("Higher value can improve maximum quality, but increases decoder requirements.")
+                .minValue(0)
+                .maxValue(512000)
+                .multiplierValue(1024)
+                .defaultValue(15000);
         }
         else if (info.id == "vc2")
         {
