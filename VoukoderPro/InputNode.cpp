@@ -184,9 +184,12 @@ namespace VoukoderPro
 	*/
 	int InputNode::sendFrame(const int nleTrackIndex, std::shared_ptr<AVFrame> frame)
 	{
+		// If it's just about flushing the encoder take a shortcut
+		if (!frame)
+			return BaseNode::checkFrame(nleTrackIndex, true);
+
 		// Apply color format settings
-		if (frame && nodeInfo->mediaType == MediaType::video &&
-			nodeInfo->data.contains("color"))
+		if (nodeInfo->mediaType == MediaType::video && nodeInfo->data.contains("color"))
 		{
 			const auto& color = nodeInfo->data["color"];
 
@@ -218,10 +221,6 @@ namespace VoukoderPro
 					frame->color_trc = (AVColorTransferCharacteristic)av_color_transfer_from_name(colorTransfer.c_str());
 			}
 		}
-
-		// If it's just about flushing the encoder take a shortcut
-		if (!frame)
-			return BaseNode::checkFrame(nleTrackIndex, true);
 
 		// Send frame to filters
 		if (av_buffersrc_write_frame(inputCtxs.at(nleTrackIndex), frame.get()) < 0)

@@ -97,9 +97,20 @@ namespace VoukoderPro
 			const std::string sfilename = std::get<std::string>(nleData->properties[pPropFilename]);
 			boost::filesystem::path filename(sfilename);
 
-			boost::replace_all(url, "$(OutputFilename)", sfilename); // For compatibility
+			// Fill in the filename data
+			std::stringstream javascript;
+			javascript << "var OutputFile = { Absolute: '";
+			javascript << boost::replace_all_copy(sfilename, "\\", "\\\\");
+			javascript << "', Path: '";
+			javascript << boost::replace_all_copy(filename.parent_path().string(), "\\", "\\\\");
+			javascript << "', Name: '";
+			javascript << boost::replace_all_copy(filename.stem().string(), "\\", "\\\\");
+			javascript << "', Extension: '";
+			javascript << boost::replace_all_copy(filename.extension().string(), "\\", "\\\\");
+			javascript << "' };";
 
-			js.eval("var OutputFile = { Absolute: '" + sfilename + "', Path: '" + filename.parent_path().string() + "', Name: '" + filename.stem().string() + "', Extension: '" + filename.extension().string() + "' };");
+			// Evaluate
+			js.eval(javascript.str());
 		}
 
 		js.replaceJavaScript(url);

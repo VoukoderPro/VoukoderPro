@@ -182,7 +182,7 @@
 				<Directory Id="FIO18DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO18DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.18" Guid="E0074222-DFF2-4B90-B942-8D8A2216E9C6">
-							<File Id="VEGASProPlugin.18" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas18.dll" />
+							<File Id="VEGASProPlugin.18" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas18.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -194,7 +194,7 @@
 				<Directory Id="FIO19DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO19DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.19" Guid="F5E585B7-9AC9-4ACF-99E6-F4B295400DE0">
-							<File Id="VEGASProPlugin.19" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas19.dll" />
+							<File Id="VEGASProPlugin.19" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas19.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -206,7 +206,7 @@
 				<Directory Id="FIO20DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO20DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.20" Guid="3C663F7B-692E-48A9-A53B-AC5CBE4BB38F">
-							<File Id="VEGASProPlugin.20" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas20.dll" />
+							<File Id="VEGASProPlugin.20" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas20.dll" />
 						</Component>
 					</Directory>
 				</Directory>
@@ -218,7 +218,7 @@
 				<Directory Id="FIO21DIR" Name="FileIO Plug-Ins">
 					<Directory Id="VOUKODERPRO21DIR" Name="voukoderproplug">
 						<Component Id="VEGASProPlugin.21" Guid="19C6C226-0559-4225-AB7C-B5B71AD9678D">
-							<File Id="VEGASProPlugin.21" Source="$(var.VEGAS18ProPlugin.TargetPath)" Name="voukoderproplug-vegas21.dll" />
+							<File Id="VEGASProPlugin.21" Source="$(var.VEGASProPlugin.TargetPath)" Name="voukoderproplug-vegas21.dll" />
 						</Component>
 					</Directory>
 				</Directory>
