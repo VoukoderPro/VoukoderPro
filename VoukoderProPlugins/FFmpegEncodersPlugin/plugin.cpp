@@ -172,6 +172,12 @@ namespace VoukoderPro
                 .maxValue(512000)
                 .multiplierValue(1000)
                 .defaultValue(15000);
+
+            global.param<int>("g", "Keyframe interval")
+                .description("A keyframe is inserted at least every x frames, sometimes sooner.")
+                .minValue(1)
+                .maxValue(INT_MAX)
+                .defaultValue(60);
         }
         else if (boost::algorithm::ends_with(info.id, "_nvenc"))
         {
@@ -232,6 +238,12 @@ namespace VoukoderPro
                 .minValue(0)
                 .maxValue(51)
                 .defaultValue(0);
+
+            global.param<int>("g", "Keyframe interval")
+                .description("A keyframe is inserted at least every x frames, sometimes sooner.")
+                .minValue(1)
+                .maxValue(INT_MAX)
+                .defaultValue(60);
         }
         else if (boost::algorithm::ends_with(info.id, "_qsv"))
         {
@@ -325,6 +337,12 @@ namespace VoukoderPro
                 .minValue(0)
                 .maxValue(99999)
                 .defaultValue(0);
+
+            global.param<int>("g", "Keyframe interval")
+                .description("A keyframe is inserted at least every x frames, sometimes sooner.")
+                .minValue(1)
+                .maxValue(INT_MAX)
+                .defaultValue(60);
         }
         else if (info.id == "mpeg1video" || info.id == "mpeg2video")
         {
@@ -370,6 +388,12 @@ namespace VoukoderPro
                 .maxValue(512000)
                 .multiplierValue(1024)
                 .defaultValue(15000);
+
+            global.param<int>("g", "Keyframe interval")
+                .description("A keyframe is inserted at least every x frames, sometimes sooner.")
+                .minValue(1)
+                .maxValue(INT_MAX)
+                .defaultValue(60);
         }
         else if (info.id == "libvpx" || info.id == "libvpx-vp9")
         {
