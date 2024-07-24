@@ -81,8 +81,6 @@ namespace VoukoderPro
 			return ERR_MUXER_NOT_FOUND;
 		}
 
-		JavaScript js;
-		
 		// Do we have a filename supplied by the NLE?
 		if (data.size() == 0)
 		{
@@ -90,33 +88,44 @@ namespace VoukoderPro
 			return ERR_FAIL;
 		}
 
-		// Correct output filename
 		const auto& nleData = data.begin()->second;
-		if (nleData->properties.find(pPropFilename) != nleData->properties.end())
+
+		// Do we have a real file name?
+		const std::string sfilename = std::get<std::string>(nleData->properties[pPropFilename]);
+		if (sfilename == "NUL")
 		{
-			const std::string sfilename = std::get<std::string>(nleData->properties[pPropFilename]);
-			boost::filesystem::path filename(sfilename);
-
-			// Fill in the filename data
-			std::stringstream javascript;
-			javascript << "var OutputFile = { Absolute: '";
-			javascript << boost::replace_all_copy(sfilename, "\\", "\\\\");
-			javascript << "', Path: '";
-			javascript << boost::replace_all_copy(filename.parent_path().string(), "\\", "\\\\");
-			javascript << "', Name: '";
-			javascript << boost::replace_all_copy(filename.stem().string(), "\\", "\\\\");
-			javascript << "', Extension: '";
-			javascript << boost::replace_all_copy(filename.extension().string(), "\\", "\\\\");
-			javascript << "' };";
-
-			// Evaluate
-			js.eval(javascript.str());
+			formatCtx->url = av_strdup("NUL");
 		}
+		else
+		{
+			JavaScript js;
 
-		js.replaceJavaScript(url);
+			// Correct output filename
+			if (nleData->properties.find(pPropFilename) != nleData->properties.end())
+			{
+				boost::filesystem::path filename(sfilename);
 
-		// Setup the format context
-		formatCtx->url = av_strdup(url.c_str());
+				// Fill in the filename data
+				std::stringstream javascript;
+				javascript << "var OutputFile = { Absolute: '";
+				javascript << boost::replace_all_copy(sfilename, "\\", "\\\\");
+				javascript << "', Path: '";
+				javascript << boost::replace_all_copy(filename.parent_path().string(), "\\", "\\\\");
+				javascript << "', Name: '";
+				javascript << boost::replace_all_copy(filename.stem().string(), "\\", "\\\\");
+				javascript << "', Extension: '";
+				javascript << boost::replace_all_copy(filename.extension().string(), "\\", "\\\\");
+				javascript << "' };";
+
+				// Evaluate
+				js.eval(javascript.str());
+			}
+
+			js.replaceJavaScript(url);
+
+			// Setup the format context
+			formatCtx->url = av_strdup(url.c_str());
+		}
 
 		// Assign meta information
 		if (nodeInfo->data.contains("meta") && nodeInfo->data.count("meta") > 0)
