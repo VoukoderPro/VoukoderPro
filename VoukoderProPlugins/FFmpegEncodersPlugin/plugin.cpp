@@ -23,6 +23,10 @@ namespace VoukoderPro
                 !av_codec_is_encoder(codec))
                 continue;
 
+            // Hide (double/planar) audio encoders
+            if (boost::algorithm::ends_with(codec->name, "_planar"))
+                continue;
+
             AssetInfo info;
             info.id = codec->name;
             info.name = codec->name;
@@ -30,31 +34,50 @@ namespace VoukoderPro
             info.type = NodeInfoType::encoder;
             info.helpUrl = "https://ffmpeg.org/ffmpeg-codecs.html#" + info.id;
 
+            // Set the right category
+            if (boost::algorithm::ends_with(codec->name, "_amf"))
+            {
+                info.category = std::make_pair("amd", "AMD");
+                boost::algorithm::replace_all(info.name, "_amf", "");
+            }
+            else if (boost::algorithm::ends_with(codec->name, "_nvenc"))
+            {
+                info.category = std::make_pair("nvidia", "Nvidia");
+                boost::algorithm::replace_all(info.name, "_nvenc", "");
+            }
+            else if (boost::algorithm::ends_with(codec->name, "_qsv"))
+            {
+                info.category = std::make_pair("intel", "Intel");
+                boost::algorithm::replace_all(info.name, "_qsv", "");
+            }
+            else if (boost::algorithm::ends_with(codec->name, "_mf"))
+            {
+                info.category = std::make_pair("msmf", "Microsoft Media Foundation");
+                boost::algorithm::replace_all(info.name, "_mf", "");
+            }
+            else if (boost::algorithm::ends_with(codec->name, "_vaapi"))
+            {
+                info.category = std::make_pair("vaapi", "VA-API");
+                boost::algorithm::replace_all(info.name, "_vaapi", "");
+            }
+            else if (boost::algorithm::starts_with(codec->name, "pcm_"))
+            {
+                info.category = std::make_pair("pcm", "PCM (Uncompressed)");
+                boost::algorithm::replace_all(info.name, "pcm_", "");
+            }
+            else if (boost::algorithm::starts_with(codec->name, "adpcm_"))
+            {
+                info.category = std::make_pair("adpcm", "ADPCM (Adaptive Differencial PCM)");
+                boost::algorithm::replace_all(info.name, "adpcm_", "");
+            }
+            else
+                info.category = std::make_pair("ffmpeg", "General");
+
+            boost::to_upper(info.name);
+
             // Mark experimental encoders as such
             if (codec->capabilities & AV_CODEC_CAP_EXPERIMENTAL)
                 info.name += " (Experimental)";
-
-            // Hide (double/planar) audio encoders
-            if (boost::algorithm::ends_with(codec->name, "_planar"))
-                continue;
-
-            // Set the right category
-            if (boost::algorithm::ends_with(codec->name, "_amf"))
-                info.category = std::make_pair("amd", "AMD");
-            else if (boost::algorithm::ends_with(codec->name, "_nvenc"))
-                info.category = std::make_pair("nvidia", "Nvidia");
-            else if (boost::algorithm::ends_with(codec->name, "_qsv"))
-                info.category = std::make_pair("intel", "Intel");
-            else if (boost::algorithm::ends_with(codec->name, "_mf"))
-                info.category = std::make_pair("msmf", "Microsoft Media Foundation");
-            else if (boost::algorithm::ends_with(codec->name, "_vaapi"))
-                info.category = std::make_pair("vaapi", "VA-API");
-            else if (boost::algorithm::starts_with(codec->name, "pcm_"))
-                info.category = std::make_pair("pcm", "PCM (Uncompressed)");
-            else if (boost::algorithm::starts_with(codec->name, "adpcm_"))
-                info.category = std::make_pair("adpcm", "ADPCM (Adaptive Differencial PCM)");
-            else
-                info.category = std::make_pair("ffmpeg", "General");
 
             AVCodecContext* codecCtx = avcodec_alloc_context3(codec);
 
