@@ -98,6 +98,8 @@ namespace VoukoderPro
 		}
 		else
 		{
+            boost::replace_all(url, "$(OutputFilename)", sfilename); // For compatibility
+
 			JavaScript js;
 
 			// Correct output filename
