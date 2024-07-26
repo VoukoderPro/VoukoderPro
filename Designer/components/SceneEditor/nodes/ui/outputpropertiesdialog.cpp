@@ -1,5 +1,6 @@
 #include "outputpropertiesdialog.h"
 #include "ui_propertiesdialog.h"
+#include <boost/url/url.hpp>
 
 /**
  * @brief OutputPropertiesDialog::OutputPropertiesDialog
@@ -21,7 +22,7 @@ OutputPropertiesDialog::OutputPropertiesDialog(std::shared_ptr<VoukoderPro::Node
 
     if (nodeInfo->data["id"].get<std::string>() == "file")
     {
-        if (url == "$(OutputFilename)")
+        if (url == "${OutputFile.Absolute}")
         {
             ui->filenameGroup->setChecked(false);
             ui->filenameInput->setText("");
@@ -32,8 +33,6 @@ OutputPropertiesDialog::OutputPropertiesDialog(std::shared_ptr<VoukoderPro::Node
             ui->filenameInput->setText(url);
         }
     }
-    else
-        ui->urlInput->setText(url);
 }
 
 /**
@@ -47,11 +46,36 @@ void OutputPropertiesDialog::getValues(nlohmann::ordered_json& data)
 
     // Set output
     if (data["id"] == "file")
+        data["url"] = ui->filenameGroup->isChecked() ? ui->filenameInput->text().toStdString() : "${OutputFile.Absolute}";
+    else if (data["params"].is_object())
     {
-        data["url"] = ui->filenameGroup->isChecked() ? ui->filenameInput->text().toStdString() : "$(OutputFilename)";
-    }
-    else
-    {
-        data["url"] = ui->urlInput->text().toStdString();
+        boost::urls::url url;
+        url.set_scheme(data["id"].get<std::string>());
+
+        for (const auto& [key, value] : data["params"].items())
+        {
+            if (value.is_string())
+            {
+                const std::string val = value.get<std::string>();
+
+                if (key == "_host")
+                {
+                    url.set_host(val);
+                    continue;
+                }
+            }
+            else if (value.is_number())
+            {
+                const int val = value.get<int>();
+
+                if (key == "_port")
+                {
+                    url.set_port(std::to_string(val));
+                    continue;
+                }
+            }
+        }
+
+        data["url"] = url.c_str();
     }
 }

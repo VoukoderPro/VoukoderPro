@@ -35,7 +35,7 @@ private:
 private:
     Ui::NewsDialog* ui;
     QTimer* newsCheckIntervall;
-    QString channel = NEWS_CHANNEL_BETA;
+    QString channel = NEWS_CHANNEL_MAIN;
     QJsonArray newsList;
 };
 

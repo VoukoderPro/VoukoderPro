@@ -226,8 +226,30 @@ namespace VoukoderPro
 			}
 		}
 
+		// Set options
+		AVDictionary* opts = nullptr;
+		if (nodeInfo->data.contains("params") && nodeInfo->data.count("params") > 0)
+		{
+			for (auto const& [key, val] : nodeInfo->data["params"].items())
+			{
+				std::string value = "";
+				if (val.is_number_integer())
+					value = std::to_string(val.get<int>());
+				else if (val.is_number())
+					value = std::to_string(val.get<double>());
+				else if (val.is_string())
+					value = val.get<std::string>();
+				else if (val.is_boolean())
+					value = val.get<bool>() ? "1" : "0";
+				else
+					value = "error";
+
+				av_dict_set(&opts, key.c_str(), value.c_str(), 0);
+			}
+		}
+
 		// Open output
-		if ((ret = avio_open(&formatCtx->pb, formatCtx->url, AVIO_FLAG_WRITE)) < 0)
+		if ((ret = avio_open2(&formatCtx->pb, formatCtx->url, AVIO_FLAG_WRITE, NULL, &opts)) < 0)
 		{
 			BLOG(error) << "Unable to open output: " << formatCtx->url;
 			return ERR_FFMPEG(err);
@@ -236,14 +258,9 @@ namespace VoukoderPro
 		// Dump format settings
 		av_dump_format(formatCtx.get(), 0, formatCtx->url, 1);
 
-		// Get options
-		AVDictionary* opts = nullptr;
-		if (nodeInfo->data.contains("params")  && nodeInfo->data.count("params") > 0)
-			for (auto& [key, val] : nodeInfo->data["params"].items())
-				av_dict_set(&opts, key.c_str(), val.get<std::string>().c_str(), 0);
-
 		// Write header
-		if ((ret = avformat_write_header(formatCtx.get(), &opts)) < 0)
+		AVDictionary* opts2 = nullptr;
+		if ((ret = avformat_write_header(formatCtx.get(), &opts2)) < 0)
 		{
 			BLOG(error) << "Unable to write format header.";
 			return ERR_FFMPEG(err);
@@ -354,20 +371,12 @@ namespace VoukoderPro
 		if (stream->codecpar->codec_type == AVMediaType::AVMEDIA_TYPE_VIDEO && clonedPacket->duration == 0)
 			clonedPacket->duration = 1;
 
-		//data->performance.start("output[stream=" + std::to_string(index) + ":"  + std::to_string(stream->id) + ":pts=" + std::to_string(packet->pts) + "]");
-
 		// Rescale time base
 		av_packet_rescale_ts(clonedPacket, codecCtx->time_base, stream->time_base);
 
 		int err = ERR_OK;
 		if ((err = av_interleaved_write_frame(formatCtx.get(), clonedPacket)) < 0)
-		{
-			//data->performance->end();
-
 			return ERR_FFMPEG(err);
-		}
-
-		//data->performance.end();
 
 		return err;
 	}

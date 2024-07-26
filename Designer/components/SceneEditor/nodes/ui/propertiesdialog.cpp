@@ -299,7 +299,7 @@ void PropertiesDialog::on_encoders_currentItemChanged(QTreeWidgetItem* current, 
         ui->buttonBox->button(QDialogButtonBox::Help)->setEnabled(!pluginInfo.helpUrl.empty());
 
         if (pluginInfo.type == VoukoderPro::NodeInfoType::output)
-            ui->propertyWidget->setCurrentIndex(pluginInfo.id == "file" ? 2 : 1);
+            ui->propertyWidget->setCurrentIndex(pluginInfo.id == "file" ? 1 : 0);
 
         auto encoderParams = itemParamsCache.at(pluginInfo.id);
 
