@@ -1,9 +1,9 @@
 #pragma once
 
 #define VKDRPRO_VERSION_MAJOR 1
-#define VKDRPRO_VERSION_MINOR 3
+#define VKDRPRO_VERSION_MINOR 4
 #define VKDRPRO_VERSION_PATCH 0
-#define VKDRPRO_VERSION_PUBLIC "Version 1.3.0"
+#define VKDRPRO_VERSION_PUBLIC "Version 1.4.0alpha"
 
 #define xstr(a) nstr(a)
 #define nstr(a) #a

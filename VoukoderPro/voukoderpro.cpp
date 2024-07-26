@@ -584,7 +584,7 @@ namespace VoukoderPro
 
 		logging::core::get()->set_filter
 		(
-			logging::trivial::severity >= logging::trivial::trace
+			logging::trivial::severity >= logging::trivial::debug
 		);
 
 		av_log_set_level(AV_LOG_INFO);
