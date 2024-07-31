@@ -71,7 +71,7 @@
          </widget>
          <widget class="QStackedWidget" name="propertyWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QtTreePropertyBrowser" name="propertyBrowser"/>
           <widget class="QWidget" name="fileBrowser">
