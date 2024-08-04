@@ -4,10 +4,13 @@
 #include <QAbstractButton>
 #include <QTreeWidgetItem>
 #include "../VoukoderPro/types.h"
+#ifdef CMAKE_PROPERTY_BROWSER
+#include "qtpropertybrowser/qtvariantproperty.h"
+#else
 #include "qtvariantproperty.h"
+#endif
 #include <json.hpp>
-
-Q_DECLARE_METATYPE(VoukoderPro::AssetInfo)
+#include "designer_types.h"
 
 namespace Ui {
 class PropertiesDialog;
